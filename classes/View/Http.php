@@ -158,6 +158,29 @@ abstract class View_Http extends View implements View_Exceptionable
     }
 
     /**
+     * build path parameters
+     * @param array of param name => param value
+     * @return string
+     * @author kstep
+     */
+    protected function pathParams($params)
+    {
+        $result = "";
+        if (is_array($params))
+        {
+            foreach ($params as $name => $value)
+            {
+                if (!is_int($name))
+                    $result .= "/$name";
+                $result .= "/$value";
+            }
+        } else {
+            $result = "/$params";
+        }
+        return $result;
+    }
+
+    /**
      * builds path to specific controller & action
      * @param string controller
      * @param string action
@@ -179,14 +202,14 @@ abstract class View_Http extends View implements View_Exceptionable
         if ($path)
         {
             $vars = array();
-            if (is_numeric($path['controller'])) $vars[$path['controller']] = str_replace("_", "/", strtolower($controller));
+            if (is_numeric($path['controller'])) $vars[$path['controller']] = $this->cleanController($controller);
             if (is_numeric($path['action'])) $vars[$path['action']] = $action;
             foreach ($params as $key => $value) $vars[$path['params'][$key]] = $value;
             $result = vsprintf($path['build'], $vars);
         }
         else
         {
-            $controller = str_replace("Default", "", $controller);
+            $controller = $this->cleanController(str_replace("Default", "", $controller));
             if ($action == "default")
                 $action = "";
             elseif ($action && $controller)

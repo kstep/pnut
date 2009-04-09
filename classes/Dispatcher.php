@@ -32,13 +32,7 @@ class Dispatcher
      * in the list, because all routes below it will be ignored.
      * @author kstep
      */
-    protected $_routes;
-
-    /**
-     * @var string site's prefix to ignore in path
-     * @author kstep
-     */
-    protected $_prefix = "";
+    protected $_sites;
 
     /**
      * Dispatcher constructor
@@ -47,10 +41,9 @@ class Dispatcher
      * @return Dispatcher
      * @author kstep
      */
-    public function __construct($routes = null, $prefix = "")
+    public function __construct(array $sites)
     {
-        $this->setRoutes($routes);
-        $this->_prefix = (string)$prefix;
+        $this->setSites($sites);
     }
 
     /**
@@ -67,7 +60,7 @@ class Dispatcher
         $route = $this->findRoute($path);
         if ($route)
         {
-            $class = $this->loadController($route["controller"]);
+            $class = $this->loadController($route["controller"], $route['site']['realm']);
             if (!$class)
                 throw new Dispatcher_Exception("Unable to load class $class for controller.");
 
@@ -80,7 +73,7 @@ class Dispatcher
 
             if ($view && $view instanceof View)
             {
-                $view->setRoutes($this->_routes, $this->_prefix);
+                $view->setSite($route['site']);
                 $view->render();
             }
         }
@@ -96,17 +89,15 @@ class Dispatcher
      * @return string Controller class name
      * @author kstep
      */
-    public function loadController($controller)
+    public function loadController($controller, $realm = '')
     {
-        if ($controller)
-        {
-            $controller = str_replace(" ", "_", ucwords(str_replace("/", " ", strtolower($controller))));
-            $class = "Controller_$controller";
-        }
-        else
-        {
-            $class = "Controller_Default";
-        }
+		if (!$controller)
+			$controller = "default";
+		if ($realm)
+			$controller = "$realm/$controller";
+
+		$controller = str_replace(" ", "_", ucwords(str_replace("/", " ", strtolower($controller))));
+		$class = "Controller_$controller";
         return $class;
     }
 
@@ -118,18 +109,9 @@ class Dispatcher
      * @return void
      * @author kstep
      */
-    public function setRoutes($routes = null)
+    public function setSites(array $sites)
     {
-        if ($routes === null)
-        {
-            $this->_routes = array(
-                array( "controller" => 0, "action" => 1 ),
-            );
-        }
-        else
-        {
-            $this->_routes = $routes;
-        }
+		$this->_sites = $sites;
     }
 
     /**
@@ -138,9 +120,9 @@ class Dispatcher
      * @return void
      * @author kstep
      */
-    public function addRoute($route)
+    public function addRoute($site, $route)
     {
-        array_unshift($this->_routes, $route);
+        array_unshift($this->_sites['routes'], $route);
     }
 
     /**
@@ -161,22 +143,6 @@ class Dispatcher
     }
 
     /**
-     * prepares path for parsing, by removing leading & ending
-     * path delimiters (slashes) and removing prefix if necessary
-     * @param string path
-     * @return string cleared path
-     * @author kstep
-     */
-    public function cleanPath($path)
-    {
-        $preflen = strlen($this->_prefix);
-        $path = trim($path, "/");
-        if (($preflen > 0) && (substr($path, 0, $preflen) == $this->_prefix))
-            $path = substr($path, $preflen + 1);
-        return $path;
-    }
-
-    /**
      * main routing engine method: determines route by path
      * @param string path
      * @return array found route in format:
@@ -188,31 +154,49 @@ class Dispatcher
     {
         $result  = array();
         $matches = null;
-        $path    = $this->cleanPath($path);
-        foreach ($this->_routes as $route)
-        {
-            //if (!$route['match'] || preg_match($route['match'], $path, $matches))
-            if ($route['match'] && preg_match($route['match'], $path, $matches) || $route['@attributes']['default'])
-            {
-                if (!$matches) $matches = explode('/', $path);
-                $result = $route;
-                $result['controller'] = is_numeric($route['controller'])? $matches[$route['controller']]: $route['controller'];
-                $result['action'] = is_numeric($route['action'])? $matches[$route['action']]: $route['action'];
-                $result['params'] = $route['params']? $this->parseParams(&$matches, &$route['params']): array();
-                break;
-            }
-        }
+        $site    = $this->findSite($path);
+		if ($site)
+		{
+			$path = $site['path'];
+			foreach ($site['route'] as $route)
+			{
+				//if (!$route['match'] || preg_match($route['match'], $path, $matches))
+				if ($route['match'] && preg_match($route['match'], $path, $matches) || $route['@attributes']['default'])
+				{
+					if (!$matches) $matches = explode('/', $path);
+					$result = $route;
+					$result['controller'] = is_numeric($route['controller'])? $matches[$route['controller']]: $route['controller'];
+					$result['action'] = is_numeric($route['action'])? $matches[$route['action']]: $route['action'];
+					$result['params'] = $route['params']? $this->parseParams(&$matches, &$route['params']): array();
+					break;
+				}
+			}
 
-        if ($result['@attributes']['redirect'])
-        {
-            $view = new View_Html();
-            $view->redir($result['controller'], $result['action'], $result['params'], $result['@attributes']['preserveqs'] === 'true'? $_SERVER['QUERY_STRING']: null);
-            $view->setRoutes($this->_routes, $this->_prefix);
-            $view->render();
-            exit;
-        }
+			if ($result['@attributes']['redirect'])
+			{
+				$view = new View_Html();
+				$view->redir($result['controller'], $result['action'], $result['params'], $result['@attributes']['preserveqs'] === 'true'? $_SERVER['QUERY_STRING']: null);
+				$view->setSite($site);
+				$view->render();
+				exit;
+			}
+			$result['site'] = $site;
+		}
         return $result;
     }
 
+	public function findSite($path = "")
+	{
+		if (!$path) $path = $_SERVER['PATH_INFO'];
+		$host = $_SERVER['HTTP_HOST'];
+		foreach ($this->_sites as $site)
+		{
+			if (($site['prefix'] and substr($path, 0, $preflen = strlen($site['prefix'])) == $site['prefix']) or ($site['host'] and $site['host'] == $host))
+			{
+				$site['path'] = trim(substr($path, $preflen), '/');
+				return $site;
+			}
+		}
+	}
 }
 ?>

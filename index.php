@@ -24,7 +24,7 @@ else
 }
 
 //$dispatcher = new Dispatcher_Cached($routes["route"], $routes["prefix"]);
-$dispatcher = new Dispatcher($routes["route"], $routes["prefix"]);
+$dispatcher = new Dispatcher($routes['site']);
 $dispatcher->run();
 
 $end_time = microtime(true);

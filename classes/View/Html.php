@@ -305,29 +305,6 @@ class View_Html extends View_Http
     /*** /HTML helpers ***/
 
     /**
-     * build path parameters
-     * @param array of param name => param value
-     * @return string
-     * @author kstep
-     */
-    protected function pathParams($params)
-    {
-        $result = "";
-        if (is_array($params))
-        {
-            foreach ($params as $name => $value)
-            {
-                if (!is_int($name))
-                    $result .= "/$name";
-                $result .= "/$value";
-            }
-        } else {
-            $result = "/$params";
-        }
-        return $result;
-    }
-
-    /**
      * defines pages' charset, must be called at the begginning of template
      * page, before any real output to stdout, because it's using HTTP
      * Content-Type header to define charset.

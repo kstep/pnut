@@ -21,6 +21,7 @@ abstract class View
     protected $_prefix = "";
 
     protected $_routes = array();
+	protected $_realm = "";
 
     /**
      * this method must build real view (based on some template
@@ -48,30 +49,49 @@ abstract class View
      * @return void
      * @author kstep
      */
-    public function setRoutes(array $routes, $prefix = "")
+    public function setSite(array $site)
     {
-        $prefix = (string)$prefix;
+        $prefix = (string)$site['prefix'];
+		$realm  = (string)$site['realm'];
         if ($prefix && substr($prefix, 0, 1) != "/") $prefix = "/$prefix";
         $this->_prefix = $prefix;
-        $this->_routes = $routes;
+		$this->_realm  = $site['realm'];
+		$this->_routes = array();
+		foreach ($site['route'] as $route) 
+			if ($route['build'])
+				$this->_routes[$route['@attributes']['controller']][$route['@attributes']['action']][] = $route;
     }
+
+	public function cleanController($controller)
+	{
+		if ($this->_realm && substr($controller, 0, $realmlen = strlen($this->_realm)) == $this->_realm)
+			$controller = substr($controller, $realmlen + 1);
+		return str_replace("_", "/", strtolower($controller));
+	}
 
     public function findPath($controller, $action, array $params = array())
     {
         $path = array();
-        foreach ($this->_routes as $route)
-        {
-            if (!$route['@attributes'] || !$route['build']) continue;
-            $sign = $route['@attributes'];
-
-            if (($sign['controller'] && $sign['controller'] === substr($controller, 0, strlen($sign['controller'])))
-                && (!$sign['action'] || $sign['action'] === substr($action, 0, strlen($sign['action'])))
-                && (!$route['params'] || (count($route['params']) == count($params) && count(array_intersect_key($route['params'], $params)) == count($route['params']))))
-            {
-                $path = $route;
-                break;
-            }
-        }
+		if ($this->_realm)
+		{
+			$realmlen = strlen($this->_realm);
+			if (substr($controller, 0, $realmlen) == $this->_realm)
+				$controller = substr($controller, $realmlen + 1);
+		}
+		if (($route = $this->_routes[$controller][$action])
+			or ($route = $this->_routes[$controller][''])
+			or ($route = $this->_routes[''][$action])
+			or ($route = $this->_routes['']['']))
+		{
+			foreach ($route as $item)
+			{
+				if (!$item['params'] || (count($item['params']) == count($params) && count(array_intersect_key($item['params'], $params)) == count($item['params'])))
+				{
+					$path = $item;
+					break;
+				}
+			}
+		}
         return $path;
     }
 

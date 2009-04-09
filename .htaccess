@@ -1,5 +1,7 @@
 RewriteEngine on
+RewriteRule (.+)/static(.*) static$2 [L]
 RewriteCond %{REQUEST_FILENAME} !static/
 RewriteCond %{REQUEST_FILENAME} !index.php
-RewriteRule (.*) index.php/$1 [L,QSA]
+RewriteRule (.*) index.php/pnut/$1 [L,QSA]
+
 

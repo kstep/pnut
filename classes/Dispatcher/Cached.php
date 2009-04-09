@@ -18,7 +18,7 @@ class Dispatcher_Cached extends Dispatcher
             $this->_cache->timeout = (int)$route['@attributes']['cache'];
             if (($cachable = $this->_cache->cachable()) and $this->_cache->hit()) return;
 
-            $class = $this->loadController($route["controller"]);
+            $class = $this->loadController($route["controller"], $route['site']['realm']);
             if (!$class)
                 throw new Dispatcher_Exception("Unable to load class $class for controller.");
 
@@ -32,7 +32,7 @@ class Dispatcher_Cached extends Dispatcher
 
             if ($view && $view instanceof View)
             {
-                $view->setRoutes($this->_routes, $this->_prefix);
+                $view->setSite($route['site']);
 
                 if ($cachable)
                 {
