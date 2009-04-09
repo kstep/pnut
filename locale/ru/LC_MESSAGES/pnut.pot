@@ -1,0 +1,119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-04 18:52+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../models/Article.php:157
+msgid " can't be empty"
+msgstr ""
+
+#: ../models/Article.php:160
+msgid "Publish date is incorrect"
+msgstr ""
+
+#: ../models/Article.php:162
+msgid "Archive date is incorrect"
+msgstr ""
+
+#: ../models/Article.php:165
+msgid "Author is not found"
+msgstr ""
+
+#: ../models/Article.php:168
+msgid "Topic is not found"
+msgstr ""
+
+#: ../models/Article.php:171
+msgid "Type must be either article or gallery"
+msgstr ""
+
+#: ../models/Article.php:174
+msgid "Language code is incorrect"
+msgstr ""
+
+#: ../models/Article.php:177
+msgid "Original article is not found"
+msgstr ""
+
+#: ../models/Article.php:180 ../models/Group.php:54 ../models/Topic.php:109
+msgid "Name must contain symbols from set: A-Z, a-z, 0-9, \"-\", \"_\""
+msgstr ""
+
+#: ../models/Attachment.php:179
+msgid "Incorrect MIME-type format"
+msgstr ""
+
+#: ../models/Attachment.php:181
+msgid "Filename can't be empty"
+msgstr ""
+
+#: ../models/Comment.php:64
+msgid "Content must not be empty"
+msgstr ""
+
+#: ../models/Comment.php:67 ../models/User.php:75
+msgid "Incorrect email address"
+msgstr ""
+
+#: ../models/Group.php:52
+msgid "Name can't be empty"
+msgstr ""
+
+#: ../models/Group.php:57
+msgid "Title can't be empty"
+msgstr ""
+
+#: ../models/Group.php:60 ../models/User.php:78
+msgid ""
+"Role must be either \"guest\", \"user\", \"manager\", \"admin\" or "
+"\"superuser\""
+msgstr ""
+
+#: ../models/Rights.php:116
+msgid "Owner is not found"
+msgstr ""
+
+#: ../models/Rights.php:119 ../models/User.php:87
+msgid "Group is not found"
+msgstr ""
+
+#: ../models/Topic.php:107
+msgid "Name must not be empty"
+msgstr ""
+
+#: ../models/Topic.php:116
+msgid "Default subtopic must be child of this topic"
+msgstr ""
+
+#: ../models/User.php:64
+msgid "Login must not be empty"
+msgstr ""
+
+#: ../models/User.php:66
+msgid "Login must contain symbols from set: A-Z, a-z, 0-9, \"-\", \"_\""
+msgstr ""
+
+#: ../models/User.php:69
+msgid "Password must not be empty"
+msgstr ""
+
+#: ../models/User.php:72
+msgid "Username must not be empty"
+msgstr ""
+
+#: ../models/User.php:81
+msgid "Gender must be either \"male\" or \"female\""
+msgstr ""

@@ -1,0 +1,9 @@
+<?xml version='1.0' standalone='yes'?>
+<storage>
+    <class>ldap</class>
+    <hostname>127.0.0.1</hostname>
+    <port>0</port>
+    <username>cn=root,dc=smiler,dc=firstvds,dc=ru</username>
+    <password>jnrhsnjklfg</password>
+    <base_dn>dc=smiler,dc=firstvds,dc=ru</base_dn>
+</storage>

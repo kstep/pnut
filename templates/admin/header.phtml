@@ -1,0 +1,65 @@
+<?$this->charset("utf-8")?>
+<?=$this->doctype("xhtml")?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <?=$this->meta("Content-Type", "text/html; charset=UTF-8", true)?>
+
+    <?=$this->style("admin/default")?>
+    <!--[if IE]><?=$this->style("admin/iefix")?><![endif]-->
+    <?=$this->style("forms")?>
+
+    <script type="text/javascript">
+        var sitePrefix = "<?=addslashes($this->_prefix) ?>";
+    </script>
+
+    <?=$this->script("lib/jquery/core")?>
+    <?=$this->script("lib/jquery/ui")?>
+    <?=$this->script("tinymce/tiny_mce")?>
+
+    <?=$this->script("admin/ajax")?>
+    <?=$this->script("admin/ajax_nav")?>
+
+    <?=$this->script("admin/ajax_topic")?>
+    <?=$this->script("admin/ajax_article")?>
+    <?=$this->script("admin/ajax_file")?>
+	<?=$this->script("admin/ajax_group")?>
+
+	<?
+	function li($me, $name, $tag = "li")
+	{
+		echo "<$tag";
+		if ($me->errors[$name])
+		{
+			?> class="error"><div class="error"><?=$me->errors[$name]?></div<?
+		}
+		?>><?
+	}
+	function show_rights($me, Model_Rightful $model)
+	{
+	?>
+    <li id="permissions">
+        <fieldset>
+            <legend>Владельцы и права</legend>
+            <table>
+                <tbody>
+                <? $rights = $model->getRights(); $arights = $rights->getRights(); ?>
+                <tr><td><?=$me->select("owner", $me->users, $rights->owner, "Владелец")?> может </td>
+                <td class="checklist"><?=$me->checklist("rights", array("ur" => "читать", "uw" => "править", "ux" => "удалять"), false, $arights)?></td></tr>
+
+                <tr><td><?=$me->select("group", $me->groups, $rights->group, "Группа")?> может </td>
+                <td class="checklist"><?=$me->checklist("rights", array("gr" => "читать", "gw" => "править", "gx" => "удалять"), false, $arights)?></td></tr>
+
+                <tr><td>Все остальные могут </td>
+                <td class="checklist"><?=$me->checklist("rights", array("or" => "читать", "ow" => "править", "ox" => "удалять"), false, $arights)?></td></tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </li>
+	<?
+	}
+	?>
+
+    <title><?=$this->title?> &mdash; Управление сайтом</title>
+</head>
+<body>
+<div id="pageWrapper">

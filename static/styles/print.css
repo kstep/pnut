@@ -1,0 +1,43 @@
+#debug { display: none !important; }
+
+#header #logo .logo
+{
+	display: none;
+}
+
+#header h1#sitename
+{
+	background: none;
+	position: static;
+	margin: 0.5em 0 0 0;
+	font-size: 100%;
+	width: auto;
+	height: auto;
+}
+
+#header h1#sitename a
+{
+	display: inline;
+}
+
+#header h1 span
+{
+	display: inline;
+}
+
+#navigation, #topmenu, #footer .validators
+{
+	display: none;
+}
+
+#content
+{
+	margin: 3em 1em 1em 1em;
+	float: none;
+}
+
+#content #comments h4,
+#content #comments form
+{
+	display: none;
+}

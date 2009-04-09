@@ -1,0 +1,77 @@
+<? $this->title = "Правка пользователя" ?>
+<? $this->groupId = $this->user->group ?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+
+<div id="pageContent">
+<? if ($this->user->getId()): ?>
+<h1>&laquo;<?=$this->user->username?>&raquo; <small>(<?=$this->user->login?>)</small></h1>
+<? else: ?>
+<h1>Новый пользователь</h1>
+<? endif ?>
+
+<form action="#" method="post">
+<ol>
+    <?li($this, 'username')?><?=$this->input("username", $this->user->username, "Полное имя")?></li>
+    <?li($this, 'login')?><?=$this->input("login", $this->user->login, "Логин")?></li>
+    <?li($this, 'email')?><?=$this->input("email", $this->user->email, "Электропочта")?></li>
+	<?li($this, 'role')?><?=$this->select("role", array('guest' => 'Гость', 'user' => 'Пользователь', 'manager' => 'Менеджер', 'admin' => 'Администратор', 'superuser' => 'Суперпользовтатель'), $this->user->role, "Роль")?></li>
+	<?li($this, 'gender')?><?=$this->select("gender", array( "male" => "Муж", "female" => "Жен" ), $this->user->gender, 'Пол')?></li>
+
+    <li id="options">
+        <fieldset>
+            <legend>Опции</legend>
+            <ol class="checklist">
+                <li class="checklist"><?=$this->checklist("flags", array( "inactive" => "Не активирован", "banned" => "Забанен" ), false, $this->user->flags)?></li>
+				<?li($this, 'rating')?><?=$this->input('rating', $this->user->rating, 'Рейтинг', 1, 10)?></li>
+            </ol>
+        </fieldset>
+    </li>
+
+	<li id="security">
+		<fieldset>
+			<legend>Смена пароля</legend>
+			<ol>
+				<?li($this, 'password')?><?=$this->input('password', '', 'Пароль', -1)?></li>
+				<?li($this, 'checkpass')?><?=$this->input('checkpass', '', 'Подтверждение', -1)?></li>
+			</ol>
+		</fieldset>
+	</li>
+
+    <li id="timestamps">
+        <fieldset>
+            <legend>Когда</legend>
+            <ol>
+                <li>&hellip;создан <?=Filter_Date::toString($this->user->created)?>.</li>
+                <li>&hellip;последний раз на сайте <?=Filter_Date::toString($this->user->online)?>.</li>
+            </ol>
+        </fieldset>
+    </li>
+
+    <li id="placement">
+        <fieldset>
+            <legend>Размещение</legend>
+            <ol>
+                <?li($this, 'group')?><?=$this->select("group", $this->groups, $this->user->group, "Группа")?></li>
+            </ol>
+        </fieldset>
+    </li>
+
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+<? if (!$this->user->getId()): ?>
+<script type="text/javascript">
+$(function() {
+	$('#security').find('ol').show();
+});
+</script>
+<? endif ?>
+
+</div>
+<? include("footer.phtml") ?>

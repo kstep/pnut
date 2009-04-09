@@ -1,0 +1,34 @@
+<div id="groups" class="moduleBox">
+<h1><span class="fold">&nbsp;</span>Группы пользователей</h1>
+<ul>
+	<? foreach ($this->groups as $group): ?>
+    <? if ($this->groups->getStep() > 0): ?><?=str_repeat("<ul>", $this->groups->getStep())?><? elseif ($this->groups->getStep() < 0): ?><?=str_repeat("</li></ul>", -($this->groups->getStep()))?><? elseif (!$this->groups->isFirst()): ?></li><? endif ?>
+    <li id="g<?=$group->getId()?>"<? if ($group->getId() == $this->groupId): ?> class="active"<?endif?>>
+    <span class="actions">
+        <a class="edit" title="Редактировать" href="<?=$this->pathTo("Admin_Group", "edit", array( 'id' => $group->getId() ))?>">&nbsp;</a>
+        <a class="remove" title="Удалить" href="<?=$this->pathTo("Admin_Group", "remove", array( 'id' => $group->getId() ))?>">&nbsp;</a>
+    </span>
+    <span class="name">
+        <a href="<?=$this->pathTo("Admin_Group", "default", array( 'id' => $group->getId() ))?>"><?=$group->title?></a> <small>(<?=$group->name?>)</small>
+    </span>
+    <span class="edit">
+        <?=$this->input("gtitle".$group->getId(), $group->title)?> <small>(<?=$this->input("gname".$group->getId(), $group->name)?>)</small>
+        <a class="edit" title="Редактировать" href="<?=$this->pathTo("Admin_Group", "edit", array( 'id' => $group->getId() ))?>">&nbsp;</a>
+    </span>
+	<? endforeach ?>
+	<? if ($this->groups->getLevel() > 1): ?><?=str_repeat("</li></ul></li>", $this->groups->getLevel()-1)?><? endif ?>
+    <li id="gnew">
+    <span class="actions">
+        <a class="edit" style="display: none;" title="Редактировать" href="<?=$this->pathTo("Admin_Topic", "edit")?>">&nbsp;</a>
+        <a class="remove" style="display: none;" title="Удалить" href="<?=$this->pathTo("Admin_Topic", "remove")?>">&nbsp;</a>
+    </span>
+    <span class="name">
+        <a href="<?=$this->pathTo("Admin_Group", "new")?>" class="add">Новая группа</a>
+    </span>
+    <span class="edit">
+        <?=$this->input("gtitleNew")?> <small>(<?=$this->input("gnameNew")?>)</small>
+        <a class="edit" title="Редактировать" href="<?=$this->pathTo("Admin_Group", "new")?>">&nbsp;</a>
+    </span>
+    </li>
+</ul>
+</div>

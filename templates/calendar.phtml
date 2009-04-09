@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+<title>Календарик</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+div.calendar
+{
+	font-size: 12px;
+	width: 14.6em;
+}
+
+div.calendar ol
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-style: solid none none solid;
+	float: left;
+	width: 100%;
+}
+
+div.calendar ol, div.calendar ol li
+{
+	border-width: 1px;
+	border-color: black;
+}
+
+div.calendar ol li.title ol
+{
+	list-style: none;
+	border: none;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+div.calendar ol li
+{
+	float: left;
+	width: 2em;
+	height: 1.2em;
+	text-align: right;
+	border-style: none solid solid none;
+	list-style-position: inside;
+}
+
+div.calendar ol li.title
+{
+	width: 100%;
+	border: none;
+}
+
+div.calendar ol li a
+{
+	display: block;
+	text-decoration: none;
+	width: 100%;
+}
+
+div.calendar ol li.title ol li
+{
+	font-weight: bold;
+	text-align: center;
+
+	background-color: black;
+	color: white;
+}
+div.calendar ol li.padding
+{
+	list-style: none;
+}
+
+div.calendar ol li.today,
+div.calendar ol.day1 li.day1, div.calendar ol.day2 li.day2, div.calendar ol.day3 li.day3, div.calendar ol.day4 li.day4, div.calendar ol.day5 li.day5,
+div.calendar ol.day6 li.day6, div.calendar ol.day7 li.day7, div.calendar ol.day8 li.day8, div.calendar ol.day9 li.day9, div.calendar ol.day10 li.day10,
+div.calendar ol.day11 li.day11, div.calendar ol.day12 li.day12, div.calendar ol.day13 li.day13, div.calendar ol.day14 li.day14, div.calendar ol.day15 li.day15,
+div.calendar ol.day16 li.day16, div.calendar ol.day17 li.day17, div.calendar ol.day18 li.day18, div.calendar ol.day19 li.day19, div.calendar ol.day20 li.day20,
+div.calendar ol.day21 li.day21, div.calendar ol.day22 li.day22, div.calendar ol.day23 li.day23, div.calendar ol.day24 li.day24, div.calendar ol.day25 li.day25,
+div.calendar ol.day26 li.day26, div.calendar ol.day27 li.day27, div.calendar ol.day28 li.day28, div.calendar ol.day29 li.day29, div.calendar ol.day30 li.day30,
+div.calendar ol.day31 li.day31
+{
+	font-weight: bold;
+	background-color: #aaaaaa;
+}
+
+div.calendar ol.monday li.padding
+{
+	display: none;
+}
+div.calendar ol.tuesday li.padding
+{
+	width: 2em;
+}
+div.calendar ol.wednesday li.padding
+{
+	width: 4.05em;
+}
+div.calendar ol.thursday li.padding
+{
+	width: 6.1em;
+}
+div.calendar ol.friday li.padding
+{
+	width: 8.2em;
+}
+div.calendar ol.saturday li.padding
+{
+	width: 10.25em;
+}
+div.calendar ol.sunday li.padding
+{
+	width: 12.3em;
+}
+
+div.calendar ol.september li.day31,
+div.calendar ol.april li.day31,
+div.calendar ol.june li.day31,
+div.calendar ol.november li.day31,
+div.calendar ol.february li.day29,
+div.calendar ol.february li.day30,
+div.calendar ol.february li.day31,
+div.calendar ol.february_leap li.day30,
+div.calendar ol.february_leap li.day31
+{
+	display: none;
+}
+
+</style>
+</head>
+<body>
+<!-- <ol class="<_first_dow_of_month_> <_month_> day<_day_of_month_>> -->
+<div class="calendar">
+<ol class="wednesday april day22">
+	<li class="title">
+		<ol>
+			<li>Пн</li>
+			<li>Вт</li>
+			<li>Ср</li>
+			<li>Чт</li>
+			<li>Пт</li>
+			<li>Сб</li>
+			<li>Вс</li>
+		</ol>
+	</li>
+	<li class="padding">&nbsp;</li>
+	<li class="day1"><a href="#">1</a></li>
+	<li class="day2"><a href="#">2</a></li>
+	<li class="day3"><a href="#">3</a></li>
+	<li class="day4"><a href="#">4</a></li>
+	<li class="day5"><a href="#">5</a></li>
+	<li class="day6"><a href="#">6</a></li>
+	<li class="day7"><a href="#">7</a></li>
+	<li class="day8"><a href="#">8</a></li>
+	<li class="day9"><a href="#">9</a></li>
+	<li class="day10"><a href="#">10</a></li>
+	<li class="day11"><a href="#">11</a></li>
+	<li class="day12"><a href="#">12</a></li>
+	<li class="day13"><a href="#">13</a></li>
+	<li class="day14"><a href="#">14</a></li>
+	<li class="day15"><a href="#">15</a></li>
+	<li class="day16"><a href="#">16</a></li>
+	<li class="day17"><a href="#">17</a></li>
+	<li class="day18"><a href="#">18</a></li>
+	<li class="day19"><a href="#">19</a></li>
+	<li class="day20"><a href="#">20</a></li>
+	<li class="day21"><a href="#">21</a></li>
+	<li class="day22"><a href="#">22</a></li>
+	<li class="day23"><a href="#">23</a></li>
+	<li class="day24"><a href="#">24</a></li>
+	<li class="day25"><a href="#">25</a></li>
+	<li class="day26"><a href="#">26</a></li>
+	<li class="day27"><a href="#">27</a></li>
+	<li class="day28"><a href="#">28</a></li>
+	<li class="day29"><a href="#">29</a></li>
+	<li class="day30"><a href="#">30</a></li>
+	<li class="day31"><a href="#">31</a></li>
+</ol>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<? $this->title = "Правка комментария" ?>
+<? $this->topicId = $this->comment->topic ?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<? if ($this->comment->getId()): ?>
+<h1>&laquo;<?=$this->comment->title?>&raquo;</h1>
+<? else: ?>
+<h1>Новый комментарий</h1>
+<? endif ?>
+
+<form action="#" method="post">
+<?=$this->hidden("article", $this->comment->article)?>
+<ol>
+    <?li($this, 'title')?><?=$this->input("title", $this->comment->title, "Заголовок")?></li>
+    <?li($this, 'content')?><?=$this->input("content", $this->comment->content, "Содержание", 10)?></li>
+    <?li($this, 'username')?><?=$this->input("username", $this->comment->username, "Имя автора")?></li>
+    <?li($this, 'email')?><?=$this->input("email", $this->comment->email, "Электропочта")?></li>
+    <li id="options">
+        <fieldset>
+            <legend>Опции</legend>
+            <ol class="checklist">
+                <li class="checklist"><?=$this->checklist("flags", array( "hidden" => "Скрыт", "removed" => "В корзине" ), false, $this->comment->flags)?></li>
+            </ol>
+        </fieldset>
+    </li>
+    <li id="connections">
+        <fieldset>
+            <legend>Связи</legend>
+            <ol>
+                <li>Статья <a href="<?=$this->pathTo('Admin_Article', 'edit', array( 'id' => $this->comment->article ))?>">&laquo;<?=$this->comment->getArticle()->title?>&raquo;</a>.</li>
+                <li>Автор <? if ($this->comment->author): ?><a href="<?=$this->pathTo('Admin_User', 'edit', array( 'id' => $this->comment->author ))?>"><?=$this->comment->getAuthor()->username?></a><? else: ?>в базе данных отсутствует<? endif ?>.</li>
+            </ol>
+        </fieldset>
+    </li>
+    <li id="timestamps">
+        <fieldset>
+            <legend>Когда</legend>
+            <ol>
+                <li>&hellip;создан <?=Filter_Date::toString($this->comment->created)?>.</li>
+                <li>&hellip;изменен <?=Filter_Date::toString($this->comment->modified)?>.</li>
+            </ol>
+        </fieldset>
+    </li>
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+<?=$this->tinymce()?>
+</div>
+<? include("footer.phtml") ?>

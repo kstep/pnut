@@ -1,0 +1,36 @@
+<? $this->title = "Правка группы" ?>
+<? $this->groupId = $this->group->getId() ?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<? if ($this->group->getId()): ?>
+<h1>&laquo;<?=$this->group->title?>&raquo; <small>(<?=$this->group->name?>)</small></h1>
+<? else: ?>
+<h1>Новая группа</h1>
+<? endif ?>
+
+<form action="#" method="post">
+<ol>
+    <?li($this, 'title')?><?=$this->input("title", $this->group->title, "Заголовок")?></li>
+    <?li($this, 'name')?><?=$this->input("name", $this->group->name, "Название")?></li>
+	<?li($this, 'role')?><?=$this->select("role", array('guest' => 'Гость', 'user' => 'Пользователь', 'manager' => 'Менеджер', 'admin' => 'Администратор', 'superuser' => 'Суперпользовтатель'), $this->group->role, "Роль по умолчанию")?></li>
+
+    <li id="placement">
+        <fieldset>
+            <legend>Размещение</legend>
+            <ol>
+                <?li($this, 'parent')?><?=$this->select("parent", $this->parents, $this->group->parent, "Родитель", "root")?></li>
+            </ol>
+        </fieldset>
+    </li>
+
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+</div>
+<? include("footer.phtml") ?>

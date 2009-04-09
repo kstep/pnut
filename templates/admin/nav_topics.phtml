@@ -1,0 +1,60 @@
+<div id="topics" class="moduleBox">
+<h1><span class="fold">&nbsp;</span>Разделы
+<div class="filter">
+<ins><?=$_SESSION['tf'] == 'visible'? 'видимые': 'все'?></ins>
+<? $topicurl = $this->pathTo('Admin_Topic', 'default', array( 'id' => $this->topicId )) ?>
+<ol><? if ($_SESSION['tf'] != 'all' and !empty($_SESSION['tf'])): ?><li><a href="<?=$topicurl?>?tf=all">все</a></li><? endif ?><? if ($_SESSION['tf'] != 'visible'): ?><li><a href="<?=$topicurl?>?tf=visible">видимые</a></li><? endif ?><!--<? if ($_SESSION['tf'] != 'archive'): ?><li><a href="<?=$topicurl?>?tf=archive">архив</a></li><? endif ?><? if ($_SESSION['tf'] != 'trashcan'): ?><li><a href="<?=$topicurl?>?tf=trashcan">корзина</a></li><? endif ?>--></ol>
+</div>
+<script type="text/javascript">
+if ($.browser.msie)
+{
+	$('#topics .filter').hover(
+		function (e) { $(this).addClass("hover"); },
+		function (e) { $(this).removeClass("hover"); }
+	);
+}
+$("#topics .filter ol li a").click(
+	function (e)
+	{
+		var url = e.target.href;
+		$.get(url, { ajax: true }, function (result)
+		{
+			$("#topics").hide().after(result).remove();
+		});
+		return false;
+	}	
+);
+</script>
+</h1>
+<ul>
+<? foreach ($this->topics as $topic): ?>
+    <? if ($this->topics->getStep() > 0): ?><?=str_repeat("<ul>", $this->topics->getStep())?><? elseif ($this->topics->getStep() < 0): ?><?=str_repeat("</li></ul>", -($this->topics->getStep()))?><? elseif (!$this->topics->isFirst()): ?></li><? endif ?>
+    <li id="t<?=$topic->getId()?>"<? if ($topic->getId() == $this->topicId): ?> class="active"<?endif?>>
+    <span class="actions">
+        <a class="edit" title="Редактировать" href="<?=$this->pathTo("Admin_Topic", "edit", array( 'id' => $topic->getId() ))?>">&nbsp;</a>
+        <a class="remove" title="Удалить" href="<?=$this->pathTo("Admin_Topic", "remove", array( 'id' => $topic->getId() ))?>">&nbsp;</a>
+    </span>
+    <span class="name">
+        <a href="<?=$this->pathTo("Admin_Topic", "default", array( 'id' => $topic->getId() ))?>"><?=$topic->title?></a> <small>(<?=$topic->name?>)</small>
+    </span>
+    <span class="edit">
+        <?=$this->input("ttitle".$topic->getId(), $topic->title)?> <small>(<?=$this->input("tname".$topic->getId(), $topic->name)?>)</small>
+        <a class="edit" title="Редактировать" href="<?=$this->pathTo("Admin_Topic", "edit", array( 'id' => $topic->getId() ))?>">&nbsp;</a>
+    </span>
+<? endforeach ?>
+	<? if ($this->topics->getLevel() > 1): ?><?=str_repeat("</li></ul></li>", $this->topics->getLevel()-1)?><? endif ?>
+    <li id="tnew">
+    <span class="actions">
+        <a class="edit" style="display: none;" title="Редактировать" href="<?=$this->pathTo("Admin_Topic", "edit")?>">&nbsp;</a>
+        <a class="remove" style="display: none;" title="Удалить" href="<?=$this->pathTo("Admin_Topic", "remove")?>">&nbsp;</a>
+    </span>
+    <span class="name">
+        <a href="<?=$this->pathTo("Admin_Topic", "new")?>" class="add">Новый раздел</a>
+    </span>
+    <span class="edit">
+        <?=$this->input("ttitleNew")?> <small>(<?=$this->input("tnameNew")?>)</small>
+        <a class="edit" title="Редактировать" href="<?=$this->pathTo("Admin_Topic", "new")?>">&nbsp;</a>
+    </span>
+    </li>
+</ul>
+</div>

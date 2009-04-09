@@ -1,0 +1,140 @@
+form
+{
+    display: block;
+    width: 80%;
+}
+
+form label
+{
+    float: left;
+    width: 10em;
+    display: block;
+    line-height: 1.5em;
+}
+
+/*form input + label*/
+form .checklist label
+{
+    float: none;
+    display: inline;
+    width: auto;
+    margin-right: 1em;
+}
+form .checklist ol li
+{
+	margin-bottom: 0;
+}
+
+form #content
+{
+    margin: 0;
+}
+
+form ol
+{
+    margin: 0;
+    padding: 0;
+}
+
+form ol li
+{
+    list-style: none;
+    margin-bottom: 0.3em;
+}
+
+form ol li.reset
+{
+    float: right;
+}
+
+form ol li.reset input
+{
+    width: 8em;
+}
+
+form ol li.submit input
+{
+    width: 8em;
+}
+
+form ol li input#title, form ol li textarea { width: 79%; }
+
+form ol li fieldset
+{
+    width: 98%;
+    border: none;
+    padding: 0.2em 0 0 0;
+    margin: 1em 0;
+    /*border-bottom: 1px solid;*/
+}
+
+form ol li fieldset legend
+{
+    margin: 0;
+    /*font-weight: bold;*/
+    border-bottom: 1px dashed;
+    cursor: pointer;
+}
+
+form ol fieldset table
+{
+	margin-left: 1em;
+}
+form ol fieldset ol li
+{
+	/*display: list-item;*/
+	/*list-style-type: disc;*/
+	list-style-type: none;
+	/*list-style-position: outset;*/
+	/*margin-left: 2.5em;*/
+	/*padding-left: 0.1em;*/
+	margin-left: 1em;
+}
+form ol fieldset ol li img
+{
+	vertical-align: top;
+}
+
+/*form ol */li a.add
+{
+    background: transparent url(../images/admin/icons.gif) no-repeat 0 -17px;
+    padding-left: 18px;
+    margin-right: 0.2em;
+    line-height: 16px;
+}
+/*form ol */li a.add:hover
+{
+    background-position: 0 -1px;
+}
+
+form ol li small
+{
+    font-size: smaller;
+    margin-left: 0.4em;
+}
+
+form ol .error input,
+form ol .error textarea,
+form ol .error select,
+form ol .error table.mceLayout
+{
+    /*background-color: pink;*/
+    border: 1px solid red;
+}
+
+form ol div.error
+{
+    display: none;
+}
+
+form ol .error div.error
+{
+    display: block;
+    color: red;
+    font-size: 90%;
+    text-align: left;
+    margin-left: 11em;
+    background: transparent url(../images/admin/arrow.gif) no-repeat left;
+    padding-left: 12px;
+}
+

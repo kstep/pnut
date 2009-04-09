@@ -1,0 +1,21 @@
+<?xml version='1.0' standalone='yes'?>
+<realms>
+    <realm name="Admin">
+        <controller name="Admin_User">
+            <allow>
+                <role>admin</role>
+            </allow>
+        </controller>
+        <allow>
+            <!--<user>root</user>-->
+            <!--<group>Administrators</group>-->
+            <!--<subgroup>Administrators</subgroup>-->
+            <!--<authorized/>-->
+            <role>manager</role>
+        </allow>
+        <deny>
+            <nobody/>
+            <!--<everyone/>-->
+        </deny>
+    </realm>
+</realms>

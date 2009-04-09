@@ -1,0 +1,314 @@
+body
+{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+	background: white url(../../images/admin/bodybg.gif) repeat-y;
+}
+
+#pageWrapper
+{
+}
+
+.actions
+{
+    margin-left: 0.2em;
+}
+
+.actions a, .confirm a, .edit a
+{
+    padding-left: 16px;
+    font-size: 14px;
+    background: transparent scroll url(../../images/admin/icons.gif) no-repeat;
+    text-decoration: none;
+}
+
+span.confirm { display: none; white-space: nowrap; }
+span.edit { display: none; white-space: nowrap; }
+
+.confirm var
+{
+    font-style: normal;
+    font-size: smaller;
+    padding: 0 0.1em 0 0.5em;
+}
+
+a.edit { background-position: 0 -112px; }
+a.edit:hover { background-position: 0 -96px; }
+
+a.remove { background-position: 0 -80px; }
+a.remove:hover { background-position: 0 -64px; }
+
+a.new { background-position: 0 -16px; }
+a.new:hover { background-position: 0 0px; }
+
+a.download { background-position: 0 -144px; }
+a.download:hover { background-position: 0 -128px; }
+
+.confirm a.yes { background-position: 0 -48px; padding-left: 22px; }
+.confirm a.yes:hover { background-position: 0 -32px; }
+
+.confirm a.no { background-position: 0 -80px; }
+.confirm a.no:hover { background-position: 0 -64px; }
+
+#pageNavigation input
+{
+	background-color: transparent;
+}
+
+span.edit input
+{
+    border: 1px solid gray;
+    border-style: none none solid none;
+    width: 6em;
+}
+span.edit small input
+{
+    font-size: smaller;
+}
+
+span.name small, span.edit small
+{
+    /*margin-left: 0.4em;*/
+}
+
+li.active span.name a
+{
+    font-weight: bold;
+    color: inherit;
+    cursor: text;
+    text-decoration: none;
+}
+
+li a, li.active ul li span.name a
+{
+    font-weight: normal;
+    color: blue;
+    cursor: pointer;
+    cursor: hand;
+    text-decoration: underline;
+}
+li a:visited, li.active ul li span.name a:visited
+{
+    color: navy;
+}
+
+.moduleBox ul li span.actions,
+.moduleBox ul li span.confirm
+{
+    float: right;
+    clear: both;
+}
+.moduleBox ul li span.confirm
+{
+    margin-right: 4px;
+}
+
+#pageNavigation
+{
+    width: 240px;
+	padding: 0 0 2em 0;
+	float: left;
+	height: 100%;
+}
+
+#pageContent
+{
+	margin: 0 0 1em 240px;
+	padding: 0;
+}
+#pageContent .description
+{
+	margin: 0 0 1em 2em;
+}
+
+#pageNavigation .moduleBox ul
+{
+    list-style: none;
+    margin: 2px 0 2px 8px;
+    padding: 0;
+    line-height: 17px;
+}
+
+#pageNavigation .moduleBox ul ul
+{
+    margin-left: 0.5em;
+}
+#pageNavigation .moduleBox h1
+{
+    font-size: 100%;
+    background: silver;
+    margin: 0em 0 0.1em 0;
+    padding: 1px 0 1px 5px;
+    /*background: transparent url(../../images/admin/hdrbg.gif) repeat-x;*/
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#pageNavigation .moduleBox
+{
+    border: 1px solid lightgrey;
+    margin: 0.5em 5px;
+	background-color: #eeeeee;
+}
+
+#pageNavigation .moduleBox h1 .fold
+{
+    font-size: 120%;
+    float: right;
+    cursor: pointer;
+    cursor: hand;
+    font-weight: normal;
+	background: url(../../images/admin/icons.gif) no-repeat 0 -272px;
+	padding-right: 16px;
+	height: 16px;
+}
+#pageNavigation .moduleBox h1.folded .fold
+{
+	background-position: 0 0;
+}
+
+#topics ul .drop,
+#articles ul .drop,
+#users ul .drop,
+#groups ul .drop
+{
+    border: 1px dotted black;
+}
+#topics ul .drag,
+#articles ul .drag,
+#users ul .drag,
+#groups ul .drag
+{
+    position: absolute;
+    background: white;
+    border: 1px dotted black;
+    opacity: 0.9;
+    cursor: move;
+}
+
+#pageContent h1
+{
+	font-size: 160%;
+	padding: 5px 0 5px 10px;
+	margin: 0 0 0.5em 0;
+	background-color: #dec8b1;
+}
+
+#pageContent h1 small
+{
+	font-size: 50%;
+}
+
+#pageContent ul.itemsList
+{
+    margin-top: 0;
+    list-style: none;
+}
+
+#pageContent ul.itemsList a
+{
+    padding-left: 18px;
+    background-image: url(../../images/admin/icons.gif);
+    background-repeat: no-repeat;
+}
+#pageContent ul.itemsList li a.article
+{
+    background-position: 0 -160px;
+}
+#pageContent ul.itemsList li a.gallery
+{
+    background-position: 0 -176px;
+}
+
+#pageContent ul.itemsList li a.superuser
+{
+	background-position: 0 -192px;
+}
+#pageContent ul.itemsList li a.admin
+{
+	background-position: 0 -208px;
+}
+#pageContent ul.itemsList li a.manager
+{
+	background-position: 0 -224px;
+}
+#pageContent ul.itemsList li a.user
+{
+	background-position: 0 -240px;
+}
+#pageContent ul.itemsList li a.guest
+{
+	background-position: 0 -256px;
+}
+
+.absent
+{
+    display: none;
+}
+
+div.clear
+{
+    clear: both;
+    white-space: nowrap;
+    width: 100%;
+}
+
+#pageContent form
+{
+	padding-left: 12px;
+}
+
+/*#pageFooter*/
+/*{*/
+	/*background-color: silver;*/
+	/*padding: 0.5em;*/
+	/*color: #eeeeee;*/
+	/*font-size: 90%;*/
+	/*clear: both;*/
+/*}*/
+
+#pageNavigation .filter
+{
+	display: inline;
+}
+
+#pageNavigation .filter ins
+{
+	text-decoration: none;
+	border-bottom: 1px dashed;
+	cursor: pointer;
+	cursor: hand;
+}
+
+#pageNavigation .filter ol
+{
+	background-color: #e0e0e0;
+	border: 1px solid silver;
+	margin: 0 0 0 4.5em;
+	padding: 0;
+	display: none;
+	list-style: none;
+	position: absolute;
+	z-index: 100;
+	font-weight: normal;
+}
+#pageNavigation .filter:hover ol
+{
+	display: block;
+}
+
+#pageNavigation .filter ol li
+{
+	padding: 0;
+}
+#pageNavigation .filter ol li a
+{
+	display: block;
+	padding: 0 0.9em;
+}
+#pageNavigation .filter ol li a:hover
+{
+	background-color: #eeeeee;
+}

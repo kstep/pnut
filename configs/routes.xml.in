@@ -1,0 +1,122 @@
+<?xml version='1.0' standalone='yes'?>
+<routes>
+    <prefix>@SITEPREFIX@</prefix>
+    <route controller="Admin" action="default">
+        <build>%s/%d</build>
+        <controller>1</controller>
+        <params>
+            <id>2</id>
+        </params>
+    </route>
+    <route controller="Admin" action="default">
+        <build>%s</build>
+        <controller>1</controller>
+    </route>
+    <route controller="Admin">
+        <match>#^(admin/[^/]+)(?:(?:/([a-z][a-z0-9]+))?(?:/([0-9]+))?)?$#</match>
+        <build>%s/%s/%d</build>
+        <controller>1</controller>
+        <action>2</action>
+        <params>
+            <id>3</id>
+        </params>
+    </route>
+    <route redirect="true" cache="0">
+        <match>#^admin#</match>
+        <controller>Admin_Topic</controller>
+        <action>default</action>
+    </route>
+    <route>
+        <match>#^regenerate#</match>
+        <controller>regenerate</controller>
+    </route>
+    <route controller="Image" cache="2592000">
+        <match>#^image/([a-z]+)/([0-9]+)(?:/([0-9]+))?#</match>
+        <build>image/%s/%d/%d</build>
+        <controller>image</controller>
+        <action>1</action>
+        <params>
+            <id>2</id>
+            <scale>3</scale>
+        </params>
+    </route>
+    <!--<route>
+        <cache>1800</cache>
+        <match>#^(topic|article)/([0-9]+)#</match>
+        <build>%s/%d</build>
+        <action>1</action>
+        <params>
+            <id>2</id>
+        </params>
+    </route>-->
+    <route controller="File">
+        <match>#^(view|download)/([0-9]+)#</match>
+        <build>%s/%d</build>
+        <controller>file</controller>
+        <action>1</action>
+        <params>
+            <id>2</id>
+        </params>
+    </route>
+    <route controller="Default" action="article" cache="0">
+        <build>%s/%s.html</build>
+        <params>
+            <path>1</path>
+            <article>2</article>
+        </params>
+    </route>
+    <route redirect="true" preserveqs="true">
+		<match>#^([a-z][a-z0-9/-]+)/([-a-z0-9_]+)\.p1\.html$#</match>
+        <build>%s/%s.html</build>
+        <controller>Default</controller>
+        <action>article</action>
+        <params>
+            <path>1</path>
+            <article>2</article>
+        </params>
+    </route>
+    <route controller="Default" action="article" cache="1800">
+        <match>#^([a-z][a-z0-9/-]+)/([-a-z0-9_]+)(?:\.p([2-9]|[1-9][0-9]+))?\.html$#</match>
+        <build>%s/%s.p%d.html</build>
+        <action>article</action>
+        <params>
+            <path>1</path>
+            <article>2</article>
+            <page>3</page>
+        </params>
+    </route>
+    <route controller="Default" action="topic" redirect="true">
+        <match>#^([a-z][a-z0-9/-]+)/p1/?$#</match>
+        <build>%s</build>
+        <controller>Default</controller>
+        <action>topic</action>
+        <params>
+            <path>1</path>
+        </params>
+    </route>
+    <route controller="Default" action="topic" cache="1800">
+        <match>#^([a-z][a-z0-9/-]+)(?:/p([2-9]|[1-9][0-9]+))?/?$#</match>
+        <build>%s/p%d/</build>
+        <action>topic</action>
+        <params>
+            <path>1</path>
+            <page>2</page>
+        </params>
+    </route>
+    <route controller="Default">
+        <match>#^([a-z]+)/([0-9]+)#</match>
+        <build>%s/%d/</build>
+        <controller>Default</controller>
+        <action>1</action>
+        <params>
+            <article>2</article>
+        </params>
+    </route>
+    <route redirect="true" default="true" cache="0">
+        <controller>Default</controller>
+        <action>topic</action>
+        <params>
+            <path>aboutme</path>
+        </params>
+    </route>
+</routes>

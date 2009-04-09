@@ -1,0 +1,22 @@
+#navigation
+{
+    width: 185px;
+    margin-top: -17px;
+}
+
+form ol li fieldset legend
+{
+    cursor: hand;
+}
+
+img.imageView
+{
+    position: absolute;
+}
+
+#lightbox
+{
+    position: absolute;
+    /*height: expression($("body").height() + "px");*/
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+}

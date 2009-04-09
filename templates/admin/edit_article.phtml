@@ -1,0 +1,107 @@
+<? $this->title = "Правка статьи" ?>
+<? $this->topicId = $this->article->topic ?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<? if ($this->article->getId()): ?>
+<h1>&laquo;<?=$this->article->title?>&raquo; <small>(<?=$this->article->name?>)</small></h1>
+<? else: ?>
+<h1>Новая статья</h1>
+<? endif ?>
+
+<? $users = $this->users->fetchAll() ?>
+
+<form action="#" method="post" enctype="multipart/form-data">
+<?=$this->hidden("topic", $this->article->topic)?>
+<ol>
+    <?li($this, 'title')?><?=$this->input("title", $this->article->title, "Заголовок")?></li>
+    <?li($this, 'name')?><?=$this->input("name", $this->article->name, "Название")?></li>
+    <?li($this, 'abstract')?><?=$this->input("abstract", $this->article->abstract, "Резюме", 5)?></li>
+    <?li($this, 'content')?><?=$this->input("content", $this->article->content, "Содержание", 20)?></li>
+    <?li($this, 'type')?><?=$this->select("type", array( "article" => "Обычная статья", "gallery" => "Галерея" ), $this->article->type, "Тип статьи")?></li>
+	<?li($this, 'author')?><?=$this->select('author', $this->users, $this->article->author, 'Автор')?></li>
+    <li id="options">
+        <fieldset>
+            <legend>Опции</legend>
+            <ol class="checklist">
+                <li class="checklist"><?=$this->checklist("flags", array( "hidden" => "Скрыта", "archived" => "В архиве", "removed" => "В корзине", "comments" => "С комментариями" ), false, $this->article->flags)?></li>
+				<?li($this, 'items_per_page')?><?=$this->input("items_per_page", $this->article->items_per_page, "Объекты/страница", 1, 5)?></li>
+            </ol>
+        </fieldset>
+    </li>
+    <li id="timestamps">
+        <fieldset>
+            <legend>Когда</legend>
+            <ol>
+                <li>&hellip;создана <?=Filter_Date::toString($this->article->created)?>.</li>
+                <li>&hellip;изменена <?=Filter_Date::toString($this->article->modified)?>.</li>
+                <?li($this, 'published')?><?=$this->input("published", Filter_Date::toString($this->article->published), "Опубликовать")?></li>
+                <?li($this, 'archived')?><?=$this->input("archived", Filter_Date::toString($this->article->archived), "Поместить в архив")?></li>
+            </ol>
+        </fieldset>
+    </li>
+	<li id="localization">
+		<fieldset>
+			<legend>Локализация</legend>
+			<ol>
+				<?li($this, 'language')?><?=$this->input('language', $this->article->language, 'Язык', 1, 5)?></li>
+				<?li($this, 'original')?><?=$this->select('original', $this->article->getTopic()->getArticles(), $this->article->original, 'Оригинал', '- отсутствует -')?></li>
+			</ol>
+		</fieldset>
+	</li>
+
+	<? show_rights($this, $this->article) ?>
+
+    <li id="attachments">
+        <fieldset>
+            <legend>Вложения</legend>
+            <ol>
+                <? foreach ($this->article->getAttachments() as $item): ?>
+                <li id="f<?=$item->getId()?>"><a href="<?=$this->pathTo("Admin_Attachment", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a><span class="actions"><a href="<?=$this->pathTo("File", "download", array( 'id' => $item->getId() ))?>" title="Скачать" class="download">&nbsp;</a><a class="remove" href="<?=$this->pathTo("Admin_Article", "dettach", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></span></li>
+                <? endforeach ?>
+                <li><input type="file" name="attach[]" /><span class="actions"><a class="remove" href="#" title="Убрать">&nbsp;</a></span></li>
+                <li><a class="add" href="#">Добавить</a>&nbsp;<a href="#" class="add5" title="Добавить пять файлов">&#215;5</a></li>
+            </ol>
+        </fieldset>
+    </li>
+    <? $comments = $this->article->getComments() ?>
+    <? if ($comments && count($comments)): ?>
+    <li id="comments">
+        <fieldset>
+            <legend>Комментарии</legend>
+            <ol>
+                <? foreach ($comments as $item): ?>
+                <li id="c<?=$item->getId()?>"><a href="<?=$this->pathTo("Admin_Comment", "edit", array( 'id' => $item->getId() ))?>">&laquo;<?=$item->title?>&raquo;</a> от <? if ($item->email): ?><a href="mailto:<?=$item->email?>"><?=$item->username?$item->username:$item->email?></a><? else: ?><?=$item->username?><? endif ?> <?=Filter_Date::toString($item->created)?><span class="actions"><a class="remove" href="<?=$this->pathTo("Admin_Comment", "remove", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></span></li>
+                <? endforeach ?>
+            </ol>
+        </fieldset>
+    </li>
+    <? endif ?>
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+<?=$this->tinymce()?>
+<script type="text/javascript">
+$('#title').blur(function () {
+	var title = $('#title').val();
+	var name = $('#name').val();
+	if (name == '' && title != '')
+	{
+		title = title.replace(/[Аа]/g, 'a').replace(/[Бб]/g, 'b').replace(/[Вв]/g, 'v').replace(/[Гг]/g, 'g').replace(/[Дд]/g, 'd')
+				.replace(/[Ее]/g, 'e').replace(/[Ёё]/g, 'e').replace(/[Жж]/g, 'zh').replace(/[Зз]/g, 'z').replace(/[Ии]/g, 'i')
+				.replace(/[Йй]/g, 'j').replace(/[Кк]/g, 'k').replace(/[Лл]/g, 'l').replace(/[Мм]/g, 'm').replace(/[Нн]/g, 'n')
+				.replace(/[Оо]/g, 'o').replace(/[Пп]/g, 'p').replace(/[Рр]/g, 'r').replace(/[Сс]/g, 's').replace(/[Тт]/g, 't')
+				.replace(/[Уу]/g, 'u').replace(/[Фф]/g, 'f').replace(/[Хх]/g, 'h').replace(/[Цц]/g, 'c').replace(/[Чч]/g, 'ch')
+				.replace(/[Шш]/g, 'sh').replace(/[Щщ]/g, 'sch').replace(/[Ыы]/g, 'y').replace(/[ЪъЬь]/g, '').replace(/[Ээ]/g, 'e')
+				.replace(/[Юю]/g, 'yu').replace(/[Яя]/g, 'ya').replace(/[.:;, ]+/g, '_').replace(/[^A-Za-z_-]/g, '');
+		$('#name').val(title);
+	}
+});
+</script>
+</div>
+<? include("footer.phtml") ?>

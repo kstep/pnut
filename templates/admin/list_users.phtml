@@ -1,0 +1,22 @@
+<?
+$this->title = "Список групп";
+$this->groupId = $this->group? $this->group->getId(): 0;
+?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<div id="users">
+<? if ($this->group): ?>
+	<h1>&laquo;<?=$this->group->title?>&raquo; <small>(<?=$this->group->name?>)</small></h1>
+    <ul class="itemsList">
+    <? foreach ($this->group->getUsers() as $item): ?>
+		<li id="u<?=$item->getId()?>"><a class="<?=$item->role?>" href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a> <small>(<?=$item->login?>)</small><span class="actions"><a class="remove" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></span></li>
+    <? endforeach ?>
+        <li id="unew"><a class="add" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></li>
+    </ul>
+<? endif ?>
+</div>
+
+</div>
+
+<? include("footer.phtml") ?>

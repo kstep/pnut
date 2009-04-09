@@ -1,0 +1,23 @@
+<?
+$this->title = "Список разделов";
+$this->topicId = $this->topic? $this->topic->getId(): 0;
+?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<div id="articles">
+<? if ($this->topic): ?>
+	<h1>&laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h1>
+	<div class="description"><?=$this->topic->description?></div>
+    <ul class="itemsList">
+    <? foreach ($this->topic->getArticles() as $item): ?>
+		<li id="a<?=$item->getId()?>"><a class="<?=$item->type?>" href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a> <small>(<?=$item->name?>)</small><span class="actions"><a class="remove" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></span></li>
+    <? endforeach ?>
+        <li id="anew"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></li>
+    </ul>
+<? endif ?>
+</div>
+
+</div>
+
+<? include("footer.phtml") ?>

@@ -1,0 +1,60 @@
+<? $this->title = "Правка вложения" ?>
+<? $this->topicId = $this->attachment->topic ?>
+<? include("header.phtml") ?>
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<? if ($this->attachment->getId()): ?>
+<h1>&laquo;<?=$this->attachment->title?>&raquo; <small>(<?=$this->attachment->filename?>)</small></h1>
+<? else: ?>
+<h1>Новое вложение</h1>
+<? endif ?>
+
+<form action="#" method="post" enctype="multipart/form-data">
+<?=$this->hidden("article", $this->attachment->article)?>
+<ol>
+    <?li($this, 'title')?><?=$this->input("title", $this->attachment->title, "Заголовок")?></li>
+    <?li($this, 'filename')?><?=$this->input("filename", $this->attachment->filename, "Имя файла")?></li>
+    <?li($this, 'mimetype')?><?=$this->input("mimetype", $this->attachment->mimetype, "MIME-тип")?></li>
+	<?li($this, 'attach')?><label for="attach">Заменить файлом</label><input type="file" name="attach" id="attach" /></li>
+
+    <li id="information">
+        <fieldset>
+            <legend>Информация о файле</legend>
+            <ol>
+                <li>Присоединён к статье <a href="<?=$this->pathTo('Admin_Article', 'edit', array( 'id' => $this->attachment->article ))?>">&laquo;<?=$this->attachment->getArticle()->title?>&raquo;</a>.</li>
+				<li>Размер <u><?=Filter_File::humanizeSize($this->attachment->filesize)?> (<?=$this->attachment->filesize?> <?=Filter_Date::wordform($this->attachment->filesize, "байт", "байта", "байтов")?>)</u>.</li>
+				<li>Хэш MD5 &laquo;<u><?=$this->attachment->md5hash?></u>&raquo;.</li>
+				<li>Расположен по пути &laquo;<u><?=$this->attachment->getFilepath()?></u>&raquo;.</li>
+				<li><? if ($check = $this->attachment->checkFile()): ?>Файл на месте и полностью исправен, так что <a href="<?=$this->pathTo('File', 'download', array( 'id' => $this->attachment->getId() ))?>">его можно скачать</a> или <a href="<?=$this->pathTo('File', 'view', array( 'id' => $this->attachment->getId() ))?>">посмотреть в браузере</a>.<? elseif ($check === null): ?>Файл по указанному пути не найден.<? else: ?>Файл найден, но был повреждён или изменён в обход системы.<? endif ?></li>
+				<? if ($check && $this->attachment->isImage()): ?>
+				<? list($width, $height) = getimagesize($this->attachment->getFilepath()) ?>
+				<li>Размеры изображения <u><?=$width?>x<?=$height?></u>.<br />
+				<img src="<?=$this->pathTo('Image', 'thumbnail', array( 'id' => $this->attachment->getId(), 'scale' => 200 ))?>" /></li>
+				<? endif ?>
+            </ol>
+        </fieldset>
+    </li>
+
+	<? show_rights($this, $this->attachment) ?>
+
+    <li id="timestamps">
+        <fieldset>
+            <legend>Когда</legend>
+            <ol>
+                <li>&hellip;создано <?=Filter_Date::toString($this->attachment->created)?>.</li>
+                <li>&hellip;изменено <?=Filter_Date::toString($this->attachment->modified)?>.</li>
+            </ol>
+        </fieldset>
+    </li>
+
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+<?=$this->tinymce()?>
+</div>
+<? include("footer.phtml") ?>

@@ -1,0 +1,12 @@
+    <? $attachments = $this->article->getAttachments($this->pageNo) ?>
+    <ul class="gallery">
+        <? foreach ($attachments as $image): ?>
+		<? if ($image->isImage()): ?>
+			<li id="img<?=$image->getId()?>"><a title="<?=$image->title?>" href="<?=$this->pathTo("File", "view", array( 'id' => $image->getId() ))?>" style="background-image: url(<?=$this->pathTo("Image", "thumbnail", array( 'id' => $image->getId(), 'scale' => 120 ))?>);">&nbsp;</a></li>
+		<? elseif ($image->isVideo()): ?>
+			<li id="video<?=$image->getId()?>"><a title="<?=$image->title?>" href="<?=$this->pathTo("File", "view", array( 'id' => $image->getId() ))?>" style="background-image: url(<?=$this->pathTo("Image", "thumbnail", array( 'id' => $image->getId(), 'scale' => 120 ))?>);">&nbsp;</a></li>
+		<? endif ?>
+        <? endforeach ?>
+    </ul>
+
+    <? drawPager($this, $attachments) ?>

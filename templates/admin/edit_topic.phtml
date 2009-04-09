@@ -1,0 +1,65 @@
+<? $this->title = "Правка раздела" ?>
+<? $this->topicId = $this->topic->getId() ?>
+<? include("header.phtml") ?>
+
+<? include("navigation.phtml") ?>
+<div id="pageContent">
+<? if ($this->topic->getId()): ?>
+<h1>&laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h1>
+<? else: ?>
+<h1>Новый раздел</h1>
+<? endif ?>
+
+<form action="#" method="post">
+<ol>
+    <?li($this, 'title')?><?=$this->input("title", $this->topic->title, "Заголовок")?></li>
+    <?li($this, 'name')?><?=$this->input("name", $this->topic->name, "Название")?></li>
+    <?li($this, 'description')?><?=$this->input("description", $this->topic->description, "Описание", 5)?></li>
+    <?li($this, 'items_per_page')?><?=$this->input("items_per_page", $this->topic->items_per_page, "Статьи/страница", 1, 5)?></li>
+    <li id="options">
+        <fieldset>
+            <legend>Опции</legend>
+            <ol class="checklist">
+                <li class="checklist"><?=$this->checklist("flags", array( "hidden" => "Скрыта", "archived" => "В архиве", "removed" => "В корзине" ), false, $this->topic->flags)?></li>
+            </ol>
+        </fieldset>
+    </li>
+	<? $children = $this->topic->getChildren(); $articles = $this->topic->getArticles() ?>
+	<? if ($children or $articles): ?>
+	<li id="defaults">
+		<fieldset>
+			<legend>По умолчанию</legend>
+			<ol>
+				<?li($this, 'type')?><?=$this->select("type", array( "article" => "Обычные статьи", "gallery" => "Галереи" ), $this->topic->type, "Тип статей")?></li>
+                <? if ($children && count($children)): ?>
+                <?li($this, 'subtopic')?><?=$this->select("subtopic", $children, $this->topic->subtopic, "Подраздел", "- отсутствует -")?></li>
+                <? endif ?>
+				<? if ($articles && count($articles)): ?>
+				<?li($this, 'article')?><?=$this->select("article", $articles, $this->topic->article, "Статья", "- отсутствует -")?></li>
+                <? endif ?>
+			</ol>
+		</fieldset>
+	</li>
+	<? endif ?>
+    <li id="placement">
+        <fieldset>
+            <legend>Размещение</legend>
+            <ol>
+                <?li($this, 'parent')?><?=$this->select("parent", $this->parents, $this->topic->parent, "Родитель", "root")?></li>
+            </ol>
+        </fieldset>
+    </li>
+
+	<? show_rights($this, $this->topic) ?>
+
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+<?=$this->tinymce()?>
+</div>
+<? include("footer.phtml") ?>
