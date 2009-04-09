@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !static/
+RewriteCond %{REQUEST_FILENAME} !index.php
+RewriteRule (.*) index.php/$1 [L,QSA]
+
