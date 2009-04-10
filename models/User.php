@@ -88,5 +88,12 @@ class Model_User extends Model_Actor implements Model_Validatable
 
 		return $errors;
 	}
+
+    public function save()
+    {
+        if (!$this->getId())
+            $this->created = $this->modified;
+        parent::save();
+    }
 }
 ?>
