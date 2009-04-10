@@ -191,6 +191,7 @@ class Dispatcher
 		$host = $_SERVER['HTTP_HOST'];
 		foreach ($this->_sites as $site)
 		{
+			$preflen = 0;
 			if (($site['prefix'] and substr($path, 0, $preflen = strlen($site['prefix'])) == $site['prefix']) or ($site['host'] and $site['host'] == $host) or (!$site['prefix'] and !$site['host']))
 			{
 				$site['path'] = trim(substr($path, $preflen), '/');
