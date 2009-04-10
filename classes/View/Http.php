@@ -216,7 +216,7 @@ abstract class View_Http extends View implements View_Exceptionable
                 $action = "_$action";
             $result = str_replace("_", "/", strtolower($controller . $action)) . $this->pathParams($params);
         }
-        return $this->_prefix . '/' . $result . $qstring;
+        return $this->_prefix . $result . $qstring;
     }
 }
 ?>
