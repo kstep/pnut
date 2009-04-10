@@ -30,12 +30,6 @@ if (!function_exists('mime_content_type'))
 						return 'text/html';
 					elseif (strpos($buffer, "<?xml") !== false)
 						return 'text/xml';
-					elseif (substr($buffer, 6, 4) == "jfif")
-						return 'image/jpeg';
-					elseif (strpos($buffer, 1, 3) == "png")
-						return 'image/png';
-					elseif (substr($buffer, 0, 5) == "gif89")
-						return 'image/gif';
 					elseif (substr($buffer, 0, 3) == "flv")
 						return 'video/x-flv';
 				}
