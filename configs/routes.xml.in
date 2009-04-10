@@ -1,7 +1,7 @@
 <?xml version='1.0' standalone='yes'?>
 <sites>
 	<site>
-		<prefix>/@SITEPREFIX@/admin</prefix>
+		<prefix>/@SITEPREFIX@/admin/</prefix>
 		<realm>Admin</realm>
 		<route action="default">
 			<build>%s/%d</build>
