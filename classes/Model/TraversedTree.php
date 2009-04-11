@@ -120,7 +120,7 @@ abstract class Model_TraversedTree extends Model_Tree
 
 		if ($Dto != 0)
 		{
-			$subtree = $this->getChildrenId();
+			$subtree = $this->getDescendantsId();
 			$subtree[] = $this->getId();
 
 			// first we free some space for new $this position

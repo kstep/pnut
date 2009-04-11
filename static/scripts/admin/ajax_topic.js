@@ -11,7 +11,7 @@ function moveIntoTopic(e, ui)
     if (objname == "topic" && id == targid)
         return;
 
-    $.getJSON(sitePrefix+"/admin/"+objname+"/"+action+"/"+id, { ajax: true, to: targid }, function(result) {
+    $.getJSON(sitePrefix+"/"+objname+"/"+action+"/"+id, { ajax: true, to: targid }, function(result) {
 
     if (result.state == "moved")
     {
@@ -44,7 +44,10 @@ function moveIntoTopic(e, ui)
 			if (result.parent_id == result.target_id)
 				orig.prependTo(targ.find("ul").get(0));
 			else
-				orig.insertAfter(targ);
+			{
+				if (result.after) orig.insertAfter(targ);
+				else orig.insertBefore(targ);
+			}
 		}
 	}
 
@@ -64,7 +67,7 @@ function beginMoveTopic(e)
         var targId = e.dragTarget.id;
         var targObj = targId.substring(0,1);
 
-        $.getJSON(sitePrefix+"/admin/" + (targObj == "a"? "article": "topic") + "/move/" + targId.substring(1), { to: this.parentNode.id.substring(1), ajax: true }, moveIntoTopic);
+        $.getJSON(sitePrefix+"/" + (targObj == "a"? "article": "topic") + "/move/" + targId.substring(1), { to: this.parentNode.id.substring(1), ajax: true }, moveIntoTopic);
     }
 }
 

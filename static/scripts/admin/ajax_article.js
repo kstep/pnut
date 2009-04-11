@@ -15,7 +15,7 @@ function reorderArticle(e, ui)
     var id = ui.draggable.attr('id').substring(1);
     var targid = this.parentNode.id.substring(1);
 
-	$.getJSON(sitePrefix + "/admin/article/reorder/" + id, { ajax: true, to: targid }, function (result) {
+	$.getJSON(sitePrefix + "/article/reorder/" + id, { ajax: true, to: targid }, function (result) {
 		if (result.state == 'reordered')
 		{
 			var orig = $("li#a"+result.id);

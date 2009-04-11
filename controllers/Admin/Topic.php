@@ -325,7 +325,10 @@ class Controller_Admin_Topic extends Controller_Admin
 
 				try
 				{
-					$otopic->insertAfter($ttopic);
+					if ($view->after = $otopic->isBefore($ttopic))
+						$otopic->insertAfter($ttopic);
+					else
+						$otopic->insertBefore($ttopic);
 				}
 				catch (Exception $e)
 				{

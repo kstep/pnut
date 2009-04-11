@@ -43,12 +43,12 @@ function createNavObj(e)
             var newli = li.clone()
                 .hide()
                 .attr("id", newid)
-                .find("span.name").html("<a href=\""+sitePrefix+"/admin/"+result.objname+"/"+result.id+"\">"+result.title+"</a> <small>("+result.name+")</small>").show().end()
+                .find("span.name").html("<a href=\""+sitePrefix+"/"+result.objname+"/"+result.id+"\">"+result.title+"</a> <small>("+result.name+")</small>").show().end()
                 .find("span.edit").hide().end()
                 .find("span.edit input").val(result.title).end()
                 .find("span.edit small input").val(result.name).end()
-                .find("span.actions a.remove").attr("href", sitePrefix+"/admin/"+result.objname+"/remove/"+result.id).css("display", "inline").click(beginRemoveNavObj).end()
-                .find("span.actions a.edit").attr("href", sitePrefix+"/admin/"+result.objname+"/edit/"+result.id).css("display", "inline").click(beginRenameNavObj).end();
+                .find("span.actions a.remove").attr("href", sitePrefix+"/"+result.objname+"/remove/"+result.id).css("display", "inline").click(beginRemoveNavObj).end()
+                .find("span.actions a.edit").attr("href", sitePrefix+"/"+result.objname+"/edit/"+result.id).css("display", "inline").click(beginRenameNavObj).end();
 
 			if (result.objname == 'topic')
 			{

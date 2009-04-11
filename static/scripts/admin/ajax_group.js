@@ -5,7 +5,7 @@
     var objname = id.substring(0, 1) == "u"? "user": "group";
     id = id.substring(1);
 
-    $.getJSON(sitePrefix+"/admin/"+objname+"/move/"+id, { ajax: true, to: targid }, function(result) {
+    $.getJSON(sitePrefix+"/"+objname+"/move/"+id, { ajax: true, to: targid }, function(result) {
 
     if (result.state == "moved")
     {
