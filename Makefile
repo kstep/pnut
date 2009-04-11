@@ -5,6 +5,7 @@ comma := ,
 space := $(empty) $(empty)
 
 PROGRAMDIRS := classes models controllers
+VARDIRS := cache attachments
 ROOTPHPFILES := index.php loader.php compat.php debug.php install.php
 
 EACHPROG := for i in $(PROGRAMDIRS) templates; do find ./$$i -name ".svn" -prune -o \( -name "*.php" -o -name "*.phtml" \) 
@@ -36,8 +37,11 @@ clean: cleandoc cleancache cleanbak
 config: .lvimrc
 	cd configs/ && $(MAKE)
 
-setperm:
-	chmod a+rwx attachments cache
+$(VARDIRS):
+	mkdir -p $@
+
+setperm: $(VARDIRS)
+	chmod a+rwx $^
 
 install: config setperm
 
