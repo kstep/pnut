@@ -20,7 +20,7 @@
         <fieldset>
             <legend>Опции</legend>
             <ol class="checklist">
-                <li class="checklist"><?=$this->checklist("flags", array( "hidden" => "Скрыта", "archived" => "В архиве", "removed" => "В корзине" ), false, $this->topic->flags)?></li>
+                <li class="checklist"><?=$this->checklist("flags", array( "recursive" => "Статьи рекурсивно", "hidden" => "Скрыта", "archived" => "В архиве", "removed" => "В корзине" ), false, $this->topic->flags)?></li>
             </ol>
         </fieldset>
     </li>
