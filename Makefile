@@ -88,6 +88,9 @@ fulldbdump: backupdb structdb
 install.tgz: $(PROGRAMDIRS) $(ROOTPHPFILES) templates static locale migrations Makefile
 	tar czf $@ --exclude=".svn" $^
 
+update.tgz: $(PROGRAMDIRS) $(ROOTPHPFILES) templates static locale migrations Makefile
+	if test -f install.tgz; then tar czf $@ `for i in $^; do find $$i -newer install.tgz; done`; fi
+
 migrate: migrations/*.sql
 	cat $? | mysql $(DBPARAMS)
 
