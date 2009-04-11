@@ -7,8 +7,10 @@ space := $(empty) $(empty)
 PROGRAMDIRS := classes models controllers
 VARDIRS := cache attachments
 ROOTPHPFILES := index.php loader.php compat.php debug.php install.php
+PARSABLEDIRS := $(PROGRAMDIRS) templates
+DEPLOYOBJS := $(PARSABLEDIRS) $(ROOTPHPFILES) static locale migrations Makefile
 
-EACHPROG := for i in $(PROGRAMDIRS) templates; do find ./$$i -name ".svn" -prune -o \( -name "*.php" -o -name "*.phtml" \) 
+EACHPROG := for i in $(PARSABLEDIRS); do find ./$$i -name ".svn" -prune -o \( -name "*.php" -o -name "*.phtml" \) 
 DONE := ; done
 
 DBPARAMS := `awk 'BEGIN { FS="[<>]"; ORS=" " } /<hostname>(.*)<\/hostname>/ { print "-h" $$3 } /<port>([0-9]\+)<\/port>/ { print "-P" $$3 } /<username>(.*)<\/username>/ { print "-u" $$3 } /<password>(.*)<\/password>/ { print "-p" $$3 } /<database>(.*)<\/database>/ { print $$3 }' < ./configs/db.xml`
@@ -65,8 +67,8 @@ update:
 dev: syntax tags doc
 
 # Code base support tasks
-notsvn:
-	@find . \( -name ".svn" -o -name "cache" -o -name "attachments" \) -prune -o \( -type f -print \) | perl -ne 'chomp; ($$dir, $$name) = (m{(.+)/(.+)}); if (! -f $$dir."/.svn/text-base/".$$name.".svn-base") { print $$_,"\n" };'
+notsvn: .svn
+	@find . \( -name ".svn" -o -name ".git" -o -name "cache" -o -name "attachments" \) -prune -o \( -type f -print \) | perl -ne 'chomp; ($$dir, $$name) = (m{(.+)/(.+)}); if (! -f $$dir."/.svn/text-base/".$$name.".svn-base") { print $$_,"\n" };'
 
 lsdbgcode:
 	$(EACHPROG) -exec egrep "echo|print_r|vardump|Profile::|fb\(" {} + $(DONE); exit 0
@@ -85,14 +87,21 @@ structdb: ./configs/db.xml
 
 fulldbdump: backupdb structdb
 
-install.tgz: $(PROGRAMDIRS) $(ROOTPHPFILES) templates static locale migrations Makefile
+# Deployment tasks
+install.tgz: $(DEPLOYOBJS)
 	tar czf $@ --exclude=".svn" $^
 
-update.tgz: $(PROGRAMDIRS) $(ROOTPHPFILES) templates static locale migrations Makefile
+update.tgz: $(DEPLOYOBJS)
 	if test -f install.tgz; then tar czf $@ `for i in $^; do find $$i -newer install.tgz; done`; fi
 
 migrate: migrations/*.sql
 	cat $? | mysql $(DBPARAMS)
+
+sshinstall: install.tgz
+	scp $< $(SSHHOST):$(SSHDIR) && ssh $(SSHHOST) 'cd $(SSHDIR) && tar xzf $<'
+
+sshupdate: update.tgz
+	scp $< $(SSHHOST):$(SSHDIR) && ssh $(SSHHOST) 'cd $(SSHDIR) && tar xzf $<'
 
 all: install
 

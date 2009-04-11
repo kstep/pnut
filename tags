@@ -123,7 +123,7 @@ __construct	classes/Controller.php	/^    public function __construct($actions = 
 __construct	classes/Controller/Exception.php	/^    public function __construct($message = "", $code = 0, View $view = null)$/;"	f
 __construct	classes/Controller/Restricted.php	/^    public function __construct(Authorizator $authorizator = null, $realm = null, $actions = null)$/;"	f
 __construct	classes/Curl.php	/^	public function __construct($url = null)$/;"	f
-__construct	classes/Dispatcher.php	/^    public function __construct($routes = null, $prefix = "")$/;"	f
+__construct	classes/Dispatcher.php	/^    public function __construct(array $sites)$/;"	f
 __construct	classes/Filter/Pager.php	/^    public function __construct($num_items = 0, $current_page = 1, $items_per_page = 20, $visible_range = 5)$/;"	f
 __construct	classes/Model.php	/^    public function __construct(Storage $db, $id = null)$/;"	f
 __construct	classes/Model/Db.php	/^    public function __construct(Storage_Db $db, $id = null)$/;"	f
@@ -306,9 +306,9 @@ _pk	classes/Model/Ldap/List.php	/^    protected $_pk = "uid";$/;"	v
 _pk	classes/Model/List/Db.php	/^    protected $_pk = "id";$/;"	v
 _pk	models/Ldap/Group.php	/^    protected $_pk = "ou";$/;"	v
 _pk	models/Rights.php	/^	protected $_pk = array( "object_type", "object_id" );$/;"	v
-_prefix	classes/Dispatcher.php	/^    protected $_prefix = "";$/;"	v
 _prefix	classes/View.php	/^    protected $_prefix = "";$/;"	v
 _realm	classes/Controller/Restricted.php	/^    protected $_realm = "RestrictedArea";$/;"	v
+_realm	classes/View.php	/^	protected $_realm = "";$/;"	v
 _realm	controllers/Admin.php	/^    protected $_realm = "Admin";$/;"	v
 _redir	classes/View/Http.php	/^    private function _redir($path)$/;"	f
 _redir_to	classes/View/Http.php	/^    protected $_redir_to = array();$/;"	v
@@ -415,7 +415,7 @@ actionThumbnail	controllers/Image.php	/^    public function actionThumbnail($par
 actionTopic	controllers/Default.php	/^    public function actionTopic($params)$/;"	f
 actionView	controllers/File.php	/^    public function actionView($params)$/;"	f
 actions	classes/Controller.php	/^                $actions = array_map(array(__CLASS__, "makeActionFromMethod"), $methods);$/;"	v
-addRoute	classes/Dispatcher.php	/^    public function addRoute($route)$/;"	f
+addRoute	classes/Dispatcher.php	/^    public function addRoute($site, $route)$/;"	f
 aftertarget	classes/Model/Ordered.php	/^	protected function moveTo(Model_Ordered $target, $aftertarget = true)$/;"	v
 aftertarget	classes/Model/TraversedTree.php	/^	protected function moveTo(Model_TraversedTree $target, $aftertarget = true)$/;"	v
 aftertarget	models/Comment.php	/^	protected function moveTo(Model_Comment $target, $aftertarget = true)$/;"	v
@@ -496,10 +496,9 @@ class	classes/Authorizator.php	/^            $class = "Authorizator";$/;"	v
 class	classes/Authorizator.php	/^            $class = "Authorizator_Ldap";$/;"	v
 class	classes/Authorizator/Rules.php	/^            $class = str_replace("Controller_", "", get_class($controller));$/;"	v
 class	classes/Config.php	/^            $class = __CLASS__;$/;"	v
-class	classes/Dispatcher.php	/^            $class = "Controller_$controller";$/;"	v
-class	classes/Dispatcher.php	/^            $class = "Controller_Default";$/;"	v
-class	classes/Dispatcher.php	/^            $class = $this->loadController($route["controller"]);$/;"	v
-class	classes/Dispatcher/Cached.php	/^            $class = $this->loadController($route["controller"]);$/;"	v
+class	classes/Dispatcher.php	/^		$class = "Controller_$controller";$/;"	v
+class	classes/Dispatcher.php	/^            $class = $this->loadController($route["controller"], $route['site']['realm']);$/;"	v
+class	classes/Dispatcher/Cached.php	/^            $class = $this->loadController($route["controller"], $route['site']['realm']);$/;"	v
 class	classes/Model.php	/^            $class = "Model_".ucfirst($object);$/;"	v
 class	classes/Model.php	/^            $class = "Model_Ldap_".ucfirst($object);$/;"	v
 class	classes/Model/Factory.php	/^        $class = $this->_registered_models[$tablename]["class"];$/;"	v
@@ -508,7 +507,7 @@ class	classes/Model/Tree.php	/^		$class = get_class($this);$/;"	v
 class	classes/Storage.php	/^        $class = "Storage_{$class}";$/;"	v
 class	classes/Storage.php	/^        $class = str_replace(" ", "_", ucwords(str_replace("_", " ", $config["class"])));$/;"	v
 class	classes/View/Image/Gd2.php	/^        $class = "View_Image_Gd2_".ucfirst(strtolower(substr($mime, 6)));$/;"	v
-cleanPath	classes/Dispatcher.php	/^    public function cleanPath($path)$/;"	f
+cleanController	classes/View.php	/^	public function cleanController($controller)$/;"	f
 clear	classes/Cache.php	/^    static public function clear()$/;"	f
 code	classes/Controller/Exception.php	/^    public function __construct($message = "", $code = 0, View $view = null)$/;"	v
 comment	controllers/Admin/Comment.php	/^            $comment = new Model_Comment($this->getStorage(), $params['id']);$/;"	v
@@ -531,10 +530,14 @@ connect	classes/Storage/Db/Mysql.php	/^    protected function connect()$/;"	f
 connect	classes/Storage/Ldap.php	/^    protected function connect()$/;"	f
 connect	classes/Storage/Session.php	/^    protected function connect()$/;"	f
 constructModel	classes/Model/Factory.php	/^    public function constructModel($tablename, $id = null)$/;"	f
+controller	classes/Dispatcher.php	/^			$controller = "$realm\/$controller";$/;"	v
+controller	classes/Dispatcher.php	/^			$controller = "default";$/;"	v
+controller	classes/Dispatcher.php	/^		$controller = str_replace(" ", "_", ucwords(str_replace("\/", " ", strtolower($controller))));$/;"	v
 controller	classes/Dispatcher.php	/^                $controller = new $class ();$/;"	v
-controller	classes/Dispatcher.php	/^            $controller = str_replace(" ", "_", ucwords(str_replace("\/", " ", strtolower($controller))));$/;"	v
 controller	classes/Dispatcher/Cached.php	/^                $controller = new $class ();$/;"	v
-controller	classes/View/Http.php	/^            $controller = str_replace("Default", "", $controller);$/;"	v
+controller	classes/View.php	/^				$controller = substr($controller, $realmlen + 1);$/;"	v
+controller	classes/View.php	/^			$controller = substr($controller, $realmlen + 1);$/;"	v
+controller	classes/View/Http.php	/^            $controller = $this->cleanController(str_replace("Default", "", $controller));$/;"	v
 count	classes/Filter/Pager.php	/^    public function count()$/;"	f
 count	classes/Model/List.php	/^    public function count()$/;"	f
 count	classes/Model/List/Paged.php	/^            $count = $this->_db->select($this->_table, "count(*) as numitems", $this->_filter)->fetchFirst();$/;"	v
@@ -685,6 +688,7 @@ filter	models/List/Topic.php	/^    public function __construct(Storage_Db $db, $
 findPath	classes/View.php	/^    public function findPath($controller, $action, array $params = array())$/;"	f
 findRoute	classes/Dispatcher.php	/^    public function findRoute($path)$/;"	f
 findRoute	classes/Dispatcher/XmlRpc.php	/^    public function findRoute($path)$/;"	f
+findSite	classes/Dispatcher.php	/^	public function findSite($path = "")$/;"	f
 firstdow	classes/Filter/Date.php	/^        $firstdow = (8 + $lastday[6] - $freedays) % 7;$/;"	v
 frame	controllers/Image.php	/^				$frame = ceil($film->getFrameCount() * 0.1);$/;"	v
 freedays	classes/Filter/Date.php	/^        $freedays = $lastday[3] % 7;$/;"	v
@@ -821,6 +825,7 @@ header	classes/View/Html.php	/^    public function table($data, $header = null, 
 height	classes/View/Image.php	/^    public function __construct($width = null, $height = null)$/;"	v
 hidden	classes/View/Html.php	/^    public function hidden($name, $value)$/;"	f
 hit	classes/Cache.php	/^    public function hit()$/;"	f
+host	classes/Dispatcher.php	/^		$host = $_SERVER['HTTP_HOST'];$/;"	v
 host	classes/Storage/Db/Mysql.php	/^        $host = $this->_hostname;$/;"	v
 hostname	classes/Storage/Db.php	/^            $hostname = (string)$hostname["hostname"];$/;"	v
 hostname	classes/Storage/Ldap.php	/^            $hostname = (string)$hostname["hostname"];$/;"	v
@@ -936,7 +941,7 @@ load	classes/Config.php	/^    public function load(array $config, $section = "ma
 load	classes/Model.php	/^    abstract public function load($id);$/;"	f
 load	classes/Model/Db.php	/^    public function load($id)$/;"	f
 load	classes/Model/Ldap.php	/^    public function load($id)$/;"	f
-loadController	classes/Dispatcher.php	/^    public function loadController($controller)$/;"	f
+loadController	classes/Dispatcher.php	/^    public function loadController($controller, $realm = '')$/;"	f
 loadDb	classes/Config.php	/^    public function loadDb($store, $section = "main", $overwrite = false)$/;"	f
 loadFields	classes/Model.php	/^    abstract protected function loadFields();$/;"	f
 loadFields	classes/Model/Db.php	/^    protected function loadFields()$/;"	f
@@ -962,7 +967,7 @@ mask	models/Rights.php	/^                $mask = Model_Actor::CAN_EDIT;$/;"	v
 mask	models/Rights.php	/^                $mask = Model_Actor::CAN_VIEW;$/;"	v
 mask	models/Rights.php	/^            $mask = 0;$/;"	v
 matchRule	classes/Authorizator/Rules.php	/^    protected function matchRule(array $rule)$/;"	f
-matches	classes/Dispatcher.php	/^                if (!$matches) $matches = explode('\/', $path);$/;"	v
+matches	classes/Dispatcher.php	/^					if (!$matches) $matches = explode('\/', $path);$/;"	v
 matches	classes/Dispatcher.php	/^        $matches = null;$/;"	v
 maxVisiblePage	classes/Filter/Pager.php	/^    public function maxVisiblePage()$/;"	f
 maxpower	classes/Filter/File.php	/^		$maxpower = count(self::$_suffixes);$/;"	v
@@ -1005,8 +1010,8 @@ name	classes/Dispatcher.php	/^     * @return string Controller class name$/;"	c
 name	classes/Dispatcher.php	/^     * constructs Controller class name by its name from path$/;"	c
 name	classes/Storage.php	/^     * will be normalized to real Storage's child class name.$/;"	c
 name	classes/View/Html.php	/^            foreach ($attrs as $name => $value)$/;"	v
-name	classes/View/Html.php	/^            foreach ($params as $name => $value)$/;"	v
 name	classes/View/Html.php	/^        foreach ($fields as $name => $type)$/;"	v
+name	classes/View/Http.php	/^            foreach ($params as $name => $value)$/;"	v
 newheight	classes/View/Image.php	/^        $newheight = $this->_height * $factor;$/;"	v
 newheight	classes/View/Image/Gd2.php	/^        $newheight = (int)$newheight;$/;"	v
 newres	classes/View/Image/Gd2.php	/^        $newres = $this->createImage($newwidth, $newheight);$/;"	v
@@ -1078,19 +1083,18 @@ parseTime	classes/Filter/Date.php	/^    protected function parseTime($time)$/;"	
 pass	classes/Controller/Restricted.php	/^            $pass = $_SERVER['PHP_AUTH_PW'];$/;"	v
 password	classes/Storage/Db.php	/^            $password = (string)$hostname["password"];$/;"	v
 password	classes/Storage/Ldap.php	/^            $password = (string)$hostname["password"];$/;"	v
+path	classes/Dispatcher.php	/^			$path = $site['path'];$/;"	v
+path	classes/Dispatcher.php	/^		if (!$path) $path = $_SERVER['PATH_INFO'];$/;"	v
 path	classes/Dispatcher.php	/^            $path = $_SERVER["PATH_INFO"];$/;"	v
-path	classes/Dispatcher.php	/^            $path = substr($path, $preflen + 1);$/;"	v
-path	classes/Dispatcher.php	/^        $path    = $this->cleanPath($path);$/;"	v
-path	classes/Dispatcher.php	/^        $path = trim($path, "\/");$/;"	v
 path	classes/Dispatcher/Cached.php	/^            $path = $_SERVER["PATH_INFO"];$/;"	v
 path	classes/Model/Tree.php	/^    public function __construct(Storage_Db $db, $path = null)$/;"	v
-path	classes/View.php	/^                $path = $route;$/;"	v
+path	classes/View.php	/^					$path = $item;$/;"	v
 path	classes/View.php	/^        $path = array();$/;"	v
 path	classes/View/Http.php	/^        $path = $this->findPath($controller, $action, $params);$/;"	v
 path	templates/header.phtml	/^				$path = $qpar? $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $me->pageNo ), array( 'cp' => $page )): $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $page ), array( 'cp' => $me->commentsPage ));$/;"	v
 path	templates/header.phtml	/^				$path = $qpar? $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $me->pageNo ), array( 'cp' => $pageNo + 1 )): $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $pageNo + 1 ), array( 'cp' => $me->commentsPage ));$/;"	v
 path	templates/header.phtml	/^				$path = $qpar? $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $me->pageNo ), array( 'cp' => $pageNo - 1 )): $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $pageNo - 1 ), array( 'cp' => $me->commentsPage ));$/;"	v
-pathParams	classes/View/Html.php	/^    protected function pathParams($params)$/;"	f
+pathParams	classes/View/Http.php	/^    protected function pathParams($params)$/;"	f
 pathTo	classes/View/Http.php	/^    public function pathTo($controller, $action = "", array $params = array(), $qstring = null)$/;"	f
 pathlen	classes/Model/Tree.php	/^            $pathlen = count($apath) - 1;$/;"	v
 pk	classes/Model/Factory.php	/^    public function registerModel($classname, $tablename, $pk = "id", $attributes = null)$/;"	v
@@ -1098,11 +1102,10 @@ port	classes/Storage/Db.php	/^            $port = (int)$hostname["port"];$/;"	v
 port	classes/Storage/Db.php	/^    public function __construct($hostname, $port = 0, $username = "", $password = "", $database = null)$/;"	v
 port	classes/Storage/Ldap.php	/^            $port = (int)$hostname["port"];$/;"	v
 port	classes/Storage/Ldap.php	/^    public function __construct($hostname, $port = 0, $username = "", $password = "", $base_dn = null)$/;"	v
-prefix	classes/Dispatcher.php	/^    public function __construct($routes = null, $prefix = "")$/;"	v
-prefix	classes/View.php	/^        $prefix = (string)$prefix;$/;"	v
+prefix	classes/View.php	/^        $prefix = (string)$site['prefix'];$/;"	v
 prefix	classes/View.php	/^        if ($prefix && substr($prefix, 0, 1) != "\/") $prefix = "\/$prefix";$/;"	v
-prefix	classes/View.php	/^    public function setRoutes(array $routes, $prefix = "")$/;"	v
-preflen	classes/Dispatcher.php	/^        $preflen = strlen($this->_prefix);$/;"	v
+preflen	classes/Dispatcher.php	/^			$preflen = 0;$/;"	v
+preflen	classes/Dispatcher.php	/^			if (($site['prefix'] and substr($path, 0, $preflen = strlen($site['prefix'])) == $site['prefix']) or ($site['host'] and $site['host'] == $host) or (!$site['prefix'] and !$site['host']))$/;"	v
 prepareNavigation	controllers/Default.php	/^    private function prepareNavigation(&$view, $path)$/;"	f
 prop	classes/Model.php	/^        foreach ($this->_attributes as $prop => $field)$/;"	v
 put	classes/Cache.php	/^    public function put($object)$/;"	f
@@ -1122,6 +1125,10 @@ quote	classes/Storage/Db.php	/^    abstract public function quote($value);$/;"	f
 quote	classes/Storage/Db/Mysql.php	/^    public function quote($value)$/;"	f
 read	classes/Cache.php	/^    static public function read($key, $min_time = 0)$/;"	f
 realm	classes/Authorizator/Rules.php	/^        $realm = $controller->getRealm();$/;"	v
+realm	classes/Dispatcher.php	/^    public function loadController($controller, $realm = '')$/;"	v
+realm	classes/View.php	/^		$realm  = (string)$site['realm'];$/;"	v
+realmlen	classes/View.php	/^			$realmlen = strlen($this->_realm);$/;"	v
+realmlen	classes/View.php	/^		if ($this->_realm && substr($controller, 0, $realmlen = strlen($this->_realm)) == $this->_realm)$/;"	v
 redir	classes/View/Http.php	/^    public function redir($controller, $action = "default", $params = array(), $qstring = null)$/;"	f
 regenerate	classes/Model/Ordered.php	/^	abstract public function regenerate($parent = 0, $state = 0);$/;"	f
 regenerate	classes/Model/TraversedTree.php	/^    public function regenerate($parent = 0, $lside = 0)$/;"	f
@@ -1149,7 +1156,7 @@ result	classes/Config.php	/^        $result = (array)$xml;$/;"	v
 result	classes/Controller/Restricted.php	/^            $result = $this->getAuthorizator()->authorize($user, $pass);$/;"	v
 result	classes/Controller/Restricted.php	/^        $result = false;$/;"	v
 result	classes/Curl.php	/^		$result = curl_exec($this->_curlh);$/;"	v
-result	classes/Dispatcher.php	/^                $result = $route;$/;"	v
+result	classes/Dispatcher.php	/^					$result = $route;$/;"	v
 result	classes/Dispatcher.php	/^        $result  = array();$/;"	v
 result	classes/Dispatcher.php	/^        $result = array();$/;"	v
 result	classes/Dispatcher/XmlRpc.php	/^        $result = parent::findRoute($path);$/;"	v
@@ -1186,13 +1193,14 @@ result	classes/View/Html.php	/^            $result = "<label for=\\"$name\\">$la
 result	classes/View/Html.php	/^            $result = "<label for=\\"{$name}_day\\">$label<\/label> $result";$/;"	v
 result	classes/View/Html.php	/^            $result = "<meta $attr=\\"$name\\" content=\\"$value\\" \/>";$/;"	v
 result	classes/View/Html.php	/^            $result = "<textarea name=\\"$name\\" id=\\"$name\\" rows=\\"$rows\\" cols=\\"$cols\\"$attrs>$default<\/textarea>";$/;"	v
-result	classes/View/Html.php	/^            $result = "\/$params";$/;"	v
 result	classes/View/Html.php	/^        $result = "";$/;"	v
 result	classes/View/Html.php	/^        $result = "<form method=\\"post\\" action=\\"$action\\"$attrs><ol>";$/;"	v
 result	classes/View/Html.php	/^        $result = "<input type=\\"checkbox\\" name=\\"$name\\" value=\\"$value\\" id=\\"$name\\"$ischecked$attrs \/>";$/;"	v
 result	classes/View/Html.php	/^        $result = "<table$attrs>";$/;"	v
+result	classes/View/Http.php	/^            $result = "\/$params";$/;"	v
 result	classes/View/Http.php	/^            $result = str_replace("_", "\/", strtolower($controller . $action)) . $this->pathParams($params);$/;"	v
 result	classes/View/Http.php	/^            $result = vsprintf($path['build'], $vars);$/;"	v
+result	classes/View/Http.php	/^        $result = "";$/;"	v
 result	controllers/Admin.php	/^			case "delete": $result = $user->canDelete($model); break;$/;"	v
 result	controllers/Admin.php	/^			case "edit": $result = $user->canEdit($model); break;$/;"	v
 result	controllers/Admin.php	/^			case "view": $result = $user->canView($model); break;$/;"	v
@@ -1232,6 +1240,7 @@ save	classes/Model/Db.php	/^    public function save()$/;"	f
 save	classes/Model/Ldap.php	/^    public function save() \/\/ @todo$/;"	f
 save	classes/Model/Timestamped.php	/^    public function save()$/;"	f
 save	classes/Model/TraversedTree.php	/^    public function save()$/;"	f
+save	models/User.php	/^    public function save()$/;"	f
 saveArticle	controllers/Admin/Article.php	/^    private function saveArticle(Model_Article $article, View_Html $view)$/;"	f
 saveAttachment	controllers/Admin/Attachment.php	/^    private function saveAttachment(Model_Attachment $attachment, View_Html $view)$/;"	f
 saveComment	controllers/Admin/Comment.php	/^    private function saveComment(Model_Comment $comment, View_Html $view)$/;"	f
@@ -1282,8 +1291,8 @@ setFields	classes/Model.php	/^    protected function setFields($fields = null)$/
 setKeyField	classes/Storage/Db/Result.php	/^    public function setKeyField($key_field)$/;"	f
 setPage	classes/Filter/Pager.php	/^    public function setPage($page = 0)$/;"	f
 setRights	models/Rights.php	/^    public function setRights(array $value, $owner = null, $group = null)$/;"	f
-setRoutes	classes/Dispatcher.php	/^    public function setRoutes($routes = null)$/;"	f
-setRoutes	classes/View.php	/^    public function setRoutes(array $routes, $prefix = "")$/;"	f
+setSite	classes/View.php	/^    public function setSite(array $site)$/;"	f
+setSites	classes/Dispatcher.php	/^    public function setSites(array $sites)$/;"	f
 setTable	classes/Storage/Db/Table.php	/^    public function setTable($value)$/;"	f
 setTemplate	classes/View/Html.php	/^	public function setTemplate($filename)$/;"	f
 setTemplate	classes/View/Http.php	/^    public function setTemplate($filename)$/;"	f
@@ -1296,8 +1305,8 @@ setVisibleRange	classes/Filter/Pager.php	/^    public function setVisibleRange($
 settings	classes/View/Html.php	/^        if ($settings === null) $settings = array( "mode" => "textareas", "theme" => "advanced", "language" => "ru" );$/;"	v
 settings	classes/View/Html.php	/^    public function tinymce(array $settings = null)$/;"	v
 show_rights	templates/admin/header.phtml	/^	function show_rights($me, Model_Rightful $model)$/;"	f
-sign	classes/View.php	/^            $sign = $route['@attributes'];$/;"	v
 silent	classes/Curl.php	/^	public function silent($value = true)$/;"	f
+site	classes/Dispatcher.php	/^        $site    = $this->findSite($path);$/;"	v
 size	classes/View/Raw.php	/^		$size = filesize($this->_filename);$/;"	v
 size	models/Attachment.php	/^        $size = filesize($filename['tmp_name']);$/;"	v
 size	models/Attachment.php	/^        $size = filesize($ufile);$/;"	v
@@ -1418,9 +1427,9 @@ values	classes/Model/Ldap.php	/^        $values = $this->_db->select(array_keys(
 vars	classes/View/Http.php	/^            $vars = array();$/;"	v
 view	classes/Controller.php	/^            $view = new View_Html();$/;"	v
 view	classes/Controller/Restricted.php	/^        $view = new View_Html();$/;"	v
+view	classes/Dispatcher.php	/^				$view = new View_Html();$/;"	v
 view	classes/Dispatcher.php	/^                $view = $controller->run($route["action"]? $route["action"]: "default", $route["params"]);$/;"	v
 view	classes/Dispatcher.php	/^                $view = $e->getView();$/;"	v
-view	classes/Dispatcher.php	/^            $view = new View_Html();$/;"	v
 view	classes/Dispatcher/Cached.php	/^                $view = $controller->run($route["action"]? $route["action"]: "default", $route["params"]);$/;"	v
 view	classes/Dispatcher/Cached.php	/^                $view = $e->getView();$/;"	v
 view	controllers/Admin.php	/^            $view = new View_Html();$/;"	v
