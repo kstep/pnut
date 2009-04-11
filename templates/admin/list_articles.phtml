@@ -15,6 +15,8 @@ $this->topicId = $this->topic? $this->topic->getId(): 0;
     <? endforeach ?>
         <li id="anew"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></li>
     </ul>
+<? else: ?>
+	<h1>Разделы</h1>
 <? endif ?>
 </div>
 
