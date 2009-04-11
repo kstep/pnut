@@ -61,7 +61,16 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 
     public function getArticles($page = 0)
     {
-        return new Model_List_Article($this->_db, array( 'topic_id' => $this->getId() ), $this->items_per_page, $page);
+		if ($this->isRecursive())
+		{
+			$id = $this->getDescendantsId();
+			$id[] = $this->getId();
+		}
+		else
+		{
+			$id = $this->getId();
+		}
+        return new Model_List_Article($this->_db, array( 'topic_id' => $id ), $this->items_per_page, $page);
     }
 
     public function getParent()
@@ -97,6 +106,11 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 	public function isArchived()
 	{
 		return in_array('archived', $this->flags);
+	}
+
+	public function isRecursive()
+	{
+		return in_array('recursive', $this->flags);
 	}
 
     public function validate(array $attributes = array())

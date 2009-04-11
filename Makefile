@@ -92,7 +92,7 @@ install.tgz: $(DEPLOYOBJS)
 	tar czf $@ --exclude=".svn" $^
 
 update.tgz: $(DEPLOYOBJS)
-	if test -f install.tgz; then tar czf $@ `for i in $^; do find $$i -newer install.tgz; done`; fi
+	if test -f install.tgz; then tar czf $@ --exclude=".svn" `for i in $^; do find $$i -newer install.tgz; done`; fi
 
 migrate: migrations/*.sql
 	cat $? | mysql $(DBPARAMS)
