@@ -86,11 +86,6 @@ abstract class Model_TraversedTree extends Model_Tree
 			{
 				throw new Model_Exception("Model classes must be the same.");
 			}
-			elseif ($this->parent == $target->getId())
-			{
-				$target = $target->getChildren(false)->current();
-				$overtarget = !$overtarget;
-			}
 			elseif ($this->parent != $target->parent)
 			{
 				throw new Model_Exception("Models must be siblings.");
