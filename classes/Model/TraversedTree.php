@@ -73,7 +73,7 @@ abstract class Model_TraversedTree extends Model_Tree
 	protected function moveTo(Model_TraversedTree $target, $aftertarget = true)
 	{
 
-		$overtarget = $this->isAfter($target) xor (bool)$aftertarget;
+		$overtarget = ($this->isAfter($target) xor (bool)$aftertarget);
 
 		if ($target === null)
 		{
