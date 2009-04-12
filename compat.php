@@ -20,7 +20,7 @@ if (!function_exists('mime_content_type'))
 				return $info['mime'];
 			else
 			{
-				$fh = fopen($filename);
+				$fh = fopen($filename, 'r');
 				if ($fh)
 				{
 					$buffer = fread($fh, 512);
