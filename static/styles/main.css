@@ -119,7 +119,6 @@ html, body
     width: 313px;
     height: 192px;
     background: transparent scroll url(../images/butterfly.gif) no-repeat;
-    /*float: left;*/
     padding: 0;
 }
 #logo a
@@ -553,6 +552,8 @@ body.error404 #logo a.logo,
 body.error404 #logo strong.logo
 {
     background-image: url(../images/butterflybw.gif);
+	position: relative;
+	left: 670px;
 }
 
 body.error404 #topmenu ul li a
@@ -569,5 +570,15 @@ body.error404 #topmenu ul li a:hover
 body.error404 #content h1
 {
     color: #666666;
+}
+
+body.error404 #topmenu
+{
+	background-color: transparent;
+}
+
+body.error404 #topmenu ul li.first
+{
+	background-image: none;
 }
 /* }}} */
