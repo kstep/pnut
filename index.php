@@ -23,8 +23,8 @@ else
     $config_cache->put($config);
 }
 
-//$dispatcher = new Dispatcher_Cached($routes["route"], $routes["prefix"]);
-$dispatcher = new Dispatcher($routes['site']);
+$dispatcher = new Dispatcher_Cached($routes["site"]);
+//$dispatcher = new Dispatcher($routes['site']);
 $dispatcher->run();
 
 $end_time = microtime(true);
