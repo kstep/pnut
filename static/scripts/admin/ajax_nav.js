@@ -53,11 +53,11 @@ function createNavObj(e)
 			if (result.objname == 'topic')
 			{
 				newli.draggable({ helper: 'clone', scope: 'topics' })
-					.find("span.name").droppable({ scope: 'topics', hoverClass: 'drop', drop: moveTopic, tolerance: 'pointer' }).end();
+					.find("span.name").droppable({ scope: 'topics', hoverClass: 'drop', drop: moveIntoTopic, tolerance: 'pointer' }).end();
 			}
 			else if (result.objname == 'group')
 			{
-				newli.find("span.name").droppable({ scope: 'groups', hoverClass: 'drop', drop: moveUser, tolerance: 'pointer' }).end();
+				newli.find("span.name").droppable({ scope: 'groups', hoverClass: 'drop', drop: moveIntoGroup, tolerance: 'pointer' }).end();
 			}
 			newli.insertBefore(li).show("normal");
         }
