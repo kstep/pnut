@@ -47,6 +47,9 @@
             ?></ol><?
         } 
     }
+
+$this->isMainPage = !$this->article && $this->rootTopic->subtopic == $this->topicId && $this->rootTopic->name == "aboutme";
+$this->prefix = $this->_prefix? $this->_prefix: '/';
     ?>
 </head>
 <body<?if ($this->_error_code == 404):?> class="error404"<?endif?>>
@@ -55,8 +58,10 @@
 <div id="layout">
 <div id="header">
     <div id="logo">
-        <? if ($this->article or $this->rootTopic->name != "portfolio" or $this->rootTopic->subtopic != $this->topicId): ?><a class="logo" href="<?=$this->_prefix?>">&nbsp;</a><? else: ?><strong class="logo">&nbsp;</strong><? endif ?>
-		<h1 id="sitename"><a href="<?=$this->_prefix?>"><span>Сайт Анастасии Валицкой</span></a></h1>
+        <? if ($this->isMainPage): ?><strong class="logo">&nbsp;</strong>
+		<h1 id="sitename"><span>Сайт Анастасии Валицкой</span></h1>
+        <? else: ?><a class="logo" href="<?=$this->prefix?>">&nbsp;</a>
+		<h1 id="sitename"><a href="<?=$this->prefix?>"><span>Сайт Анастасии Валицкой</span></a></h1><? endif ?>
     </div>
     <div id="topmenu">
     <ul>
