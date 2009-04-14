@@ -194,7 +194,7 @@ abstract class View_Http extends View implements View_Exceptionable
 		if ($qstring !== null)
 		{
 			if (is_array($qstring))
-				$qstring = '?' . implode('&', array_map(create_function('$a,$b', 'return urlencode($a)."=".urlencode($b);'), array_keys($qstring), array_values($qstring)));
+				$qstring = '?' . http_build_query($qstring);
 			else
 				if (substr($qstring, 0, 1) != '?') $qstring = '?'.$qstring;
 		}
