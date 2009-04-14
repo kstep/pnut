@@ -49,67 +49,6 @@
 				<id>2</id>
 			</params>
 		</route>
-		<route controller="Default" action="article" cache="0">
-			<build>%s/%s.html</build>
-			<params>
-				<path>1</path>
-				<article>2</article>
-			</params>
-		</route>
-		<route redirect="true" preserveqs="true">
-			<match>#^([a-z][a-z0-9/-]+)/([-a-z0-9_]+)\.p1\.html$#</match>
-			<build>%s/%s.html</build>
-			<controller>Default</controller>
-			<action>article</action>
-			<params>
-				<path>1</path>
-				<article>2</article>
-			</params>
-		</route>
-		<route controller="Default" action="article" cache="1800">
-			<match>#^([a-z][a-z0-9/-]+)/([-a-z0-9_]+)(?:\.p([2-9]|[1-9][0-9]+))?\.html$#</match>
-			<build>%s/%s.p%d.html</build>
-			<action>article</action>
-			<params>
-				<path>1</path>
-				<article>2</article>
-				<page>3</page>
-			</params>
-		</route>
-		<route controller="Default" action="topic" redirect="true">
-			<match>#^([a-z][a-z0-9/-]+)/p1/?$#</match>
-			<build>%s</build>
-			<controller>Default</controller>
-			<action>topic</action>
-			<params>
-				<path>1</path>
-			</params>
-		</route>
-		<route controller="Default" action="topic" cache="1800">
-			<match>#^([a-z][a-z0-9/-]+)(?:/p([2-9]|[1-9][0-9]+))?/?$#</match>
-			<build>%s/p%d/</build>
-			<action>topic</action>
-			<params>
-				<path>1</path>
-				<page>2</page>
-			</params>
-		</route>
-		<route controller="Default">
-			<match>#^([a-z]+)/([0-9]+)#</match>
-			<build>%s/%d/</build>
-			<controller>Default</controller>
-			<action>1</action>
-			<params>
-				<article>2</article>
-			</params>
-		</route>
-		<route redirect="true" default="true" cache="0">
-			<controller>Default</controller>
-			<action>topic</action>
-			<params>
-				<path>aboutme</path>
-			</params>
-		</route>
 		<route>
 			<match>#^regenerate#</match>
 			<controller>regenerate</controller>
