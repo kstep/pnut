@@ -312,3 +312,9 @@ div.clear
 {
 	background-color: #eeeeee;
 }
+
+table tr.odd td,
+table tr.odd th
+{
+	background-color: #efefef;
+}
