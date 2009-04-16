@@ -83,14 +83,37 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 		return new Model_List_Topic($this->_db, array( 'parent_id' => $this->parent ));
 	}
 
+	public function isMyArticle(Model_Article $article)
+	{
+		return $this->getId() == $article->topic;
+	}
+
     public function getDefaultSubtopic()
     {
-        return $this->subtopic? new Model_Topic($this->_db, $this->subtopic): null;
+		if ($this->subtopic)
+		{
+			$result = new Model_Topic($this->_db, $this->subtopic);
+			if (!$this->isAncestorOf($result)) $result = null;
+		}
+		else
+		{
+			$result = null;
+		}
+        return $result;
     }
 
 	public function getDefaultArticle()
 	{
-		return $this->article? new Model_Article($this->_db, $this->article): null;
+		if ($this->article)
+		{
+			$result = new Model_Article($this->_db, $this->article);
+			if (!$this->isMyArticle($result)) $result = null;
+		}
+		else
+		{
+			$result = null;
+		}
+		return $result;
 	}
 
     public function __toString()

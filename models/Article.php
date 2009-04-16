@@ -216,5 +216,10 @@ class Model_Article extends Model_Timestamped implements Model_Rightful
 		if (!$this->_rights) $this->_rights = new Model_Rights($this);
 		return $this->_rights;
 	}
+
+	public function isInTopic(Model_Topic $topic)
+	{
+		return $this->topic == $topic->getId();
+	}
 }
 ?>
