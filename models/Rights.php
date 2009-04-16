@@ -61,10 +61,12 @@ class Model_Rights extends Model_Db
 		return implode("", $this->getRights());
 	}
 
-    public function setRights(array $value, $owner = null, $group = null)
+    public function setRights($value, $owner = null, $group = null)
     {
 		if ($owner) $this->owner = $owner instanceof Model_User? $owner->getId(): (int)$owner;
 		if ($group) $this->group = $group instanceof Model_Group? $group->getId(): (int)$group;
+		if (!$value) $value = array('ur','uw','ux','gr','gw','or');
+		else if (!is_array($value)) $value = explode(',', $value);
 
         $val = 0;
         foreach ($value as $item)
