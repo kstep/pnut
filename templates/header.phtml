@@ -1,0 +1,78 @@
+<?$this->charset("UTF-8")?>
+<?=$this->doctype("xhtml")?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <?=$this->meta("Content-Type", "text/html; charset=UTF-8", true)?>
+
+    <title><?=$this->title?></title>
+    <?=$this->style("main")?>
+    <?=$this->style("forms")?>
+	<?=$this->style("print", "print")?>
+    <!--[if IE]><?=$this->style("iefix")?><![endif]-->
+
+    <script type="text/javascript">
+    var sitePrefix = "<?=addslashes($this->_prefix) ?>";
+    </script>
+
+    <?=$this->script("lib/jquery/core")?>
+    <?=$this->script("lib/flowplayer")?>
+    <?=$this->script("ajax")?>
+    <link rel="icon" href="<?=$this->_prefix?>/static/images/favicon.ico" type="image/x-icon" />
+    <?php
+    function drawPager($me, Model_Pagable $model, $qpar = false)
+    {
+        $pager = $model->getPager();
+		$topicPath = $me->topic->getPath();
+		$pageNo = $qpar? $me->commentsPage: $me->pageNo;
+
+        if (count($pager) > 1)
+        {
+            ?><ol class="pager"><?
+
+            if ($pageNo > 1) {
+				$path = $qpar? $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $me->pageNo ), array( 'cp' => $pageNo - 1 )): $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $pageNo - 1 ), array( 'cp' => $me->commentsPage ));
+                ?><li class="prev"><a href="<?=$path?>">&laquo;</a></li><?
+            }
+
+            foreach ($pager as $page => $offset) {
+				$path = $qpar? $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $me->pageNo ), array( 'cp' => $page )): $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $page ), array( 'cp' => $me->commentsPage ));
+                ?><li><? if ($pager->isCurrentPage()): ?><strong><?=$page?></strong><? else: ?><a href="<?=$path?>"><?=$page?></a><? endif ?></li><?
+            }
+                
+            if ($pageNo < count($pager)) {
+				$path = $qpar? $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $me->pageNo ), array( 'cp' => $pageNo + 1 )): $me->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $me->article->name, 'page' => $pageNo + 1 ), array( 'cp' => $me->commentsPage ));
+                ?><li class="next"><a href="<?=$path?>">&raquo;</a></li><?
+            }
+
+            ?></ol><?
+        } 
+    }
+
+$this->isMainPage = !$this->article && $this->rootTopic->subtopic == $this->topicId && $this->rootTopic->name == "aboutme";
+$this->prefix = $this->_prefix? $this->_prefix: '/';
+    ?>
+</head>
+<body<?if ($this->_error_code == 404):?> class="error404"<?endif?>>
+<div id="lightbox">&nbsp;</div>
+<!--noindex-->
+<div id="layout">
+<div id="header">
+    <div id="logo">
+        <? if ($this->isMainPage): ?><strong class="logo">&nbsp;</strong>
+		<h1 id="sitename"><span>Сайт Анастасии Валицкой</span></h1>
+        <? else: ?><a class="logo" href="<?=$this->prefix?>">&nbsp;</a>
+		<h1 id="sitename"><a href="<?=$this->prefix?>"><span>Сайт Анастасии Валицкой</span></a></h1><? endif ?>
+    </div>
+    <div id="topmenu">
+    <ul>
+        <li class="first">&nbsp;</li>
+    <? foreach ($this->rootTopics as $topic): ?>
+        <li><?if ($this->rootTopicId == $topic->getId()):?><strong><?=$topic->title?></strong><?else:?><a href="<?=$this->pathTo('Default', 'topic', array( 'path' => $topic->name ))?>/"><?=$topic->title?></a><?endif?></li>
+    <? endforeach ?>
+    </ul>
+    </div>
+</div>
+<div class="clear"></div>
+<div id="body">
+<? include("navigation.phtml") ?>
+<!--/noindex-->

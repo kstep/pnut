@@ -1,0 +1,35 @@
+<?
+if ($this->topic):
+    $this->title = $this->topic->title . " &mdash; Шаблон сайта";
+    $this->topicId = $this->topic->getId();
+else:
+    $this->title = "Главная страница &mdash; Шаблон сайта";
+endif;
+
+$this->rootTopicId = $this->rootTopic->getId();
+$articles = $this->topic? $this->topic->getArticles($this->pageNo): null;
+include("header.phtml");
+?>
+
+<div id="content">
+    <h1><?=$this->topic->title?></h1>
+    <? if ($articles && count($articles)): ?>
+	<? $topicPath = $this->topic->getPath() ?>
+    <ul class="articles">
+        <? foreach($articles as $article): ?>
+        <li>
+            <a href="<?=$this->pathTo('Default', 'article', array( 'path' => $topicPath, 'article' => $article->name ))?>"><?=$article->title?></a>
+            <span class="date"><?=Filter_Date::timeAgo($article->modified)?></span>
+            <div class="abstract"><?=$article->abstract?></div>
+        </li>
+        <? endforeach ?>
+    </ul>
+
+    <? drawPager($this, $articles) ?>
+    <? else: ?>
+    <div class="message">В этом разделе статей пока что нет.</div>
+    <? endif ?>
+</div>
+
+
+<? include("footer.phtml") ?>
