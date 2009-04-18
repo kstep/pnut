@@ -25,12 +25,14 @@ my $mlattr  = 0;
 
 my $getters = "";
 my @getters;
+my $pk = "";
+my @pk;
 
 foreach my $field (@$table)
 {
 	if ($field->{'Key'} =~ /PRI/)
 	{
-		$class .= "${ind}protected \$_pk = '".($field->{'Field'})."';\n";
+		push @pk, $field->{'Field'};
 		next;
 	}
 
@@ -46,6 +48,7 @@ foreach my $field (@$table)
 	my $aname = $fname;
 	if ($ftype eq "Model::TYPE_TIMESTAMP") { $aname =~ s/_at$//; }
 	elsif ($ftype eq "Model::TYPE_INTEGER") { push @getters, $aname if $aname =~ s/_id$//; }
+	$aname =~ s/_//g;
 		
 	$fields .= "${ind}${ind}'$fname' => $ftype,\n";
 	$attrs  .= "${ind}${ind}'$aname' => '$fname',\n";
@@ -71,7 +74,19 @@ foreach my $aname (@getters)
 	$getters .= "\n${ind}public function get$gname()\n${ind}{\n${ind}${ind}return \$this->$aname? new Model_${phs}$rname${phe}(\$this->_db, \$this->$aname): null;\n${ind}}\n";
 }
 
-$class .= $attrs . $fields . $getters . "\n}\n";
+my $lclass = "\n${ind}protected \$_list_class_name = 'Model_List_${phs}$cname${phe}';\n";
+
+if ($#pk == 0 and $pk[0] ne "id")
+{
+	$pk = "'".$pk[0]."'";
+}
+else
+{
+	$pk = "array('".join("','", @pk)."')";
+}
+$pk = "${ind}protected \$_pk = $pk;\n" if $pk;
+
+$class .= $pk . $attrs . $fields . $lclass . $getters . "\n}\n";
 
 if (!-f $file)
 {
