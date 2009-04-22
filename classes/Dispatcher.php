@@ -120,9 +120,9 @@ class Dispatcher
      * @return void
      * @author kstep
      */
-    public function addRoute($site, $route)
+    public function addRoute($site, array $route)
     {
-        array_unshift($this->_sites['routes'], $route);
+        array_unshift($this->_sites[$site]['routes'], $route);
     }
 
     /**

@@ -58,7 +58,7 @@ abstract class Controller
      * @return View will be render()ed by Dispatcher
      * @author kstep
      */
-    public function run($action, $params)
+    public function run($action, array $params = null)
     {
         if (array_key_exists($action, $this->_actions))
         {
@@ -118,7 +118,7 @@ abstract class Controller
      * @return void 
      * @author kstep
      */
-    public function setActions($actions = null)
+    public function setActions(array $actions = null)
     {
         if ($actions === null)
         {
@@ -129,7 +129,7 @@ abstract class Controller
                 $this->_actions = array_combine($actions, $methods);
             }
         }
-        elseif (is_array($actions))
+        else
         {
             $this->_actions = array();
             foreach ($actions as $action => $method)

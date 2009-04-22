@@ -150,7 +150,7 @@ class Cache
      */
     static public function read($key, $min_time = 0)
     {
-        return $this->getInstance($key, $min_time)->get();
+        return self::getInstance($key)->get($min_time);
     }
 
     /**
@@ -161,7 +161,7 @@ class Cache
      */
     static public function write($key, $object)
     {
-        return $this->getInstance($key)->put($object);
+        return self::getInstance($key)->put($object);
     }
 
     /**
@@ -198,7 +198,7 @@ class Cache
      * get object from cache.
      * @return Object
      */
-    public function get($min_time = "")
+    public function get($min_time = 0)
     {
         if (file_exists($this->_filename))
         {
