@@ -1,0 +1,27 @@
+<?$this->charset("utf-8")?>
+<?=$this->doctype("xhtml")?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+	<?=$this->meta("Content-Type", "text/html; charset=UTF-8", true)?>
+
+    <script type="text/javascript">
+        var sitePrefix = "<?=addslashes($this->_prefix) ?>";
+    </script>
+</head>
+<style type="text/css">
+</style>
+<body>
+<div id="wrapper">
+<div id="header">
+	<h1><a href="<?=$this->_prefix?>">p-nut.info</a></h1>
+	<ul class="menu">
+		<li><a href="#news">Новости</a></li>
+		<li><a href="#blog">Блог</a></li>
+		<li><a href="#doc">Документация</a></li>
+		<li><a href="#dload">Скачать</a></li>
+		<li><a href="#bugs">Баги</a></li>
+		<li><a href="#manage">Админка</a></li>
+	</ul>
+</div>
+<div id="body">
+
