@@ -1,0 +1,177 @@
+a
+{
+	color: green;
+	text-decoration: underline;
+}
+a:visited
+{
+	color: darkgreen;
+}
+a:hover
+{
+	color: white;
+	background: green;
+	text-decoration: none;
+}
+
+img
+{
+	border: none;
+}
+
+#header, #footer
+{
+	font-family: "Bitstream Vera Sans", Verdana, Tahoma, Arial, sans-serif;
+}
+
+#header
+{
+	background: #f6f6f6 url(../images/shadow.png) repeat-x bottom;
+}
+
+#header h1
+{
+	margin: 0;
+	padding: 0.25em 0.5em;
+	position: relative;
+}
+
+#header h1 a
+{
+	text-decoration: none;
+	color: inherit;
+}
+#header h1 a:hover
+{
+	background: transparent;
+}
+
+ul.menu
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul#topmenu
+{
+	font-size: 80%;
+	border: 1px #d3d3d3;
+	border-style: solid none;
+	float: left;
+	width: 100%;
+	background: #eeeeee;
+	margin-top: 0.5em;
+}
+
+ul#topmenu li
+{
+	float: left;
+	border-right: 1px solid #d3d3d3;
+}
+
+ul#topmenu li a
+{
+	display: block;
+	padding: 2px 10px;
+}
+
+ul#topmenu li a:hover,
+ul#topmenu li a.active,
+ul#topmenu li strong
+{
+	/*background: #d3d3d3;*/
+	/*color: black;*/
+	text-decoration: none;
+}
+
+body
+{
+	margin: 0 auto;
+	padding: 0;
+	width: 60%;
+}
+
+#wrapper
+{
+	border: 1px #d3d3d3;
+	border-style: none solid;
+}
+
+#body
+{
+	margin-top: -1em;
+	padding: 0 1em;
+	clear: both;
+}
+
+#footer
+{
+	border: 1px #d3d3d3;
+	border-style: solid none;
+	background: #eeeeee;
+	padding: 0.5em 0.4em 0.8em 0.5em;
+}
+
+#footer a
+{
+	color: darkgrey;
+}
+
+#footer ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#footer a:hover
+{
+	background: transparent;
+	text-decoration: none;
+}
+
+ul#copyrights
+{
+	font-size: 70%;
+}
+
+ul#validators
+{
+	float: right;
+}
+
+ul#validators li
+{
+	display: inline;
+}
+
+ul#topmenu li.separator
+{
+	margin-left: 0.5em;
+	border-left: 1px solid #d3d3d3;
+}
+
+ul#topmenu li.right
+{
+	float: right;
+}
+
+ul#breadcrumb
+{
+	font-size: 80%;
+	margin: 0;
+	padding: 0 1.2em;
+	list-style: none;
+	clear: both;
+	position: relative;
+	top: -45px;
+	left: 20px;
+}
+ul#breadcrumb li
+{
+	display: inline;
+	background: url(../images/arrow.gif) no-repeat left center;
+	padding-left: 12px;
+}
+
