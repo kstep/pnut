@@ -1,7 +1,7 @@
 <?xml version='1.0' standalone='yes'?>
 <sites>
 	<site>
-		<prefix>/@SITEPREFIX@/admin/</prefix>
+		<prefix>@SITEPREFIX@/admin</prefix>
 		<realm>Admin</realm>
 		<route action="default">
 			<build>%s/%d</build>
@@ -29,7 +29,93 @@
 		</route>
 	</site>
 	<site>
-		<prefix>/@SITEPREFIX@</prefix>
+		<prefix>@SITEPREFIX@/lab</prefix>
+		<realm>Makeup</realm>
+		<route controller="Default" action="article" cache="0">
+			<build>%s/%s.html</build>
+			<params>
+				<path>1</path>
+				<article>2</article>
+			</params>
+		</route>
+		<route redirect="true" preserveqs="true">
+			<match>#^([a-z][a-z0-9/-]+)/([-a-z0-9_]+)\.p1\.html$#</match>
+			<build>%s/%s.html</build>
+			<controller>Default</controller>
+			<action>article</action>
+			<params>
+				<path>1</path>
+				<article>2</article>
+			</params>
+		</route>
+		<route controller="Default" action="article" cache="1800">
+			<match>#^([a-z][a-z0-9/-]+)/([-a-z0-9_]+)(?:\.p([2-9]|[1-9][0-9]+))?\.html$#</match>
+			<build>%s/%s.p%d.html</build>
+			<action>article</action>
+			<params>
+				<path>1</path>
+				<article>2</article>
+				<page>3</page>
+			</params>
+		</route>
+		<route controller="Default" action="topic" redirect="true">
+			<match>#^([a-z][a-z0-9/-]+)/p1/?$#</match>
+			<build>%s</build>
+			<controller>Default</controller>
+			<action>topic</action>
+			<params>
+				<path>1</path>
+			</params>
+		</route>
+		<route controller="Default" action="topic" cache="1800">
+			<match>#^([a-z][a-z0-9/-]+)(?:/p([2-9]|[1-9][0-9]+))?/?$#</match>
+			<build>%s/p%d/</build>
+			<action>topic</action>
+			<params>
+				<path>1</path>
+				<page>2</page>
+			</params>
+		</route>
+		<route controller="Default">
+			<match>#^([a-z]+)/([0-9]+)#</match>
+			<build>%s/%d/</build>
+			<controller>Default</controller>
+			<action>1</action>
+			<params>
+				<article>2</article>
+			</params>
+		</route>
+		<route redirect="true" controller="File">
+			<build>../%s/%d</build>
+			<action>1</action>
+			<params>
+				<id>2</id>
+			</params>
+		</route>
+		<route redirect="true" controller="Image" action="thumbnail">
+			<build>../image/thumbnail/%d/%d</build>
+			<params>
+				<id>1</id>
+				<scale>2</scale>
+			</params>
+		</route>
+		<route redirect="true" controller="Image">
+			<build>../image/%s/%d</build>
+			<action>1</action>
+			<params>
+				<id>2</id>
+			</params>
+		</route>
+		<route default="true" redirect="true">
+			<controller>Default</controller>
+			<action>topic</action>
+			<params>
+				<path>aboutme</path>
+			</params>
+		</route>
+	</site>
+	<site>
+		<prefix>@SITEPREFIX@</prefix>
 		<route controller="Image" cache="2592000">
 			<match>#^image/([a-z]+)/([0-9]+)(?:/([0-9]+))?#</match>
 			<build>image/%s/%d/%d</build>
@@ -49,9 +135,20 @@
 				<id>2</id>
 			</params>
 		</route>
+		<!--<route redirect="true" default="true" cache="0">-->
+			<!--<controller>Default</controller>-->
+			<!--<action>topic</action>-->
+			<!--<params>-->
+				<!--<path>aboutme</path>-->
+			<!--</params>-->
+		<!--</route>-->
 		<route>
 			<match>#^regenerate#</match>
 			<controller>regenerate</controller>
+		</route>
+		<route default="true">
+			<controller>Default</controller>
+			<action>default</action>
 		</route>
 	</site>
 </sites>
