@@ -35,7 +35,7 @@ class Controller_Makeup_Default extends Controller
 
     public function actionTopic($params)
     {
-        $view  = new View_Html('default');
+        $view  = new View_Html('makeup-and-style/default');
         $this->prepareNavigation($view, $params['path']);
     
         if ($view->topic->parent == 0)
@@ -96,7 +96,7 @@ class Controller_Makeup_Default extends Controller
 
     public function actionArticle($params)
     {
-        $view = new View_Html('article');
+        $view = new View_Html('makeup-and-style/article');
 
         $this->prepareNavigation($view, $params['path']);
 
