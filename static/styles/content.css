@@ -1,0 +1,45 @@
+#body
+{
+	font-size: 12px;
+	font-family: Verdana, Tahoma, Arial, sans-serif;
+}
+
+#body h1, #body h2, #body h3,
+#body h4, #body h5, #body h6
+{
+	font-family: "Bitstream Vera Sans", Verdana, Tahoma, Arial, sans-serif;
+	margin: 0.5em 0 0.2em 0;
+	padding: 0;
+}
+
+#body h2
+{
+	font-size: 150%;
+}
+
+#body p
+{
+	font-size: 100%;
+	margin: 0 0 1em 0;
+}
+
+#body abbr
+{
+	border-bottom: 1px dashed;
+	cursor: pointer;
+	cursor: hand;
+}
+
+#body ol.itemlist li p
+{
+	margin: 0.3em 0 1em 0;
+	font-size: 95%;
+}
+
+#body ol.itemlist li ins
+{
+	font-size: 80%;
+	text-decoration: none;
+	color: #a9a9a9;
+}
+

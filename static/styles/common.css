@@ -1,0 +1,5 @@
+a { color: green; text-decoration: none; border-bottom: 1px dotted lightgreen; }
+a:visited { color: darkgreen; }
+a:hover { color: white; background: green; text-decoration: none; }
+img { border: none; } 
+
