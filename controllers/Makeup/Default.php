@@ -3,7 +3,7 @@
  * @package Site
  * Default controller
  */
-class Controller_Default extends Controller
+class Controller_Makeup_Default extends Controller
 {
 
     protected $_actions = array(
