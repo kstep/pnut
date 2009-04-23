@@ -173,3 +173,37 @@ ul#validators li
 	display: inline;
 }
 /* }}} validators */
+
+a.secure
+{
+	background-image: url(../images/lock.gif);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	padding-left: 7px;
+}
+a.secure:hover
+{
+	background-image: url(../images/locki.gif);
+}
+
+ul#topmenu li a.secure
+{
+	padding-left: 17px;
+}
+
+a.external
+{
+	background-image: url(../images/ext.gif);
+	background-repeat: no-repeat;
+	background-position: 80% center;
+	padding-right: 7px;
+}
+a.external:hover
+{
+	background-image: url(../images/exti.gif);
+}
+
+ul#topmenu li a.external
+{
+	padding-right: 17px;
+}
