@@ -1,9 +1,0 @@
-<?xml version='1.0' standalone='yes'?>
-<storage>
-    <class>db_mysql</class>
-    <hostname>localhost</hostname>
-    <port>0</port>
-    <username>root</username>
-    <password>vecrekhen</password>
-    <database>nastya</database>
-</storage>
