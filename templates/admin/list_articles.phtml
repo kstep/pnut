@@ -21,7 +21,7 @@ $this->breadcrumb = $this->topicId? array(
 	<div class="description"><?=$this->topic->description?></div>
     <table class="itemsList" summary="Статьи из раздела">
 		<thead>
-		<tr><th style="width: 2em;">№</th><th>Заголовок</th><th>Название</th><th>Создана / изменена</th><th>Опубликована / архивирована</th><th>&nbsp;</th></tr>
+		<tr><th style="width: 2em;">&#8470;</th><th>Заголовок</th><th>Название</th><th>Создана / изменена</th><th>Опубликована / архивирована</th><th>&nbsp;</th></tr>
 		</thead>
 		<tbody>
     <? foreach ($this->topic->getArticles() as $item): ?>
