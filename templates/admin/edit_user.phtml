@@ -1,13 +1,21 @@
 <? $this->title = "Правка пользователя" ?>
 <? $this->groupId = $this->user->group ?>
+<? $this->breadcrumb = array(
+	$this->pathTo("Group", "default") => "Пользователи",
+	$this->pathTo("Group", "default", array( "id" => $this->user->group )) => "Группа &laquo;".$this->user->getGroup()->title."&raquo;",
+	"" => "Пользователь &laquo;".$this->user->username."&raquo;"
+) ?>
 <? include("header.phtml") ?>
-<? include("navigation.phtml") ?>
 
-<div id="pageContent">
+<div id="navigation">
+<? include("nav_groups.phtml") ?>
+</div>
+
+<div id="contents">
 <? if ($this->user->getId()): ?>
-<h1>&laquo;<?=$this->user->username?>&raquo; <small>(<?=$this->user->login?>)</small></h1>
+<h2>&laquo;<?=$this->user->username?>&raquo; <small>(<?=$this->user->login?>)</small></h2>
 <? else: ?>
-<h1>Новый пользователь</h1>
+<h2>Новый пользователь</h2>
 <? endif ?>
 
 <form action="#" method="post">

@@ -100,3 +100,9 @@ dl dd.odd, dl dt.odd
 {
 	background: #eeeeee;
 }
+
+ul#topmenu li a.notimplemented
+{
+	text-decoration: line-through;
+	color: #800000;
+}

@@ -2,6 +2,14 @@
 $this->title = "Список групп";
 $this->groupId = $this->group? $this->group->getId(): 0;
 ?>
+<?
+$this->breadcrumb = $this->groupId? array(
+	$this->pathTo("Group", "default") => "Пользователи",
+	"" => "Группа &laquo;".$this->group->title."&raquo;",
+): array(
+	"" => "Пользователи",
+);
+?>
 <? include("header.phtml") ?>
 
 <div id="navigation">

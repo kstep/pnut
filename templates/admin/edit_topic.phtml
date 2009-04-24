@@ -2,12 +2,15 @@
 <? $this->topicId = $this->topic->getId() ?>
 <? include("header.phtml") ?>
 
-<? include("navigation.phtml") ?>
-<div id="pageContent">
+<div id="navigation">
+<? include("nav_topics.phtml") ?>
+</div>
+
+<div id="contents">
 <? if ($this->topic->getId()): ?>
-<h1>&laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h1>
+<h2>&laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h2>
 <? else: ?>
-<h1>Новый раздел</h1>
+<h2>Новый раздел</h2>
 <? endif ?>
 
 <form action="#" method="post">
