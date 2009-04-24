@@ -42,6 +42,7 @@ body
 #header h1 a:hover
 {
 	background: transparent;
+	color: black;
 }
 /* header }}} */
 
