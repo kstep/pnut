@@ -13,11 +13,11 @@ $this->topicId = $this->topic? $this->topic->getId(): 0;
 	<div class="description"><?=$this->topic->description?></div>
     <table class="itemsList">
 		<thead>
-		<tr><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
+		<tr><th style="width: 2em;">№</th><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
 		</thead>
 		<tbody>
     <? foreach ($this->topic->getArticles() as $item): ?>
-		<tr id="a<?=$item->getId()?>" class="<?=$item->type?>"><td><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td><a class="remove" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
+		<tr id="a<?=$item->getId()?>" class="<?=$item->type?>"><td><?=$item->order?></td><td><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td><a class="remove" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
         <tr id="anew"><td colspan="3"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></td></tr>
 		</tbody>
