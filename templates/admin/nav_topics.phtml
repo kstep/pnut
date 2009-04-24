@@ -9,4 +9,5 @@
 	<? if ($this->topics->getLevel() > 1): ?><?=str_repeat("</li></ul>", $this->topics->getLevel()-1)?><? endif ?>
     </li>
 </ul>
+<h2><a href="<?=$this->pathTo("Topic", "trashcan")?>">Корзина</a></h2>
 </div>
