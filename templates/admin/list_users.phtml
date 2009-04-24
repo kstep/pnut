@@ -8,18 +8,24 @@ $this->groupId = $this->group? $this->group->getId(): 0;
 <? include("nav_groups.phtml") ?>
 </div>
 
-<div id="content">
+<div id="contents">
 <div id="users">
 <? if ($this->group): ?>
-	<h1>&laquo;<?=$this->group->title?>&raquo; <small>(<?=$this->group->name?>)</small></h1>
-    <ul class="itemsList">
+	<h2>Пользователи в группе &laquo;<?=$this->group->title?>&raquo; <small>(<?=$this->group->name?>)</small></h2>
+    <table class="itemsList" summary="Пользователи в группе">
+	<thead>
+	<tr><th>Имя пользователя</th><th>Логин</th><th>Роль</th><th>Создан</th><th>E-mail</th><th>&nbsp;</th></tr>
+	</thead>
+	<tbody>
     <? foreach ($this->group->getUsers() as $item): ?>
-		<li id="u<?=$item->getId()?>"><a class="<?=$item->role?>" href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a> <small>(<?=$item->login?>)</small><span class="actions"><a class="remove" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></span></li>
+		<tr id="u<?=$item->getId()?>" class="<?=$item->role?>"><td><a href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a></td><td><?=$item->login?></td><td><?=$item->role?></td><td><?=date("d.m.Y H:i", $item->created)?></td><td><a href="mailto:<?=$item->email?>"><?=$item->email?></a></td><td><a class="remove" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
-        <li id="unew"><a class="add" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></li>
-    </ul>
+        <tr id="unew"><td colspan="6"><a class="add" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></td></tr>
+	</tbody>
+    </table>
+	<script type="text/javascript">$("table tbody tr:odd").addClass("odd");</script>
 <? else: ?>
-	<h1>Группы</h1>
+	<h2>Пользователей в этой группе нет</h2>
 <? endif ?>
 </div>
 

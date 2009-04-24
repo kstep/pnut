@@ -210,3 +210,8 @@ ul#topmenu li a.external
 {
 	padding-right: 17px;
 }
+
+.hidden
+{
+	display: none !important;
+}
