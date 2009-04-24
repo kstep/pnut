@@ -1,0 +1,78 @@
+body
+{
+	width: 80%;
+}
+
+#body h2
+{
+	font-size: 105%;
+	margin: 1em 0;
+}
+
+#navigation h2
+{
+	margin: 0 0 0.5em 0;
+}
+
+#navigation
+{
+	float: left;
+	width: 250px;
+	margin-bottom: 1em;
+}
+
+#navigation ul
+{
+	margin: 0 0 1em 1.5em;
+	padding: 0 0 0 0.1em;
+	list-style: disc;
+}
+
+#navigation ul ul
+{
+	margin-left: 1.0em;
+	margin-bottom: 0;
+}
+
+#contents
+{
+	margin-left: 250px;
+}
+
+#navigation ul li.active a
+{
+	font-weight: bold;
+}
+#navigation ul li.active li a
+{
+	font-weight: normal;
+}
+
+table
+{
+	border-collapse: collapse;
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: 98%;
+}
+table td,
+table th
+{
+	margin: 0;
+	text-align: left;
+	padding: 2px 4px;
+	border-bottom: 1px solid #f6f6f6;
+}
+table tr.odd td
+{
+	background-color: #f6f6f6;
+}
+
+table th
+{
+	background: #eeeeee;
+	border: 1px #d3d3d3;
+	border-style: solid none;
+	color: black;
+}
