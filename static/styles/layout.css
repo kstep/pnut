@@ -136,6 +136,7 @@ ul#breadcrumb li
 	border-style: solid none;
 	background: #eeeeee;
 	padding: 0.5em 0.4em 0.8em 0.5em;
+	clear: both;
 }
 
 #footer a

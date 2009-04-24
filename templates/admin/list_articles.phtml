@@ -3,11 +3,13 @@ $this->title = "Список разделов";
 $this->topicId = $this->topic? $this->topic->getId(): 0;
 ?>
 <? include("header.phtml") ?>
-<? include("navigation.phtml") ?>
-<div id="pageContent">
+<div id="navigation">
+<? include("nav_topics.phtml") ?>
+</div>
+<div id="content">
 <div id="articles">
 <? if ($this->topic): ?>
-	<h1>&laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h1>
+	<h2>Статьи из &laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h2>
 	<div class="description"><?=$this->topic->description?></div>
     <ul class="itemsList">
     <? foreach ($this->topic->getArticles() as $item): ?>
@@ -16,7 +18,7 @@ $this->topicId = $this->topic? $this->topic->getId(): 0;
         <li id="anew"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></li>
     </ul>
 <? else: ?>
-	<h1>Разделы</h1>
+	<h2>Статьи</h2>
 <? endif ?>
 </div>
 

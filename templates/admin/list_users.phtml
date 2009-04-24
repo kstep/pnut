@@ -3,8 +3,12 @@ $this->title = "Список групп";
 $this->groupId = $this->group? $this->group->getId(): 0;
 ?>
 <? include("header.phtml") ?>
-<? include("navigation.phtml") ?>
-<div id="pageContent">
+
+<div id="navigation">
+<? include("nav_groups.phtml") ?>
+</div>
+
+<div id="content">
 <div id="users">
 <? if ($this->group): ?>
 	<h1>&laquo;<?=$this->group->title?>&raquo; <small>(<?=$this->group->name?>)</small></h1>

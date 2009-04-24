@@ -1,12 +1,16 @@
 <? $this->title = "Правка статьи" ?>
 <? $this->topicId = $this->article->topic ?>
 <? include("header.phtml") ?>
-<? include("navigation.phtml") ?>
-<div id="pageContent">
+
+<div id="navigation">
+<? include("nav_topics.phtml") ?>
+</div>
+
+<div id="content">
 <? if ($this->article->getId()): ?>
-<h1>&laquo;<?=$this->article->title?>&raquo; <small>(<?=$this->article->name?>)</small></h1>
+<h2>&laquo;<?=$this->article->title?>&raquo; <small>(<?=$this->article->name?>)</small></h2>
 <? else: ?>
-<h1>Новая статья</h1>
+<h2>Новая статья</h2>
 <? endif ?>
 
 <? $users = $this->users->fetchAll() ?>
@@ -50,7 +54,7 @@
 		</fieldset>
 	</li>
 
-	<? show_rights($this, $this->article) ?>
+	<? //show_rights($this, $this->article) ?>
 
     <li id="attachments">
         <fieldset>
@@ -85,7 +89,16 @@
 </ol>
 </form>
 
-<?=$this->tinymce()?>
+<script type="text/javascript">
+$("fieldset > ol, fieldset > table").hide();
+$("fieldset > legend").click(function (ev)
+	{
+		var $me = $(ev.target.parentNode);
+		$me.find("ol, table").toggle("fast");
+	});
+</script>
+
+<?//=$this->tinymce()?>
 <script type="text/javascript">
 $('#title').blur(function () {
 	var title = $('#title').val();
