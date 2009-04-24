@@ -43,8 +43,17 @@
 		<li class="separator right"><a href="#manage">Вы зашли как <strong style="text-transform: capitalize;"><?=$_SERVER['PHP_AUTH_USER']?></strong></a></li>
 	</ul>
 	<ul id="breadcrumb">
-		<li><a href="#">Контент</a></li>
-		<li>Разделы</li>
+		<? if ($this->breadcrumb): ?>
+		<? foreach ($this->breadcrumb as $link => $title): ?>
+		<? if ($link): ?>
+		<li><a href="<?=$link?>"><?=$title?></a></li>
+		<? else: ?>
+		<li><?=$title?></li>
+		<? endif ?>
+		<? endforeach ?>
+		<? else: ?>
+		<li>Контент</li>
+		<? endif ?>
 	</ul>
 </div>
 <div id="body">

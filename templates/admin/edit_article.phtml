@@ -1,5 +1,10 @@
 <? $this->title = "Правка статьи" ?>
 <? $this->topicId = $this->article->topic ?>
+<? $this->breadcrumb = array(
+	$this->pathTo("Topic", "default") => "Контент",
+	$this->pathTo("Topic", "default", array( "id" => $this->article->topic )) => "Раздел &laquo;".$this->article->getTopic()->title."&raquo;",
+	"" => "Статья &laquo;".$this->article->title."&raquo;",
+) ?>
 <? include("header.phtml") ?>
 
 <div id="navigation">

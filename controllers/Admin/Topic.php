@@ -7,14 +7,15 @@
 class Controller_Admin_Topic extends Controller_Admin
 {
     protected $_actions = array(
-        'default' => 'actionDefault',
-        'edit'    => 'actionEdit',
-        'new'     => 'actionNew',
+        'default'  => 'actionDefault',
+        'edit'     => 'actionEdit',
+        'new'      => 'actionNew',
 
-        'remove'  => 'actionRemove',
-        'move'    => 'actionMove',
-		'reorder' => 'actionReorder',
-		'create'  => 'actionCreate',
+        'remove'   => 'actionRemove',
+        'move'     => 'actionMove',
+        'reorder'  => 'actionReorder',
+        'create'   => 'actionCreate',
+        'trashcan' => 'actionTrashcan',
     );
 
 	protected function init()
@@ -348,5 +349,17 @@ class Controller_Admin_Topic extends Controller_Admin
 		return $view;
 	}
 
+	public function actionTrashcan($params)
+	{
+		$view = $this->htmlView("list_trashcan");
+		$olist = array();
+		foreach (array('Статьи' => 'Article', 'Разделы' => 'Topic'/*, 'Опросы' => 'Poll'*/, 'Комментарии' => 'Comment') as $title => $oname)
+		{
+			$class = "Model_List_$oname";
+			$olist[$title] = new $class ($this->getStorage(), "FIND_IN_SET('removed', flags) > 0");
+		}
+		$view->trashcan = $olist;
+		return $view;
+	}
 }
 ?>

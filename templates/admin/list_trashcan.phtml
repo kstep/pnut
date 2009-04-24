@@ -1,0 +1,38 @@
+<?
+$this->title = "Козрина";
+$this->topicId = $this->topic? $this->topic->getId(): 0;
+?>
+<?
+$this->breadcrumb = array(
+	"" => "Корзина",
+);
+?>
+<? include("header.phtml") ?>
+<div id="navigation">
+<? include("nav_topics.phtml") ?>
+</div>
+<div id="contents">
+<div id="trashcan">
+
+	<h2>Корзина</h2>
+
+<table class="itemsList" summary="Корзина">
+<thead>
+<tr><th style="width: 1em;"><input type="checkbox" /></th><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
+</thead>
+<tbody>
+<? foreach ($this->trashcan as $title => $olist): ?>
+<? if (count($olist)): ?>
+<tr><th><input type="checkbox" /></th><th colspan="2"><?=$title?></th><th></th></tr>
+<? foreach ($olist as $item): ?>
+<tr><td><input type="checkbox" /></td><td><?=$item->title?></td><td><?=$item->name?></td><td></td></tr>
+<? endforeach ?>
+<? endif ?>
+<? endforeach ?>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<? include("footer.phtml") ?>

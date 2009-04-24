@@ -1,12 +1,23 @@
 <? $this->title = "Правка комментария" ?>
 <? $this->topicId = $this->comment->topic ?>
+<? $this->breadcrumb = array(
+	$this->pathTo("Topic", "default") => "Контент",
+	$this->pathTo("Topic", "default", array( "id" => $this->comment->getArticle()->topic )) => "Раздел &laquo;".$this->comment->getArticle()->getTopic()->title."&raquo;",
+	$this->pathTo("Article", "edit", array( "id" => $this->comment->article )) => "Статья &laquo;".$this->comment->getArticle()->title."&raquo;",
+	$this->pathTo("User", "edit", array( "id" => $this->comment->author )) => "Пользователь ".($this->comment->author? "&laquo;".$this->comment->getAuthor()->username."&raquo;": "&laquo;{$this->comment->username}&raquo;"),
+	"" => "Комментарий &laquo;".$this->comment->title."&raquo;"
+) ?>
 <? include("header.phtml") ?>
-<? include("navigation.phtml") ?>
-<div id="pageContent">
+
+<div id="navigation">
+<? include("nav_topics.phtml") ?>
+</div>
+
+<div id="contents">
 <? if ($this->comment->getId()): ?>
-<h1>&laquo;<?=$this->comment->title?>&raquo;</h1>
+<h2>Комментарий &laquo;<?=$this->comment->title?>&raquo;</h2>
 <? else: ?>
-<h1>Новый комментарий</h1>
+<h2>Новый комментарий</h2>
 <? endif ?>
 
 <form action="#" method="post">
@@ -21,15 +32,6 @@
             <legend>Опции</legend>
             <ol class="checklist">
                 <li class="checklist"><?=$this->checklist("flags", array( "hidden" => "Скрыт", "removed" => "В корзине" ), false, $this->comment->flags)?></li>
-            </ol>
-        </fieldset>
-    </li>
-    <li id="connections">
-        <fieldset>
-            <legend>Связи</legend>
-            <ol>
-                <li>Статья <a href="<?=$this->pathTo('Admin_Article', 'edit', array( 'id' => $this->comment->article ))?>">&laquo;<?=$this->comment->getArticle()->title?>&raquo;</a>.</li>
-                <li>Автор <? if ($this->comment->author): ?><a href="<?=$this->pathTo('Admin_User', 'edit', array( 'id' => $this->comment->author ))?>"><?=$this->comment->getAuthor()->username?></a><? else: ?>в базе данных отсутствует<? endif ?>.</li>
             </ol>
         </fieldset>
     </li>

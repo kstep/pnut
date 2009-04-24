@@ -1,12 +1,23 @@
 <? $this->title = "Правка вложения" ?>
 <? $this->topicId = $this->attachment->topic ?>
+<? $this->breadcrumb = array(
+	$this->pathTo("Topic", "default") => "Контент",
+	$this->pathTo("Topic", "default", array( "id" => $this->attachment->getArticle()->topic )) => "Раздел &laquo;".$this->attachment->getArticle()->getTopic()->title."&raquo;",
+	$this->pathTo("Article", "edit", array( "id" => $this->attachment->article )) => "Статья &laquo;".$this->attachment->getArticle()->title."&raquo;",
+	$this->pathTo("User", "edit", array( "id" => $this->attachment->author )) => "Пользователь &laquo;".$this->attachment->getAuthor()->username."&raquo;",
+	"" => "Вложение &laquo;".$this->attachment->title."&raquo;",
+) ?>
 <? include("header.phtml") ?>
-<? include("navigation.phtml") ?>
-<div id="pageContent">
+
+<div id="navigation">
+<? include("nav_topics.phtml") ?>
+</div>
+
+<div id="contents">
 <? if ($this->attachment->getId()): ?>
-<h1>&laquo;<?=$this->attachment->title?>&raquo; <small>(<?=$this->attachment->filename?>)</small></h1>
+<h2>Вложение &laquo;<?=$this->attachment->title?>&raquo; <small>(<?=$this->attachment->filename?>)</small></h2>
 <? else: ?>
-<h1>Новое вложение</h1>
+<h2>Новое вложение</h2>
 <? endif ?>
 
 <form action="#" method="post" enctype="multipart/form-data">
@@ -20,22 +31,22 @@
     <li id="information">
         <fieldset>
             <legend>Информация о файле</legend>
-            <ol>
-                <li>Присоединён к статье <a href="<?=$this->pathTo('Admin_Article', 'edit', array( 'id' => $this->attachment->article ))?>">&laquo;<?=$this->attachment->getArticle()->title?>&raquo;</a>.</li>
-				<li>Размер <u><?=Filter_File::humanizeSize($this->attachment->filesize)?> (<?=$this->attachment->filesize?> <?=Filter_Date::wordform($this->attachment->filesize, "байт", "байта", "байтов")?>)</u>.</li>
-				<li>Хэш MD5 &laquo;<u><?=$this->attachment->md5hash?></u>&raquo;.</li>
-				<li>Расположен по пути &laquo;<u><?=$this->attachment->getFilepath()?></u>&raquo;.</li>
-				<li><? if ($check = $this->attachment->checkFile()): ?>Файл на месте и полностью исправен, так что <a href="<?=$this->pathTo('File', 'download', array( 'id' => $this->attachment->getId() ))?>">его можно скачать</a> или <a href="<?=$this->pathTo('File', 'view', array( 'id' => $this->attachment->getId() ))?>">посмотреть в браузере</a>.<? elseif ($check === null): ?>Файл по указанному пути не найден.<? else: ?>Файл найден, но был повреждён или изменён в обход системы.<? endif ?></li>
+            <dl>
+				<dt>Размер</dt><dd><?=Filter_File::humanizeSize($this->attachment->filesize)?> (<?=$this->attachment->filesize?> <?=Filter_Date::wordform($this->attachment->filesize, "байт", "байта", "байтов")?>)</dd>
+				<dt>Хэш MD5</dt><dd><?=$this->attachment->md5hash?></dd>
+				<dt>Расположен по пути</dt><dd><?=$this->attachment->getFilepath()?></dd>
+				<dt>Статус</dt><dd><? if ($check = $this->attachment->checkFile()): ?>Файл исправен: <a href="<?=$this->pathTo('File', 'download', array( 'id' => $this->attachment->getId() ))?>">скачать</a> / <a href="<?=$this->pathTo('File', 'view', array( 'id' => $this->attachment->getId() ))?>">посмотреть</a><? elseif ($check === null): ?>Файл не найден.<? else: ?>Файл повреждён<? endif ?></dd>
 				<? if ($check && $this->attachment->isImage()): ?>
 				<? list($width, $height) = getimagesize($this->attachment->getFilepath()) ?>
-				<li>Размеры изображения <u><?=$width?>x<?=$height?></u>.<br />
-				<img src="<?=$this->pathTo('Image', 'thumbnail', array( 'id' => $this->attachment->getId(), 'scale' => 200 ))?>" /></li>
+				<dt>Размеры изображения</dt><dd><?=$width?>x<?=$height?></dd>
+				<dt>Миниатюра</dt><dd><img src="<?=$this->pathTo('Image', 'thumbnail', array( 'id' => $this->attachment->getId(), 'scale' => 200 ))?>" /></dd>
 				<? endif ?>
-            </ol>
+            </dl>
+			<script type="text/javascript">$("dl dd:odd, dl dt:odd").addClass("odd");</script>
         </fieldset>
     </li>
 
-	<? show_rights($this, $this->attachment) ?>
+	<? //show_rights($this, $this->attachment) ?>
 
     <li id="timestamps">
         <fieldset>
@@ -54,6 +65,15 @@
     </li>
 </ol>
 </form>
+
+<script type="text/javascript">
+$("fieldset > ol, fieldset > table, fieldset > dl").addClass("hidden");
+$("fieldset > legend").click(function (ev)
+	{
+		var $me = $(ev.target.parentNode);
+		$me.find("ol, table, dl").toggleClass("hidden");
+	});
+</script>
 
 <?=$this->tinymce()?>
 </div>
