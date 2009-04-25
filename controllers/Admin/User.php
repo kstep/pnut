@@ -21,10 +21,6 @@ class Controller_Admin_User extends Controller_Admin
 			$errors = array();
 			if ($_POST['password'] !== $_POST['checkpass'])
 				$errors['checkpass'] = _('Passwords don\'t match');
-			elseif (!empty($_POST['password']))
-				$_POST['password'] = md5($_POST['password']);
-			else
-				unset($_POST['password']);
 
 			if (!isset($_POST['flags'])) $_POST['flags'] = array();
             $user->setData($_POST);

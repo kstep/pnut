@@ -39,6 +39,19 @@ class Model_User extends Model_Actor implements Model_Validatable
 
     protected $_table = "users";
 
+	public function __construct(Storage_Db $db, $id = null, $password = null)
+	{
+		if ($password !== null)
+		{
+			$password = md5($password);
+			if (is_array($id))
+				$id['password'] = $password;
+			else
+				$id = array('login' => $id, 'password' => $password);
+		}
+		parent::__construct($db, $id);
+	}
+
     public function getGroup()
     {
         return new Model_Group($this->_db, $this->group);
@@ -56,6 +69,27 @@ class Model_User extends Model_Actor implements Model_Validatable
 		else
 			parent::__set($name, $value);
 	}*/
+
+	public function setPassword($password)
+	{
+		$this->password = md5($password);
+	}
+
+	public function checkPassword($password)
+	{
+		return $this->password == md5($password);
+	}
+
+	public function setData(array $data)
+	{
+		if (isset($data['password']))
+		{
+			if (!empty($data['password']))
+				$this->setPassword($data['password']);
+			unset($data['password']);
+		}
+		parent::setData($data);
+	}
 
 	public function validate(array $attributes = array())
 	{

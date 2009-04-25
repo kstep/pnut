@@ -61,7 +61,7 @@ class Authorizator
      */
     protected function createUser($username, $password)
     {
-        return new Model_User($this->_storage, array( "login" => $username, "password" => md5($password) ));
+        return new Model_User($this->_storage, $username, $password);
     }
 
 
