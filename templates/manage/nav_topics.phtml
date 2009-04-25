@@ -11,7 +11,28 @@
 </ul>
 <h2><a href="<?=$this->pathTo("Topic", "trashcan")?>">Корзина</a></h2>
 </div>
+
+<ol id="topicsMenu" class="contextMenu" style="display: none;">
+<li class="edit"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
+<li class="rename"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
+<li class="remove"><a title="Удалить раздел" href="#remove">Удалить</a></li>
+</ol>
+
 <script type="text/javascript">
 $("#topics ul").sortable();
 $("#topics ul li a").draggable();
+$("#topics ul li a").contextMenu({ menu: 'topicsMenu' },
+function (action, item, pos)
+{
+	switch (action)
+	{
+	case "edit":
+		window.location = "<?=$this->pathTo('Topic', 'edit')?>/"+$(item).parent().attr("id").substring(1);
+		break;
+	case "rename":
+		break;
+	case "remove":
+		break;
+	}
+});
 </script>

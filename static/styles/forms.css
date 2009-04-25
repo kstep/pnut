@@ -97,7 +97,7 @@ form ol fieldset ol li img
 
 /*form ol */li a.add
 {
-    background: transparent url(../images/admin/icons.gif) no-repeat 0 -17px;
+    background: transparent url(../images/manage/icons.gif) no-repeat 0 -17px;
     padding-left: 18px;
     margin-right: 0.2em;
     line-height: 16px;
@@ -134,7 +134,7 @@ form ol .error div.error
     font-size: 90%;
     text-align: left;
     margin-left: 11em;
-    background: transparent url(../images/admin/arrow.gif) no-repeat left;
+    background: transparent url(../images/manage/arrow.gif) no-repeat left;
     padding-left: 12px;
 }
 
