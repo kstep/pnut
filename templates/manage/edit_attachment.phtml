@@ -42,7 +42,7 @@
 				<dt>Миниатюра</dt><dd><img src="<?=$this->pathTo('Image', 'thumbnail', array( 'id' => $this->attachment->getId(), 'scale' => 200 ))?>" /></dd>
 				<? endif ?>
             </dl>
-			<script type="text/javascript">$("dl dd:odd, dl dt:odd").addClass("odd");</script>
+			<?stripe("dl dd:odd, dl dt:odd")?>
         </fieldset>
     </li>
 
@@ -65,15 +65,6 @@
     </li>
 </ol>
 </form>
-
-<script type="text/javascript">
-$("fieldset > ol, fieldset > table, fieldset > dl").addClass("hidden");
-$("fieldset > legend").click(function (ev)
-	{
-		var $me = $(ev.target.parentNode);
-		$me.find("ol, table, dl").toggleClass("hidden");
-	});
-</script>
 
 <?=$this->tinymce()?>
 </div>

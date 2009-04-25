@@ -32,7 +32,7 @@ $this->breadcrumb = $this->topicId? array(
         <tr id="anew"><td colspan="6"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></td></tr>
 		</tfoot>
     </table>
-	<script type="text/javascript">$("table tbody tr:odd").addClass("odd");$("table.itemsList tbody").sortable();</script>
+	<?=stripe("table tbody tr:odd")?>
 <? else: ?>
 	<h2>Статей в этом разделе нет</h2>
 <? endif ?>

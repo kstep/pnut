@@ -104,15 +104,6 @@
 </ol>
 </form>
 
-<script type="text/javascript">
-$("fieldset > ol, fieldset > table").addClass("hidden");
-$("fieldset > legend").click(function (ev)
-	{
-		var $me = $(ev.target.parentNode);
-		$me.find("ol, table").toggleClass("hidden");
-	});
-</script>
-
 <?=$this->tinymce()?>
 <script type="text/javascript">
 $('#title').blur(function () {

@@ -10,6 +10,11 @@
 		}
 		?>><?
 	}
+
+	function stripe($elems)
+	{
+		?><script type="text/javascript">$("<?=$elems?>").addClass("odd");</script><?
+	}
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
@@ -23,13 +28,24 @@
 	<?=$this->style("form")?>
 	<?=$this->style("ibuttons")?>
 
-    <script type="text/javascript">
-        var sitePrefix = "<?=addslashes($this->_prefix) ?>";
-    </script>
     <?=$this->script("tinymce/tiny_mce")?>
     <?=$this->script("lib/jquery/core")?>
     <?=$this->script("lib/jquery/ui")?>
     <?=$this->script("lib/jquery/contextmenu")?>
+
+    <script type="text/javascript">
+        var sitePrefix = "<?=addslashes($this->_prefix) ?>";
+
+		$(function() {
+			$("fieldset > ol, fieldset > table, fieldset > dl").addClass("hidden");
+			$("fieldset > legend").click(function (ev)
+				{
+					var $me = $(ev.target.parentNode);
+					$me.find("ol, table, dl").toggleClass("hidden");
+				}
+			);
+		});
+    </script>
 </head>
 <body>
 <div id="wrapper">

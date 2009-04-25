@@ -31,7 +31,7 @@ $this->breadcrumb = $this->groupId? array(
         <tr id="unew"><td colspan="6"><a class="add" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></td></tr>
 	</tbody>
     </table>
-	<script type="text/javascript">$("table tbody tr:odd").addClass("odd");</script>
+	<?stripe("table tbody tr:odd")?>
 <? else: ?>
 	<h2>Пользователей в этой группе нет</h2>
 <? endif ?>
