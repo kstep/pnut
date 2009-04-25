@@ -1,0 +1,28 @@
+a.ibutton
+{
+	font-family: Verdana, Arial, sans-serif !important;
+	font-size: 8px;
+	font-weight: bold !important;
+	text-decoration: none !important;
+	color: white !important;
+	border: 1px solid black !important;
+	padding: 0 0.4em 0 0 !important;
+	margin: 0 !important;
+}
+a.ibutton em
+{
+	font-style: normal !important;
+	background: white !important;
+	padding: 0 0.4em !important;
+	margin-right: 0.4em !important;
+}
+
+a.iblue { background: #0066cc !important; }
+a.iblue em { color: #0066cc !important; }
+
+a.iorange { background: #cc6600 !important; }
+a.iorange em { color: #cc6600 !important; }
+
+a.igreen { background: #008000 !important; }
+a.igreen em { color: #008000 !important; }
+
