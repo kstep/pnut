@@ -1,13 +1,19 @@
 <div id="topics" class="moduleBox">
 <h2>Разделы</h2>
 <ul>
-<? foreach ($this->topics as $topic): ?>
-    <? if ($this->topics->getStep() > 0): ?><?=str_repeat("<ul>", $this->topics->getStep())?><? elseif ($this->topics->getStep() < 0): ?><?=str_repeat("</li></ul></li>", -($this->topics->getStep()))?><? elseif (!$this->topics->isFirst()): ?></li><? endif ?>
-    <li id="t<?=$topic->getId()?>"<? if ($topic->getId() == $this->topicId): ?> class="active"<?endif?>>
-		<a href="<?=$this->pathTo("Admin_Topic", "default", array( 'id' => $topic->getId() ))?>" title="<?=$topic->name?>"><?=$topic->title?></a>
-<? endforeach ?>
-	<? if ($this->topics->getLevel() > 1): ?><?=str_repeat("</li></ul>", $this->topics->getLevel()-1)?><? endif ?>
-    </li>
+	<li id="troot"><a href="#">Корень</a>
+
+	<ul>
+		<? foreach ($this->topics as $topic): ?>
+		<? if ($this->topics->getStep() > 0): ?><?=str_repeat("<ul>", $this->topics->getStep())?><? elseif ($this->topics->getStep() < 0): ?><?=str_repeat("</li></ul></li>", -($this->topics->getStep()))?><? elseif (!$this->topics->isFirst()): ?></li><? endif ?>
+		<li id="t<?=$topic->getId()?>"<? if ($topic->getId() == $this->topicId): ?> class="active"<?endif?>>
+			<a href="<?=$this->pathTo("Admin_Topic", "default", array( 'id' => $topic->getId() ))?>" title="<?=$topic->name?>"><?=$topic->title?></a>
+		<? endforeach ?>
+		<? if ($this->topics->getLevel() > 1): ?><?=str_repeat("</li></ul>", $this->topics->getLevel()-1)?><? endif ?>
+		</li>
+	</ul>
+
+	</li>
 </ul>
 <h2><a href="<?=$this->pathTo("Topic", "trashcan")?>">Корзина</a></h2>
 </div>
@@ -16,16 +22,33 @@
 <li class="edit"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
 <li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
 <li class="rename"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
-<li class="remove"><a title="Удалить раздел" href="#remove">Удалить</a></li>
+<li class="cut separator"><a title="Вырезать раздел для вставки в другой в качестве подраздела" href="#cut">Вырезать</a></li>
+<li class="paste disabled"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
+<li class="remove separator"><a title="Удалить раздел" href="#remove">Удалить</a></li>
 </ol>
 
+<ol id="rootTopicMenu" class="contextMenu" style="display: none;">
+<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
+<li class="paste disabled separator"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
+</ol>
+
+<form id="renameTopic" class="popupForm" action="#" style="display: none;">
+	<h3>Переименовать</h3>
+	<ol>
+		<li><label for="ttitle">Заголовок</label><input type="text" value="" id="ttitle" name="title" /></li>
+		<li><label for="tname">Название</label><input type="text" value="" id="tname" name="name" /></li>
+		<li><input type="reset" value="Отмена" class="reset" onclick="$('#renameTopic').hide();" /><input type="submit" value="ОК" class="submit" /></li>
+	</ol>
+</form>
+
 <script type="text/javascript">
-$("#topics ul").sortable();
-$("#topics ul li a").draggable();
-$("#topics ul li a").contextMenu({ menu: 'topicsMenu' },
-function (action, item, pos)
+//<![CDATA[
+var cut_topic_id;
+function handle_topic_context_menu(action, item, pos)
 {
-	var itemid = $(item).parent().attr("id").substring(1);
+	var $href = $(item);
+	var $item = $(item).parent();
+	var itemid = $item.attr("id").substring(1);
 	switch (action)
 	{
 	case "edit":
@@ -34,10 +57,40 @@ function (action, item, pos)
 	case "create":
 		window.location = "<?=$this->pathTo('Topic', 'new')?>/"+itemid;
 		break;
+	case "cut":
+		if (cut_topic_id) $("#t"+cut_topic_id).removeClass("cut");
+		cut_topic_id = itemid;
+		$item.addClass("cut");
+		$(".contextMenu li.paste").removeClass("disabled");
+		break;
+	case "paste":
+		if (cut_topic_id)
+		{
+			var $cutitem = $("#t"+cut_topic_id).removeClass("cut");
+			var $ul = $item.find("ul:first");
+			if ($ul.length == 0)
+			   	$ul = $("<ul>").appendTo($item);
+			$ul.append($cutitem);
+			cut_topic_id = null;
+			$(".contextMenu li.paste").addClass("disabled");
+		}
+		break;
 	case "rename":
+		var pos = $item.offset();
+		pos.top += $href.height();
+		$("#renameTopic")
+			.css(pos)
+			.find("#ttitle").val($href.text()).end()
+			.find("#tname").val($href.attr("title")).end()
+			.show()
+			.find("#ttitle").focus();
 		break;
 	case "remove":
 		break;
 	}
-});
+}
+$("#topics ul li#troot ul").sortable();
+$("#topics ul li#troot ul li a").contextMenu({ menu: 'topicsMenu' }, handle_topic_context_menu);
+$("#topics ul li#troot > a").contextMenu({ menu: 'rootTopicMenu' }, handle_topic_context_menu);
+//]]>
 </script>

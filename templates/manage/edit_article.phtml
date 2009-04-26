@@ -21,7 +21,6 @@
 <? $users = $this->users->fetchAll() ?>
 
 <form action="#" method="post" enctype="multipart/form-data">
-<?=$this->hidden("topic", $this->article->topic)?>
 <ol>
     <?li($this, 'title')?><?=$this->input("title", $this->article->title, "Заголовок")?></li>
     <?li($this, 'name')?><?=$this->input("name", $this->article->name, "Название")?></li>
@@ -100,6 +99,7 @@
         <input type="submit" value="Сохранить" />
         <input type="reset" value="Сбросить" />
         <input type="hidden" name="save" value="1" />
+		<?=$this->hidden("topic", $this->article->topic)?>
     </li>
 </ol>
 </form>

@@ -1,12 +1,18 @@
 <div id="groups" class="moduleBox">
 <h2>Группы</h2>
 <ul>
-	<? foreach ($this->groups as $group): ?>
-    <? if ($this->groups->getStep() > 0): ?><?=str_repeat("<ul>", $this->groups->getStep())?><? elseif ($this->groups->getStep() < 0): ?><?=str_repeat("</li></ul></li>", -($this->groups->getStep()))?><? elseif (!$this->groups->isFirst()): ?></li><? endif ?>
-    <li id="g<?=$group->getId()?>"<? if ($group->getId() == $this->groupId): ?> class="active"<?endif?>>
-        <a href="<?=$this->pathTo("Admin_Group", "default", array( 'id' => $group->getId() ))?>" title="<?=$group->name?>"><?=$group->title?></a>
-	<? endforeach ?>
-	<? if ($this->groups->getLevel() > 1): ?><?=str_repeat("</li></ul>", $this->groups->getLevel()-1)?><? endif ?>
+	<li id="groot"><a href="#">Корень</a>
+
+	<ul>
+		<? foreach ($this->groups as $group): ?>
+		<? if ($this->groups->getStep() > 0): ?><?=str_repeat("<ul>", $this->groups->getStep())?><? elseif ($this->groups->getStep() < 0): ?><?=str_repeat("</li></ul></li>", -($this->groups->getStep()))?><? elseif (!$this->groups->isFirst()): ?></li><? endif ?>
+		<li id="g<?=$group->getId()?>"<? if ($group->getId() == $this->groupId): ?> class="active"<?endif?>>
+			<a href="<?=$this->pathTo("Admin_Group", "default", array( 'id' => $group->getId() ))?>" title="<?=$group->name?>"><?=$group->title?></a>
+		<? endforeach ?>
+		<? if ($this->groups->getLevel() > 1): ?><?=str_repeat("</li></ul>", $this->groups->getLevel()-1)?><? endif ?>
+		</li>
+	</ul>
+
 	</li>
 </ul>
 </div>

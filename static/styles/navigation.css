@@ -132,6 +132,11 @@ ol.contextMenu li a:hover
 	background-color: #008000;
 	color: white;
 }
+ol.contextMenu li.disabled
+{
+	display: none;
+}
+
 
 ol.contextMenu li.edit a
 {
@@ -145,3 +150,78 @@ ol.contextMenu li.rename a
 {
 	background-image: url(../images/manage/rename.png);
 }
+ol.contextMenu li.cut a
+{
+	background-image: url(../images/manage/cut.png);
+}
+ol.contextMenu li.paste a
+{
+	background-image: url(../images/manage/paste.png);
+}
+
+ol.contextMenu li.separator
+{
+	border-top: 1px solid #d3d3d3;
+	margin-top: 0.1em;
+}
+ol.contextMenu li.separator a
+{
+	margin-top: 0.1em;
+}
+
+#navigation ul li.cut a
+{
+	color: #d3d3d3;
+}
+
+#body .popupForm
+{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	background: #f6f6f6;
+	border: 1px solid #d3d3d3;
+	font-size: 90%;
+	width: 16em;
+	display: block;
+}
+#body .popupForm h3
+{
+	margin: 0 0 0.5em 0;
+	padding: 2px 4px;
+	font-size: 100%;
+	background-color: #eeeeee;
+	border-bottom: 1px solid #d3d3d3;
+}
+
+#body .popupForm input
+{
+	border: 1px solid #cccccc;
+	font-size: 90%;
+}
+
+#body .popupForm ol
+{
+	margin: 0.5em 1em;
+}
+#body .popupForm ol li
+{
+	margin: 0.5em 0;
+}
+
+#body .popupForm ol li input
+{
+	width: 98%;
+}
+
+#body .popupForm ol li input.reset,
+#body .popupForm ol li input.submit
+{
+	width: 6em;
+}
+
+#body .popupForm ol li input.reset
+{
+	float: right;
+}
+
