@@ -7,39 +7,43 @@
 class Model_Topic extends Model_TraversedTree implements Model_Rightful
 {
     protected $_fields = array(
-        'id'             => Model::TYPE_INTEGER,
-        'parent_id'      => Model::TYPE_INTEGER,
-        'name'           => Model::TYPE_STRING,
-        'title'          => Model::TYPE_STRING,
-        'description'    => Model::TYPE_STRING,
-        //'owner_id'       => Model::TYPE_INTEGER,
-        //'group_id'       => Model::TYPE_INTEGER,
-        //'rights'         => Model::TYPE_INTEGER,
-        'lside'          => Model::TYPE_INTEGER,
-        'rside'          => Model::TYPE_INTEGER,
-        'subtopic_id'    => Model::TYPE_INTEGER,
-        'article_id'     => Model::TYPE_INTEGER,
-        'items_per_page' => Model::TYPE_INTEGER,
-        'flags'          => Model::TYPE_SET,
-        'type'           => Model::TYPE_ENUM,
+        'id'                 => Model::TYPE_INTEGER,
+        'parent_id'          => Model::TYPE_INTEGER,
+        'name'               => Model::TYPE_STRING,
+        'title'              => Model::TYPE_STRING,
+        'description'        => Model::TYPE_STRING,
+        //'owner_id'         => Model::TYPE_INTEGER,
+        //'group_id'         => Model::TYPE_INTEGER,
+        //'rights'           => Model::TYPE_INTEGER,
+        'lside'              => Model::TYPE_INTEGER,
+        'rside'              => Model::TYPE_INTEGER,
+        'subtopic_id'        => Model::TYPE_INTEGER,
+        'article_id'         => Model::TYPE_INTEGER,
+        'items_per_page'     => Model::TYPE_INTEGER,
+        'flags'              => Model::TYPE_SET,
+        'type'               => Model::TYPE_ENUM,
+        'articles_sort'      => Model::TYPE_ENUM,
+        'articles_sort_desc' => Model::TYPE_BOOLEAN,
     );
 
     protected $_attributes = array(
-        //'id'           => 'id',
-        'parent'         => 'parent_id',
-        'name'           => 'name',
-        'title'          => 'title',
-        'description'    => 'description',
-        //'owner'          => 'owner_id',
-        //'group'          => 'group_id',
-        //'rights'         => 'rights',
-        'lside'          => 'lside',
-        'rside'          => 'rside',
-        'subtopic'       => 'subtopic_id',
-        'article'        => 'article_id',
-        'flags'          => 'flags',
-        'type'           => 'type',
-        'items_per_page' => 'items_per_page',
+        //'id'               => 'id',
+        'parent'             => 'parent_id',
+        'name'               => 'name',
+        'title'              => 'title',
+        'description'        => 'description',
+        //'owner'            => 'owner_id',
+        //'group'            => 'group_id',
+        //'rights'           => 'rights',
+        'lside'              => 'lside',
+        'rside'              => 'rside',
+        'subtopic'           => 'subtopic_id',
+        'article'            => 'article_id',
+        'flags'              => 'flags',
+        'type'               => 'type',
+        'items_per_page'     => 'items_per_page',
+        'articles_sort'      => 'articles_sort',
+        'articles_sort_desc' => 'articles_sort_desc',
     );
 
     protected $_table = 'topics';
@@ -70,7 +74,8 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 		{
 			$id = $this->getId();
 		}
-        return new Model_List_Article($this->_db, array( 'topic_id' => $id ), $this->items_per_page, $page);
+		$desc = $this->articles_sort_desc? " DESC": "";
+        return new Model_List_Article($this->_db, array( 'topic_id' => $id ), $this->items_per_page, $page, "{$this->articles_sort}{$desc}, {$this->_pk}{$desc}");
     }
 
     public function getParent()
