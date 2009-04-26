@@ -32,6 +32,7 @@ $this->breadcrumb = $this->topicId? array(
             <legend>Опции</legend>
             <ol class="checklist">
                 <li class="checklist"><?=$this->checklist("flags", array( "recursive" => "Статьи рекурсивно", "hidden" => "Скрыта", "archived" => "В архиве", "removed" => "В корзине" ), false, $this->topic->flags)?></li>
+				<li><?=$this->select("articles_sort", array( "sortorder" => "вручную", "title" => "по заголовку", "name" => "по названию", "published_at" => "по дате публикации", "archived_at" => "по дате архивирования", "modified_at" => "по дате изменения", "created_at" => "по дате создания" ), $this->topic->articles_sort, "Сортировать статьи")?> <?=$this->checkbox("articles_sort_desc", $this->topic->articles_sort_desc, "в обратном порядке")?></li>
             </ol>
         </fieldset>
     </li>
