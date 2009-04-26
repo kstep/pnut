@@ -46,7 +46,7 @@ class View_Html extends View_Http
     {
         if (is_array($attrs))
         {
-            $result = "";
+            $result = '';
             foreach ($attrs as $name => $value)
                 $result .= ' ' . htmlentities($name) . '="' . htmlentities($value) . '"';
             return $result;
@@ -226,14 +226,15 @@ class View_Html extends View_Http
      * @return void
      * @author kstep
      */
-    public function input($name, $default = "", $label = "", $rows = 1, $cols = "", $attrs = "")
+    public function input($name, $default = "", $label = "", $rows = 1, $cols = 0, $attrs = "")
     {
         $attrs = $this->parseHtmlAttrs($attrs);
+		$cols = (int)$cols;
 
         if ($rows > 1)
             $result = "<textarea name=\"$name\" id=\"$name\" rows=\"$rows\" cols=\"$cols\"$attrs>$default</textarea>";
         else
-            $result = "<input type=\"".($rows < 0? "password": "text")."\" name=\"$name\" id=\"$name\" size=\"$cols\" value=\"$default\"$attrs />";
+            $result = "<input type=\"".($rows < 0? "password": "text")."\" name=\"$name\" id=\"$name\"".($cols > 0? " size=\"$cols\"": '')." value=\"$default\"$attrs />";
 
         if ($label)
             $result = "<label for=\"$name\">$label</label> $result";
