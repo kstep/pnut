@@ -59,7 +59,7 @@ class Controller_Admin_Topic extends Controller_Admin
 		if ($_REQUEST['ajax'])
 		{
 			$view->topicId = $view->topic? $view->topic->getId(): 0;
-			$view->setTemplate('admin/nav_topics');
+			$view->setTemplate('manage/nav_topics');
 		}
         return $view;
     }
@@ -119,6 +119,8 @@ class Controller_Admin_Topic extends Controller_Admin
 
         $view->topic->getRights()->setRights(array('ur','uw','ux','gr','gw','or'), $this->getAuthorizator()->getUser(), $this->getAuthorizator()->getUser()->getGroup());
         $view->topic->order = 0;
+		$view->topic->flags   = array();
+		$view->topic->parent  = (int)$params['id'];
         return $view;
     }
 

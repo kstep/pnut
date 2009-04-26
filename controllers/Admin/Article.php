@@ -66,7 +66,7 @@ class Controller_Admin_Article extends Controller_Admin
 
     public function actionDefault($params)
     {
-        $view = new View_Html('admin/default');
+        $view = new View_Html('manage/default');
         $view->redir('Admin_Topic');
         return $view;
     }
