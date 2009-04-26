@@ -7,13 +7,14 @@
 class Controller_Admin_Topic extends Controller_Admin
 {
     protected $_actions = array(
-        'default'  => 'actionDefault',
+        'default'  => 'actionListArticles',
         'edit'     => 'actionEdit',
         'new'      => 'actionNew',
 
         'remove'   => 'actionRemove',
         'move'     => 'actionMove',
         'reorder'  => 'actionReorder',
+        'rename'   => 'actionRename',
         'create'   => 'actionCreate',
         'trashcan' => 'actionTrashcan',
     );
@@ -49,7 +50,7 @@ class Controller_Admin_Topic extends Controller_Admin
         return false;
     }
 
-    public function actionDefault($params)
+    public function actionListArticles($params)
     {
         $view = $this->htmlView('list_articles');
         if ($params['id'])
@@ -103,9 +104,6 @@ class Controller_Admin_Topic extends Controller_Admin
 
     public function actionNew($params)
     {
-        if ($_REQUEST["ajax"])
-            return $this->actionCreate($params);
-
         $store = $this->getStorage();
         $view  = $this->htmlView('edit_topic');
         $view->topic   = new Model_Topic($store);
@@ -126,9 +124,6 @@ class Controller_Admin_Topic extends Controller_Admin
 
     public function actionEdit($params)
     {
-        if ($_REQUEST['ajax'])
-            return $this->actionRename($params);
-
         $view = $this->htmlView("edit_topic");
         if ($params["id"])
         {

@@ -183,7 +183,7 @@ ol.contextMenu li.separator a
 	border: 1px solid #d3d3d3;
 	font-size: 90%;
 	width: 16em;
-	display: block;
+	display: none;
 }
 #body .popupForm h3
 {
@@ -225,3 +225,21 @@ ol.contextMenu li.separator a
 	float: right;
 }
 
+#body .errorForm
+{
+	background: #ffcccc;
+	border-color: #800000;
+}
+
+#body .errorForm p
+{
+	margin: 0.5em 1em;
+	color: #800000;
+}
+
+#body .errorForm h3
+{
+	color: #ffcccc;
+	background: #cc0000;
+	border-color: #800000;
+}

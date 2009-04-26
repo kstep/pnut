@@ -19,31 +19,87 @@
 </div>
 
 <ol id="topicsMenu" class="contextMenu" style="display: none;">
-<li class="edit"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
-<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
-<li class="rename"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
-<li class="cut separator"><a title="Вырезать раздел для вставки в другой в качестве подраздела" href="#cut">Вырезать</a></li>
-<li class="paste disabled"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
-<li class="remove separator"><a title="Удалить раздел" href="#remove">Удалить</a></li>
+	<li class="edit"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
+	<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
+	<li class="rename"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
+	<li class="cut separator"><a title="Вырезать раздел для вставки в другой в качестве подраздела" href="#cut">Вырезать</a></li>
+	<li class="paste disabled"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
+	<li class="remove separator"><a title="Удалить раздел" href="#remove">Удалить</a></li>
 </ol>
 
 <ol id="rootTopicMenu" class="contextMenu" style="display: none;">
-<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
-<li class="paste disabled separator"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
+	<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
+	<li class="paste disabled separator"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
 </ol>
 
-<form id="renameTopic" class="popupForm" action="#" style="display: none;">
+<form id="question" class="popupForm" action="#">
+	<h3>Вопрос</h3>
+	<ol>
+		<li>&nbsp;</li>
+		<li><input type="reset" value="Нет" class="reset" /><input type="submit" class="submit" value="Да" /></li>
+	</ol>
+</form>
+
+<form id="renameTopic" class="popupForm" action="#">
 	<h3>Переименовать</h3>
 	<ol>
 		<li><label for="ttitle">Заголовок</label><input type="text" value="" id="ttitle" name="title" /></li>
 		<li><label for="tname">Название</label><input type="text" value="" id="tname" name="name" /></li>
-		<li><input type="reset" value="Отмена" class="reset" onclick="$('#renameTopic').hide();" /><input type="submit" value="ОК" class="submit" /></li>
+		<li><input type="reset" value="Отмена" class="reset" /><input type="submit" value="ОК" class="submit" /></li>
 	</ol>
 </form>
+
+<div id="errorForm" class="errorForm popupForm">
+	<h3>Ошибка!</h3>
+	<p>&nbsp;</p>
+</div>
 
 <script type="text/javascript">
 //<![CDATA[
 var cut_topic_id;
+
+function ask_question(question, $obj, href, ajaxaction)
+{
+	var $form = $('#question');
+	var pos = $obj.offset();
+	pos.top += $obj.height();
+	$form.data("ajaxaction", ajaxaction).attr("action", href).css(pos).find("ol li:first-child").text(question).end().show();
+}
+
+function run_form(e)
+{
+	var data = new Object();
+	var $form = $(e.target);
+	var ok_handler = $form.data("ajaxaction");
+	$form.hide().find(":input[name]").each(function(){ data[this.name] = this.value; });
+	data.ajax = true;
+	$.getJSON($form.attr("action"), data, function (result) {
+		if (result.state != "failed" && ok_handler)
+			ok_handler(result);
+		else
+			error_form(result);
+	});
+	return false;
+}
+
+function error_form(result)
+{
+	var $form = $("#errorForm");
+	$form.find("p").text(result.error).end().fadeIn("fast", function(){setTimeout("$('#errorForm').fadeOut('slow')", 5000)});
+}
+
+function rename_topic(result)
+{
+	var $item = $("#topics li#t"+result.id).find("a:first-child");
+	$item.attr("title", result.name).text(result.title);
+}
+
+function remove_topic(result)
+{
+	var $item = $("#topics li#t"+result.id);
+	$item.fadeOut("normal", function(){$(this).remove()});
+}
+
 function handle_topic_context_menu(action, item, pos)
 {
 	var $href = $(item);
@@ -79,6 +135,7 @@ function handle_topic_context_menu(action, item, pos)
 		var pos = $item.offset();
 		pos.top += $href.height();
 		$("#renameTopic")
+			.attr("action", "<?=$this->pathTo('Topic', 'rename')?>/" + itemid)
 			.css(pos)
 			.find("#ttitle").val($href.text()).end()
 			.find("#tname").val($href.attr("title")).end()
@@ -86,11 +143,15 @@ function handle_topic_context_menu(action, item, pos)
 			.find("#ttitle").focus();
 		break;
 	case "remove":
+		ask_question("Точно удалить этот раздел?", $href, "<?=$this->pathTo('Topic', 'remove')?>/" + itemid, remove_topic);
 		break;
 	}
 }
 $("#topics ul li#troot ul").sortable();
 $("#topics ul li#troot ul li a").contextMenu({ menu: 'topicsMenu' }, handle_topic_context_menu);
 $("#topics ul li#troot > a").contextMenu({ menu: 'rootTopicMenu' }, handle_topic_context_menu);
+$("form.popupForm").submit(run_form).find("input.reset").click(function(){$(this).parents("form").hide()});
+$(".errorForm").click(function(){$(this).hide()});
+$("#renameTopic").data("ajaxaction", rename_topic);
 //]]>
 </script>

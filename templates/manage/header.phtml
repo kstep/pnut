@@ -18,7 +18,7 @@
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
-	<title>p-nut &mdash; Панель управления</title>
+	<title><?=$this->title?> &mdash; p-nut.manage &beta;</title>
 	<?=$this->meta("Content-Type", "text/html; charset=UTF-8", true)?>
 
     <link rel="icon" href="<?=$this->_prefix?>/static/images/pfavicon.ico" type="image/x-icon" />
@@ -50,7 +50,7 @@
 <body>
 <div id="wrapper">
 <div id="header">
-	<h1><a href="<?=$this->_prefix?>">p-nut<small>.manage</small></a></h1>
+	<h1><a href="<?=$this->_prefix?>">p-nut<small>.manage<sup>&beta;</sup></small></a></h1>
 	<ul id="topmenu" class="menu">
 		<li><a href="<?=$this->pathTo('Topic', 'default')?>">Контент</a></li>
 		<li><a href="<?=$this->pathTo('Group', 'default')?>">Пользователи</a></li>
