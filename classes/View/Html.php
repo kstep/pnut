@@ -232,7 +232,7 @@ class View_Html extends View_Http
 		$cols = (int)$cols;
 
         if ($rows > 1)
-            $result = "<textarea name=\"$name\" id=\"$name\" rows=\"$rows\"".($cols > 0? " cols=\"$cols\"": '')."$attrs>$default</textarea>";
+            $result = "<textarea name=\"$name\" id=\"$name\" rows=\"$rows\" cols=\"$cols\"$attrs>$default</textarea>";
         else
             $result = "<input type=\"".($rows < 0? "password": "text")."\" name=\"$name\" id=\"$name\"".($cols > 0? " size=\"$cols\"": '')." value=\"$default\"$attrs />";
 
