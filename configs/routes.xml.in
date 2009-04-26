@@ -3,6 +3,17 @@
 	<site>
 		<prefix>@SITEPREFIX@/manage</prefix>
 		<realm>Admin</realm>
+		<route>
+			<match>#^reorder/(\d+)/(before|after|auto)/(\d+)#</match>
+			<build>reorder/%d/%s/%d</build>
+			<controller>Topic</controller>
+			<action>reorder</action>
+			<params>
+				<id>1</id>
+				<place>2</place>
+				<targid>3</targid>
+			</params>
+		</route>
 		<route action="default">
 			<build>%s/%d</build>
 			<controller>1</controller>

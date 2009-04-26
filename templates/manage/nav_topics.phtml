@@ -77,15 +77,17 @@ function run_form(e)
 		if (result.state != "failed" && ok_handler)
 			ok_handler(result);
 		else
-			error_form(result);
+			error_form(result.error, $form);
 	});
 	return false;
 }
 
-function error_form(result)
+function error_form(errmsg, $obj)
 {
 	var $form = $("#errorForm");
-	$form.find("p").text(result.error).end().fadeIn("fast", function(){setTimeout("$('#errorForm').fadeOut('slow')", 5000)});
+	var pos = $obj.offset();
+	pos.top += $obj.height();
+	$form.css(pos).find("p").text(errmsg).end().fadeIn("fast", function(){setTimeout("$('#errorForm').fadeOut('slow')", 5000)});
 }
 
 function rename_topic(result)
@@ -98,6 +100,45 @@ function remove_topic(result)
 {
 	var $item = $("#topics li#t"+result.id);
 	$item.fadeOut("normal", function(){$(this).remove()});
+}
+
+function reorder_topic(e, ui)
+{
+	var $item = $(ui.item);
+	var $targ = $(ui.item).prev();
+	var place = "after";
+	if (!$targ.length)
+	{
+		$targ = $(ui.item).next();
+		place = "before";
+	}
+
+	var targid = $targ.attr('id').substring(1);
+	var itemid = $item.attr('id').substring(1);
+	$(e.target).sortable('cancel');
+
+
+	$.getJSON("<?=$this->pathTo('Topic', 'reorder')?>/"+itemid+"/"+place+"/"+targid, { ajax: true }, function (result) {
+		var $item = $("#t"+result.id);
+		var $targ = $("#t"+result.target_id);
+
+		if (result.state != "failed")
+		{
+			switch (result.place)
+			{
+			case 'before':
+				$item.insertBefore($targ);
+				break;
+			case 'after':
+				$item.insertAfter($targ);
+				break;
+			}
+		}
+		else
+		{
+			error_form(result.error, $item);
+		}
+	});
 }
 
 function handle_topic_context_menu(action, item, pos)
@@ -147,7 +188,7 @@ function handle_topic_context_menu(action, item, pos)
 		break;
 	}
 }
-$("#topics ul li#troot ul").sortable();
+$("#topics ul li#troot ul").sortable({ items: 'li', update: reorder_topic });
 $("#topics ul li#troot ul li a").contextMenu({ menu: 'topicsMenu' }, handle_topic_context_menu);
 $("#topics ul li#troot > a").contextMenu({ menu: 'rootTopicMenu' }, handle_topic_context_menu);
 $("form.popupForm").submit(run_form).find("input.reset").click(function(){$(this).parents("form").hide()});

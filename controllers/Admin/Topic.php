@@ -308,10 +308,10 @@ class Controller_Admin_Topic extends Controller_Admin
 		$view = $this->ajaxView();
 		$view->state = 'failed';
 
-		if ($params['id'] && $_REQUEST['to'])
+		if ($params['id'] && $params['targid'])
 		{
 			$otopic = new Model_Topic($this->getStorage(), $params['id']);
-			$ttopic = new Model_Topic($this->getStorage(), $_REQUEST['to']);
+			$ttopic = new Model_Topic($this->getStorage(), $params['targid']);
 			$view->id        = $otopic->getId();
 			$view->target_id = $ttopic->getId();
 			$view->parent_id = $otopic->parent;
@@ -320,13 +320,32 @@ class Controller_Admin_Topic extends Controller_Admin
 			{
 				$this->canPerform($otopic, 'edit');
 				$view->state = 'reordered';
+				$view->place = $params['place'];
+
+				switch ($params['place'])
+				{
+				case 'before':
+					$method = 'insertBefore';
+					break;
+				case 'after':
+					$method = 'insertAfter';
+					break;
+				default:
+					if ($otopic->isBefore($ttopic))
+					{
+						$method = 'insertAfter';
+						$view->place = 'after';
+					}
+					else
+					{
+						$method = 'insertBefore';
+						$view->place = 'before';
+					}
+				}
 
 				try
 				{
-					if ($view->after = $otopic->isBefore($ttopic))
-						$otopic->insertAfter($ttopic);
-					else
-						$otopic->insertBefore($ttopic);
+					$otopic->$method($ttopic);
 				}
 				catch (Exception $e)
 				{
