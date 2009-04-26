@@ -65,17 +65,24 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 
     public function getArticles($page = 0)
     {
-		if ($this->isRecursive())
+		if ($this->getId())
 		{
-			$id = $this->getDescendantsId();
-			$id[] = $this->getId();
+			if ($this->isRecursive())
+			{
+				$id = $this->getDescendantsId();
+				$id[] = $this->getId();
+			}
+			else
+			{
+				$id = $this->getId();
+			}
+			$desc = $this->articles_sort_desc? " DESC": "";
+			return new Model_List_Article($this->_db, array( 'topic_id' => $id ), $this->items_per_page, $page, "{$this->articles_sort}{$desc}, {$this->_pk}{$desc}");
 		}
 		else
 		{
-			$id = $this->getId();
+			return array();
 		}
-		$desc = $this->articles_sort_desc? " DESC": "";
-        return new Model_List_Article($this->_db, array( 'topic_id' => $id ), $this->items_per_page, $page, "{$this->articles_sort}{$desc}, {$this->_pk}{$desc}");
     }
 
     public function getParent()
