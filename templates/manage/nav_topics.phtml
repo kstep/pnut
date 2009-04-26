@@ -18,7 +18,7 @@
 <h2><a href="<?=$this->pathTo("Topic", "trashcan")?>">Корзина</a></h2>
 </div>
 
-<ol id="topicsMenu" class="contextMenu" style="display: none;">
+<ol id="topicsMenu" class="contextMenu">
 	<li class="edit"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
 	<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
 	<li class="rename"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
@@ -27,7 +27,7 @@
 	<li class="remove separator"><a title="Удалить раздел" href="#remove">Удалить</a></li>
 </ol>
 
-<ol id="rootTopicMenu" class="contextMenu" style="display: none;">
+<ol id="rootTopicMenu" class="contextMenu">
 	<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
 	<li class="paste disabled separator"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
 </ol>
@@ -188,7 +188,7 @@ function handle_topic_context_menu(action, item, pos)
 		break;
 	}
 }
-$("#topics ul li#troot ul").sortable({ items: 'li', update: reorder_topic });
+$("#topics ul li#troot ul").sortable({ items: 'li', handle: 'a', update: reorder_topic });
 $("#topics ul li#troot ul li a").contextMenu({ menu: 'topicsMenu' }, handle_topic_context_menu);
 $("#topics ul li#troot > a").contextMenu({ menu: 'rootTopicMenu' }, handle_topic_context_menu);
 $("form.popupForm").submit(run_form).find("input.reset").click(function(){$(this).parents("form").hide()});

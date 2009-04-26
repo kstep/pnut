@@ -116,6 +116,7 @@ ol.contextMenu
 	border: 1px solid #d3d3d3;
 	margin: 0;
 	padding: 0;
+	display: none;
 }
 
 ol.contextMenu li a
@@ -242,4 +243,16 @@ ol.contextMenu li.separator a
 	color: #ffcccc;
 	background: #cc0000;
 	border-color: #800000;
+}
+
+#body .itemsList tr.ui-selected td,
+#body .itemsList tr.ui-selected td a
+{
+	background: #008000;
+	color: white;
+}
+
+#body .itemsList tr.ui-selecting td
+{
+	background: #eeeeee;
 }
