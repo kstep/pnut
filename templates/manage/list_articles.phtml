@@ -19,7 +19,14 @@ $this->breadcrumb = $this->topicId? array(
 <div id="articles">
 
 <? if ($this->topic): ?>
+	<ul class="controls" id="topicControls">
+		<li><a title="Редактировать свойства раздела" class="edit" href="<?=$this->pathTo("Topic", "edit", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
+		<li><a title="Удаить раздел" class="remove" href="<?=$this->pathTo("Topic", "remove", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
+		<li><a title="Создать новый подраздел" class="new" href="<?=$this->pathTo("Topic", "new", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
+	</ul>
+
 	<h2>Статьи из раздела &laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h2>
+
 	<div class="description"><?=$this->topic->description?></div>
     <table class="itemsList" summary="Статьи из раздела">
 		<thead>

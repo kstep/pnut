@@ -265,3 +265,36 @@ ol.contextMenu li.separator a
 {
 	background: #eeeeee;
 }
+
+#body ul.controls
+{
+	float: right;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 80%;
+}
+#body ul.controls li
+{
+	display: inline;
+}
+#body ul.controls li a
+{
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	padding: 4px 0 0 14px;
+	border: none;
+}
+
+#body ul.controls li a.edit
+{
+	background-image: url(../images/manage/edit.png);
+}
+#body ul.controls li a.remove
+{
+	background-image: url(../images/manage/remove.png);
+}
+#body ul.controls li a.new
+{
+	background-image: url(../images/manage/rename.png);
+}
