@@ -138,6 +138,9 @@ if(jQuery)( function() {
 				}
 				// Disable browser context menu (requires both selectors to work in IE/Safari + FF/Chrome)
 				$(el).add('UL.contextMenu').bind('contextmenu', function() { return false; });
+				$(el).add('UL.contextMenu').bind('mouseup', function(e) { return e.button != 2; });
+				$(el).add('UL.contextMenu').bind('mousedown', function(e) { return e.button != 2; });
+				$(el).add('UL.contextMenu').bind('click', function(e) { return e.button != 2; });
 				
 			});
 			return $(this);

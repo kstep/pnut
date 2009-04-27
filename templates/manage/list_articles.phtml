@@ -44,8 +44,8 @@ $this->breadcrumb = $this->topicId? array(
 	<script type="text/javascript">
 		$('table.itemsList tbody')
 			.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
-			.selectable({ filter: 'tr', cancel: 'tr#anew' })
-			.find('tr td a').contextMenu({ menu: 'articlesMenu' }, function () {});
+			.selectable({ filter: 'tr', cancel: 'tr#anew' });
+		enable_context_menu('table.itemsList tbody tr td:nth-child(2) a', '#articlesMenu', function(){});
 	</script>
 <? else: ?>
 	<h2>Статей в этом разделе нет</h2>
