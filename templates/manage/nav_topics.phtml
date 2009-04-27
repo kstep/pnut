@@ -243,13 +243,11 @@ function enable_context_menu(selector, menu, func)
 	$menu.find("li > a").each(function(){$(this).click(menufunc)}).end();
 
 	$(selector).data("menu", $menu).after($activator);
-	return $(selector).each(function(){$(this).next().click(actfunc)}).end();
+	return $(selector).not("a.menu-activator").each(function(){$(this).next().click(actfunc)}).end();
 }
 
 $("#topics ul li#troot ul").sortable({ items: 'li', handle: 'a', update: reorder_topic });
-//$("#topics ul li#troot ul li a").contextMenu({ menu: 'topicsMenu' }, handle_topic_context_menu);
 enable_context_menu("#topics ul li#troot ul li a", '#topicsMenu', handle_topic_context_menu);
-//$("#topics ul li#troot > a").contextMenu({ menu: 'rootTopicMenu' }, handle_topic_context_menu);
 enable_context_menu("#topics ul li#troot > a", '#rootTopicMenu', handle_topic_context_menu);
 $("form.popupForm").submit(run_form).find("input.reset").click(function(){$(this).parents("form").hide()});
 $(".errorForm").click(function(){$(this).hide()});
