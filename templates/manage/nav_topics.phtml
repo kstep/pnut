@@ -193,27 +193,29 @@ var context_menu;
 function enable_context_menu(selector, menu, func)
 {
 	var actfunc = function(){
-		var $me = $(this);
+		var $me     = $(this);
+		var $caller = $me.prev();
+		var $menu   = $caller.data('menu');
+		var invis   = !$me.data('menuvisible');
 
 		if (context_menu)
 		{
 			context_menu.hide();
+			context_menu.data('caller').next().data('menuvisible', false);
 			context_menu = null;
 		}
 
-		if ($me.data('menuvisible'))
+		if (invis)
 		{
-			$me.data('menuvisible', false);
-		}
-		else
-		{
-			var $caller = $me.prev();
-			var $menu   = $caller.data('menu');
 			var pos = $me.offset();
 			pos.top += $me.height();
 			$menu.data('caller', $caller).css(pos).show();
-			$me.data('menuvisible', true);
 			context_menu = $menu;
+			$me.data('menuvisible', true);
+		}
+		else
+		{
+			$me.data('menuvisible', false);
 		}
 		return false;
 	};
@@ -225,8 +227,8 @@ function enable_context_menu(selector, menu, func)
 		var act  = $(this).attr('href').substring(1);
 
 		context_menu.hide();
+		context_menu.data('caller').next().data('menuvisible', false);
 		context_menu = null;
-		$item.next().data('menuvisible', false).end();
 
 		func(act, $item.get(0), pos);
 		return false;
