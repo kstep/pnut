@@ -177,19 +177,19 @@ ul#validators li
 }
 /* }}} validators */
 
-a.secure
+li a.secure, li a.logout
 {
-	background-image: url(../images/lock.gif);
 	background-repeat: no-repeat;
 	background-position: 5px center;
 	padding-left: 7px;
 }
-a.secure:hover
-{
-	background-image: url(../images/locki.gif);
-}
+a.secure { background-image: url(../images/lock.gif); }
+a.secure:hover { background-image: url(../images/locki.gif); }
+a.logout { background-image: url(../images/exit.gif); }
+a.logout:hover { background-image: url(../images/exiti.gif); }
 
-ul#topmenu li a.secure
+ul#topmenu li a.secure,
+ul#topmenu li a.logout
 {
 	padding-left: 17px;
 }
