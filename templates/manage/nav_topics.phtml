@@ -20,6 +20,7 @@
 
 <ol id="topicsMenu" class="contextMenu">
 	<li class="edit"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
+	<li class="edit"><a title="Создать новую статью в этом разделе" href="#write">Написать</a></li>
 	<li class="create"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
 	<li class="rename"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
 	<li class="cut separator"><a title="Вырезать раздел для вставки в другой в качестве подраздела" href="#cut">Вырезать</a></li>
@@ -185,6 +186,9 @@ function handle_topic_context_menu(action, item, pos)
 		break;
 	case "remove":
 		ask_question("Точно удалить этот раздел?", $href, "<?=$this->pathTo('Topic', 'remove')?>/" + itemid, remove_topic);
+		break;
+	case "write":
+		window.location = "<?=$this->pathTo('Article', 'new')?>/"+itemid;
 		break;
 	}
 }
