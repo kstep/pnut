@@ -230,6 +230,7 @@ class View_Html extends View_Http
     {
         $attrs = $this->parseHtmlAttrs($attrs);
 		$cols = (int)$cols;
+		$default = htmlspecialchars($default);
 
         if ($rows > 1)
             $result = "<textarea name=\"$name\" id=\"$name\" rows=\"$rows\" cols=\"$cols\"$attrs>$default</textarea>";
