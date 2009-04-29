@@ -27,9 +27,16 @@ class Controller_Image extends Controller
 			}
 			elseif ($attachment->isVideo())
 			{
-				$film = new ffmpeg_movie($attachment->getFilepath());
-				$frame = ceil($film->getFrameCount() * 0.1);
-				$file = $film->getFrame($frame)->toGDImage();
+				if (class_exists("ffmpeg_movie"))
+				{
+					$film = new ffmpeg_movie($attachment->getFilepath());
+					$frame = ceil($film->getFrameCount() * 0.1);
+					$file = $film->getFrame($frame)->toGDImage();
+				}
+				else
+				{
+					$this->imageNotFound();
+				}
 			}
 			else
 			{
