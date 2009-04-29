@@ -72,7 +72,7 @@ form ol li fieldset legend
 {
     margin: 0;
     /*font-weight: bold;*/
-    border-bottom: 1px dashed;
+    border-bottom: 1px dotted;
     cursor: pointer;
 }
 

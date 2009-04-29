@@ -25,7 +25,7 @@
 
 #body abbr
 {
-	border-bottom: 1px dashed;
+	border-bottom: 1px dotted;
 	cursor: pointer;
 	cursor: hand;
 }
