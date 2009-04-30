@@ -78,23 +78,30 @@ table th
 	color: black;
 }
 
+dl
+{
+	border-bottom: 1px solid #d3d3d3;
+}
+
 dl dt
 {
 	float: left;
 	font-weight: bold;
-	width: 12em;
+	width: 14em;
 	line-height: 2em;
 	clear: left;
-	border-bottom: 1px solid #d3d3d3;
+	border-top: 1px solid #d3d3d3;
 	padding: 0 0.4em;
+	white-space: nowrap;
 }
 
 dl dd
 {
-	margin-left: 12.2em;
+	margin-left: 14.2em;
 	line-height: 2em;
-	border-bottom: 1px solid #d3d3d3;
+	border-top: 1px solid #d3d3d3;
 	padding: 0 0.4em;
+	white-space: nowrap;
 }
 
 dl dd.odd, dl dt.odd
