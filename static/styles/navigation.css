@@ -135,13 +135,13 @@ ol.contextMenu li a
 	text-decoration: none;
 	border: none;
 	padding: 1px 5px 1px 20px;
-	background: transparent no-repeat 2px center;
+	background: transparent url(../images/manage/contextmenu.gif) no-repeat 2px center;
 	font-size: 90%;
 	_width: 100%;
 }
 ol.contextMenu li a:hover
 {
-	background: #008000 no-repeat 2px center;
+	background: #008000 url(../images/manage/contextmenu.gif) no-repeat 2px center;
 	color: white;
 }
 ol.contextMenu li.disabled
@@ -150,30 +150,69 @@ ol.contextMenu li.disabled
 }
 
 
-ol.contextMenu li.edit a,
-ol.contextMenu li.edit a:hover
+ol.contextMenu li.newTopic a,
+ol.contextMenu li.newTopic a:hover
 {
-	background-image: url(../images/manage/edit.png);
+	background-position: 0 0px;
 }
-ol.contextMenu li.remove a,
-ol.contextMenu li.remove a:hover
+ol.contextMenu li.editTopic a,
+ol.contextMenu li.editTopic a:hover
 {
-	background-image: url(../images/manage/remove.png);
+	background-position: 0 -16px;
 }
-ol.contextMenu li.rename a,
-ol.contextMenu li.rename a:hover
+ol.contextMenu li.removeTopic a,
+ol.contextMenu li.removeTopic a:hover
 {
-	background-image: url(../images/manage/rename.png);
+	background-position: 0 -32px;
 }
-ol.contextMenu li.cut a,
-ol.contextMenu li.cut a:hover
+
+ol.contextMenu li.newArticle a,
+ol.contextMenu li.newArticle a:hover
 {
-	background-image: url(../images/manage/cut.png);
+	background-position: 0 -48px;
 }
-ol.contextMenu li.paste a,
-ol.contextMenu li.paste a:hover
+ol.contextMenu li.editArticle a,
+ol.contextMenu li.editArticle a:hover
 {
-	background-image: url(../images/manage/paste.png);
+	background-position: 0 -64px;
+}
+ol.contextMenu li.removeArticle a,
+ol.contextMenu li.removeArticle a:hover
+{
+	background-position: 0 -80px;
+}
+
+ol.contextMenu li.newComment a,
+ol.contextMenu li.newComment a:hover
+{
+	background-position: 0 -96px;
+}
+ol.contextMenu li.editComment a,
+ol.contextMenu li.editComment a:hover
+{
+	background-position: 0 -112px;
+}
+ol.contextMenu li.removeComment a,
+ol.contextMenu li.removeComment a:hover
+{
+	background-position: 0 -128px;
+}
+
+
+ol.contextMenu li.copyBuffer a,
+ol.contextMenu li.copyBuffer a:hover
+{
+	background-position: 0 -144px;
+}
+ol.contextMenu li.cutBuffer a,
+ol.contextMenu li.cutBuffer a:hover
+{
+	background-position: 0 -160px;
+}
+ol.contextMenu li.pasteBuffer a,
+ol.contextMenu li.pasteBuffer a:hover
+{
+	background-position: 0 -176px;
 }
 
 ol.contextMenu li.separator
@@ -280,6 +319,8 @@ ol.contextMenu li.separator a
 	padding: 0;
 	list-style: none;
 	font-size: 80%;
+	_position: relative;
+	_top: 10px;
 }
 #body ul.controls li
 {
@@ -287,23 +328,24 @@ ol.contextMenu li.separator a
 }
 #body ul.controls li a
 {
+	background-image: url(../images/manage/contextmenu.gif);
 	background-repeat: no-repeat;
-	background-position: left bottom;
-	padding: 4px 0 0 14px;
+	padding: 5px 0 0 14px;
+	_font-size: 12px;
 	border: none;
 }
 
+#body ul.controls li a.new
+{
+	background-position: 0 0px;
+}
 #body ul.controls li a.edit
 {
-	background-image: url(../images/manage/edit.png);
+	background-position: 0 -16px;
 }
 #body ul.controls li a.remove
 {
-	background-image: url(../images/manage/remove.png);
-}
-#body ul.controls li a.new
-{
-	background-image: url(../images/manage/rename.png);
+	background-position: 0 -32px;
 }
 
 table.itemList td .thumbnail
