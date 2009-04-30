@@ -97,6 +97,9 @@ update.tgz: $(DEPLOYOBJS)
 migrate: migrations/*.sql
 	cat $? | mysql $(DBPARAMS)
 
+migrateone:
+	test -f migrations/$(MIGRATION)_*.sql && cat migrations/$(MIGRATION)_*.sql | mysql $(DBPARAMS)
+
 sshinstall: install.tgz
 	scp $< $(SSHHOST):$(SSHDIR) && ssh $(SSHHOST) 'cd $(SSHDIR) && tar xzf $<'
 
