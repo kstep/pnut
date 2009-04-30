@@ -13,10 +13,13 @@ function scaleDown($obj, imgw, imgh)
 	var visw = 0.8*width;
 	var vish = 0.8*height;
 
-	if (imgw > visw)
-		coeff = visw / imgw;
-	else if (imgh > vish)
-		coeff = vish / imgh;
+
+	if (imgw > visw || imgh > vish)
+	{
+		var coeffw = visw / imgw;
+		var coeffh = vish / imgh;
+		coeff = coeffh < coeffw? coeffh: coeffw;
+	}
 
 	var imgw = coeff*imgw;
 	var imgh = coeff*imgh;
@@ -33,17 +36,12 @@ function imageView(e)
     var id = e.target.parentNode.id.substring(3);
 	var closebutton = sitePrefix + "/static/images/close.gif";
 
-    $.getJSON(sitePrefix+"/image/meta/"+id, { "ajax": true }, function (result) {
+    $.getJSON(sitePrefix+"/../image/meta/"+id, { "ajax": true }, function (result) {
 		if (result.image)
 		{
-			var $view = $("<div>")
-				.attr({ "class": "imageView" })
-				.css({ "background-image": 'url('+sitePrefix+"/view/"+result.id+')' });
-
-			$('<a>')
-				.attr({ "href": "#","class": "closeButton" })
-				.click(function () { $(this.parentNode).remove(); lightbox(false); })
-				.appendTo($view);
+			var $view = $("<img>")
+				.attr({ "class": "imageView", "src": sitePrefix+"/../view/"+result.id })
+				.click(function () { $(this).remove(); lightbox(false); });
 
 			scaleDown($view, result.image[0], result.image[1]).prependTo("body").show();
 		}
@@ -66,7 +64,7 @@ function videoView(e)
 	var $view = $("<div>")
 		.attr({ "class": "videoView" })
 		.flowplayer(flowplayerurl+"core.swf", {
-			clip: { url: sitePrefix+"/view/"+id, autoPlay: true, autoBuffering: true },
+			clip: { url: sitePrefix+"/../view/"+id, autoPlay: true, autoBuffering: true },
 			plugins: {
 				closebutton: {
 					url: flowplayerurl+"content.swf",
