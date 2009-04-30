@@ -254,14 +254,14 @@ ol.contextMenu li.separator a
 	border-color: #800000;
 }
 
-#body .itemsList tr.ui-selected td,
-#body .itemsList tr.ui-selected td a
+#body .itemList tr.ui-selected td,
+#body .itemList tr.ui-selected td a
 {
 	background: #008000;
 	color: white;
 }
 
-#body .itemsList tr.ui-selecting td
+#body .itemList tr.ui-selecting td
 {
 	background: #eeeeee;
 }
@@ -298,3 +298,61 @@ ol.contextMenu li.separator a
 {
 	background-image: url(../images/manage/rename.png);
 }
+
+table.itemList td .thumbnail
+{
+	display: none;
+}
+
+table.thumbList
+{
+	display: block;
+}
+
+table.thumbList td,
+table.thumbList th,
+table.thumbList tbody
+{
+	display: block;
+	border: none;
+}
+
+table.thumbList thead
+{
+	display: none;
+}
+
+table.thumbList tbody
+{
+	width: 100%;
+}
+
+table.thumbList tr
+{
+	float: left;
+	width: 150px;
+	overflow: hidden;
+	display: block;
+	/*border-bottom: 1px solid #f6f6f6;*/
+	padding: 0.5em;
+}
+table.thumbList td .thumbnail
+{
+	width: 120px;
+	height: 120px;
+	background: transparent no-repeat center center;
+	display: block;
+}
+
+table.thumbList .filesize
+{
+	font-size: 80%;
+	color: #a9a9a9;
+}
+
+table.thumbList .filedate,
+table.thumbList .mimetype
+{
+	display: none;
+}
+

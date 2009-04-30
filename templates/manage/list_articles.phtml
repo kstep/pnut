@@ -28,7 +28,7 @@ $this->breadcrumb = $this->topicId? array(
 	<h2>Статьи из раздела &laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h2>
 
 	<div class="description"><?=$this->topic->description?></div>
-    <table class="itemsList" summary="Статьи из раздела">
+    <table class="itemList" summary="Статьи из раздела">
 		<thead>
 		<tr><th style="width: 2em;">&#8470;</th><th>Заголовок</th><th>Название</th><th>Создана / изменена</th><th>Опубликована / архивирована</th><th>&nbsp;</th></tr>
 		</thead>
@@ -49,10 +49,10 @@ $this->breadcrumb = $this->topicId? array(
 
 	<?=stripe("table tbody tr:odd")?>
 	<script type="text/javascript">
-		$('table.itemsList tbody')
+		$('table.itemList tbody')
 			.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
 			.selectable({ filter: 'tr', cancel: 'tr#anew' });
-		enable_context_menu('table.itemsList tbody tr td:nth-child(2) a', '#articlesMenu', function(){});
+		enable_context_menu('table.itemList tbody tr td:nth-child(2) a', '#articlesMenu', function(){});
 	</script>
 <? else: ?>
 	<h2>Статей в этом разделе нет</h2>

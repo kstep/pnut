@@ -62,8 +62,14 @@
 
     <li id="attachments">
         <fieldset>
-            <legend>Вложения</legend>
+            <legend>Вложения <a href="#">в виде списка</a></legend>
 			<? include ('list_attachments.phtml') ?>
+			<script type="text/javascript">$('#attachments legend a').click(function(){
+				var $table = $(this.parentNode.parentNode).find('table.itemList');
+				$table.toggleClass('thumbList');
+				$(this).text($table.hasClass('thumbList')? 'с миниатюрами': 'в виде списка');
+				return false;
+			;})</script>
         </fieldset>
     </li>
     <? $comments = $this->article->getComments() ?>
