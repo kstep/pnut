@@ -330,6 +330,16 @@ html, body
     border: 1px solid #e0e1e3;
 }
 
+
+#content ul.gallery li.image
+{
+	background: url(../images/imagefile.gif) no-repeat center center;
+}
+#content ul.gallery li.video
+{
+	background: url(../images/videofile.gif) no-repeat center center;
+}
+
 #content ul.gallery li a
 {
     background: transparent no-repeat center center;
