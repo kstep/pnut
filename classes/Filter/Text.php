@@ -6,14 +6,14 @@ class Filter_Text
 	const STRIP_CENTER = 2;
 	const STRIP_BOTH = 3;
 
-	static public function strip($text, $length, $hellip = "&hellip;", $side = self::STRIP_RIGHT)
+	static public function strip($text, $length, $side = self::STRIP_RIGHT, $hellip = "&hellip;")
 	{
 		if (strlen($text) > $length)
 		{
 			switch ($side)
 			{
 				case self::STRIP_LEFT:
-					$text = substr($text, -$length) . $hellip;
+					$text = $hellip . substr($text, -$length);
 					break;
 				case self::STRIP_RIGHT:
 					$text = substr($text, 0, $length) . $hellip;
