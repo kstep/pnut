@@ -34,7 +34,7 @@
             <dl>
 				<dt>Размер</dt><dd><?=Filter_File::humanizeSize($this->attachment->filesize)?> (<?=$this->attachment->filesize?> <?=Filter_Date::wordform($this->attachment->filesize, "байт", "байта", "байтов")?>)</dd>
 				<dt>Хэш MD5</dt><dd><?=$this->attachment->md5hash?></dd>
-				<dt>Расположен по пути</dt><dd><?=Filter_Text::strip($this->attachment->getFilepath(), 60, Filter_Text::STRIP_LEFT)?></dd>
+				<dt>Расположен по пути</dt><dd title="<?=$this->attachment->getFilepath()?>"><?=Filter_Text::strip($this->attachment->getFilepath(), 60, Filter_Text::STRIP_LEFT)?></dd>
 				<dt>Статус</dt><dd><? if ($check = $this->attachment->checkFile()): ?>Файл исправен: <a href="<?=$this->pathTo('File', 'download', array( 'id' => $this->attachment->getId() ))?>">скачать</a> / <a href="<?=$this->pathTo('File', 'view', array( 'id' => $this->attachment->getId() ))?>">посмотреть</a><? elseif ($check === null): ?>Файл не найден.<? else: ?>Файл повреждён<? endif ?></dd>
 				<? if ($check && $this->attachment->isImage()): ?>
 				<? list($width, $height) = getimagesize($this->attachment->getFilepath()) ?>
