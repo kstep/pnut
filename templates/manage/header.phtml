@@ -35,11 +35,11 @@
         var sitePrefix = "<?=addslashes($this->_prefix) ?>";
 
 		$(function() {
-			$("fieldset > ol, fieldset > table, fieldset > dl").addClass("hidden");
+			$("fieldset > ol, fieldset > table, fieldset > dl, fieldset > div").addClass("hidden");
 			$("fieldset > legend").click(function (ev)
 				{
 					var $me = $(ev.target.parentNode);
-					$me.find("ol, table, dl").toggleClass("hidden");
+					$me.find("legend + ol, legend + table, legend + dl, legend + div").toggleClass("hidden");
 				}
 			);
 		});

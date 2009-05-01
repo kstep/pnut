@@ -60,14 +60,13 @@
 
 	<? //show_rights($this, $this->article) ?>
 
-    <li id="attachments">
+    <li id="attachments" class="table-view">
         <fieldset>
-            <legend>Вложения <a href="#">в виде списка</a></legend>
+            <legend>Вложения <a href="#"><var class="table-title">в виде списка</var><var class="thumb-title">с миниатюрами</var></a></legend>
 			<? include ('list_attachments.phtml') ?>
 			<script type="text/javascript">$('#attachments legend a').click(function(){
-				var $table = $(this.parentNode.parentNode).find('table.itemList');
-				$table.toggleClass('thumbList');
-				$(this).text($table.hasClass('thumbList')? 'с миниатюрами': 'в виде списка');
+				var $container = $(this.parentNode.parentNode.parentNode);
+				$container.attr('class', $container.attr('class') == 'table-view'? 'thumb-view': 'table-view');
 				return false;
 			;})</script>
         </fieldset>
