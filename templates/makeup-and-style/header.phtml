@@ -5,11 +5,11 @@
     <?=$this->meta("Content-Type", "text/html; charset=UTF-8", true)?>
 
     <title><?=$this->title?></title>
-    <?=$this->style("main")?>
+    <?=$this->style("makeup-and-style/main")?>
     <?=$this->style("common/forms")?>
-    <?=$this->style("ibuttons")?>
-	<?=$this->style("print", "print")?>
-    <!--[if IE]><?=$this->style("iefix")?><![endif]-->
+    <?=$this->style("common/ibuttons")?>
+	<?=$this->style("makeup-and-style/print", "print")?>
+    <!--[if IE]><?=$this->style("makeup-and-style/iefix")?><![endif]-->
 
     <script type="text/javascript">
     var sitePrefix = "<?=addslashes($this->_prefix) ?>";
@@ -18,7 +18,7 @@
     <?=$this->script("lib/jquery/core")?>
     <?=$this->script("lib/flowplayer")?>
     <?=$this->script("ajax")?>
-    <link rel="icon" href="<?=$this->_prefix?>/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?=$this->_prefix?>/static/images/makeup-and-style/favicon.ico" type="image/x-icon" />
     <?php
     function drawPager($me, Model_Pagable $model, $qpar = false)
     {
