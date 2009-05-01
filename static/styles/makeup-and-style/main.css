@@ -66,12 +66,7 @@ html, body
 	display: block;
 	text-decoration: none;
 	background: transparent no-repeat center center;
-	background-image: url(../images/close.gif);
 }
-/*.imageView .closeButton:hover
-{
-	background-image: url(../images/close.gif);
-}*/
 
 /* }}} */
 
@@ -118,7 +113,7 @@ html, body
     display: block;
     width: 313px;
     height: 192px;
-    background: transparent scroll url(../images/butterfly.gif) no-repeat;
+    background: transparent scroll no-repeat;
     padding: 0;
 }
 #logo a
@@ -145,7 +140,6 @@ html, body
 
 #logo h1#sitename
 {
-    background-image: url(../images/authorname.gif);
     float: left;
     height: 60px;
     width: 510px;
@@ -185,8 +179,8 @@ html, body
 {
     width: 210px;
     height: 25px;
-    background: white url(../images/butterfly.gif) 0 -172px;
     margin: 0 25px 0 0;
+	background: white no-repeat 0 -172px;
 }
 
 #topmenu ul li
@@ -551,7 +545,6 @@ body.error404 a
 body.error404 #logo a.logo,
 body.error404 #logo strong.logo
 {
-    background-image: url(../images/butterflybw.gif);
 	position: relative;
 	left: 670px;
 }
@@ -580,5 +573,30 @@ body.error404 #topmenu
 body.error404 #topmenu ul li.first
 {
 	background-image: none;
+}
+/* }}} */
+
+/* images {{{ */
+#logo .logo,
+#topmenu ul li.first
+{
+    background-image: url(../../images/makeup-and-style/butterfly.gif);
+}
+.imageView .closeButton
+{
+	background-image: url(../../images/makeup-and-style/close.gif);
+}
+/*.imageView .closeButton:hover
+{
+	background-image: url(../../images/makeup-and-style/close.gif);
+}*/
+#logo h1#sitename
+{
+    background-image: url(../../images/makeup-and-style/authorname.gif);
+}
+body.error404 #logo a.logo,
+body.error404 #logo strong.logo
+{
+    background-image: url(../images/butterflybw.gif);
 }
 /* }}} */
