@@ -82,7 +82,7 @@
 				</thead>
 				<tbody>
                 <? foreach ($comments as $item): ?>
-                <tr id="c<?=$item->getId()?>"><td><a href="<?=$this->pathTo("Admin_Comment", "edit", array( 'id' => $item->getId() ))?>">&laquo;<?=$item->title?>&raquo;</a></td><td><? if ($item->email): ?><a href="mailto:<?=$item->email?>"><?=$item->username?$item->username:$item->email?></a><? else: ?><?=$item->username?><? endif ?></td><td><?=date("d.m.Y H:i", $item->created)?></td><td><a class="remove" href="<?=$this->pathTo("Admin_Comment", "remove", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></td></tr>
+                <tr id="c<?=$item->getId()?>"><td><a href="<?=$this->pathTo("Admin_Comment", "edit", array( 'id' => $item->getId() ))?>">&laquo;<?=$item->title?>&raquo;</a></td><td><? if ($item->email): ?><a href="mailto:<?=$item->email?>"><?=$item->username?$item->username:$item->email?></a><? else: ?><?=$item->username?><? endif ?></td><td><?=date("d.m.Y H:i", $item->created)?></td><td class="controls"><a class="remove comment" href="<?=$this->pathTo("Admin_Comment", "remove", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></td></tr>
                 <? endforeach ?>
 				</tbody>
             </table>
