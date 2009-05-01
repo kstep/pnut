@@ -153,10 +153,10 @@ class Controller_Admin_Topic extends Controller_Admin
             $topic    = new Model_Topic($this->getStorage(), $params["id"]);
             $view->id = $topic->getId();
 
-            $view->parent_id = (int)$_REQUEST["to"];
+            $view->parent_id = (int)$params["targid"];
             if ($view->parent_id != 0)
             {
-                $targTopic = new Model_Topic($this->getStorage(), $_REQUEST["to"]);
+                $targTopic = new Model_Topic($this->getStorage(), $params["targid"]);
                 $view->parent_id = $targTopic->getId();
                 if (!$view->parent_id)
                 {
@@ -170,7 +170,7 @@ class Controller_Admin_Topic extends Controller_Admin
                 if ($view->id != $view->parent_id)
                 {
 					$this->canPerform($topic, "edit");
-					$this->canPerform($targTopic, "edit");
+					if ($targTopic) $this->canPerform($targTopic, "edit");
                     $topic->parent = $view->parent_id;
 
                     if ($errors = $topic->validate())

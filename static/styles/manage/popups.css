@@ -49,6 +49,12 @@
 	float: right;
 }
 
+#body .popup-form ul
+{
+	margin: 0 0 0 2em;
+	padding: 0;
+}
+
 #body .error-form
 {
 	background: #ffcccc;

@@ -29,7 +29,7 @@ function error_form(errmsg, $obj)
 	var $form = $("#error-form");
 	var pos = $obj.offset();
 	pos.top += $obj.height();
-	$form.css(pos).find("p").text(errmsg).end().fadeIn("fast", function(){setTimeout("$('#error-form').fadeOut('slow')", 5000)});
+	$form.css(pos).find("p").html(errmsg).end().fadeIn("fast", function(){setTimeout("$('#error-form').fadeOut('slow')", 5000)});
 }
 
 function rename_topic(result)
@@ -87,7 +87,9 @@ function handle_topic_context_menu(action, item, pos)
 {
 	var $href = $(item);
 	var $item = $(item).parent();
-	var itemid = $item.attr("id").substring(1);
+	var itemid = parseInt($item.attr("id").substring(1));
+	if (isNaN(itemid)) itemid = 0;
+
 	switch (action)
 	{
 	case "edit":
@@ -105,11 +107,32 @@ function handle_topic_context_menu(action, item, pos)
 	case "paste":
 		if (cut_topic_id)
 		{
-			var $cutitem = $("#t"+cut_topic_id).removeClass("cut");
-			var $ul = $item.find("ul:first");
-			if ($ul.length == 0)
-			   	$ul = $("<ul>").appendTo($item);
-			$ul.append($cutitem);
+			$.getJSON(sitePrefix+"/topic/move/"+cut_topic_id+"/"+itemid, { ajax: true }, function (result) {
+				var $cutitem = $("#t"+result.id);
+				if (result.state == 'moved')
+				{
+					var $item = $("#t"+((result.parent_id == 0)? "root": result.parent_id));
+					var $ul = $item.find("ul:first");
+					if ($ul.length == 0)
+						$ul = $("<ul>").appendTo($item);
+					$ul.append($cutitem);
+				}
+				else
+				{
+					if (result.errors)
+					{
+						result.error += "<ul>";
+						for (errmsg in result.errors)
+						{
+							result.error += "<li>"+result.errors[errmsg]+"</li>";
+						}
+						result.error += "</ul>";
+					}
+					error_form(result.error, $cutitem.find("a:first-child"));
+				}
+			});
+
+			$("#t"+cut_topic_id).removeClass("cut");
 			cut_topic_id = null;
 			$(".context-menu li.paste").addClass("disabled");
 		}

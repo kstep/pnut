@@ -4,13 +4,23 @@
 		<prefix>@SITEPREFIX@/manage</prefix>
 		<realm>Admin</realm>
 		<route>
-			<match>#^reorder/(\d+)/(before|after|auto)/(\d+)#</match>
-			<build>reorder/%d/%s/%d</build>
-			<controller>Topic</controller>
+			<match>#^([^/]+)/reorder/(\d+)/(before|after|auto)/(\d+)#</match>
+			<build>%s/reorder/%d/%s/%d</build>
+			<controller>1</controller>
 			<action>reorder</action>
 			<params>
-				<id>1</id>
-				<place>2</place>
+				<id>2</id>
+				<place>3</place>
+				<targid>4</targid>
+			</params>
+		</route>
+		<route>
+			<match>#^([^/]+)/move/(\d+)/(\d+)#</match>
+			<build>%s/move/%d/%d</build>
+			<controller>1</controller>
+			<action>move</action>
+			<params>
+				<id>2</id>
 				<targid>3</targid>
 			</params>
 		</route>

@@ -36,7 +36,7 @@ $this->breadcrumb = $this->topicId? array(
     <? foreach ($this->topic->getArticles() as $item): ?>
 		<tr id="a<?=$item->getId()?>" class="<?=$item->type?> <?=implode(" ", $item->flags)?>"><td><?=$item->order?></td><td><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td><?=date("d.m.Y H:i", $item->published)?><br /><?=date("d.m.Y H:i", $item->archived)?></td><td class="controls"><a class="remove article" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
-        <tr id="anew"><td colspan="6"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></td></tr>
+        <tr id="anew"><td colspan="6" class="controls"><a class="new article" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></td></tr>
 		</tbody>
     </table>
 

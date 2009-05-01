@@ -4,7 +4,6 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	font-size: 80%;
 }
 #body ul.controls li
 {
@@ -14,7 +13,7 @@
 #body .controls a
 {
 	background-repeat: no-repeat;
-	padding: 5px 0 0 14px;
+	padding: 1px 0 1px 20px;
 	display: inline-block;
 	border: none;
 }
