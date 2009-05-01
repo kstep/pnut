@@ -34,7 +34,7 @@ $this->breadcrumb = $this->groupId? array(
 	<?stripe("table tbody tr:odd")?>
 <? else: ?>
 	<h2>Не выбрана группа</h2>
-	<p class="warning">&larr; Выберите группу пользователей из левого меню</p>
+	<p class="message">&larr; Выберите группу пользователей из левого меню,<br />или <a href="<?=$this->pathTo('Group', 'new')?>">создайте новую</a> корневую группу.</p>
 <? endif ?>
 </div>
 

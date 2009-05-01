@@ -69,3 +69,8 @@ dl dd.odd, dl dt.odd
 {
 	background: #eeeeee;
 }
+
+p.message
+{
+	text-indent: -1.3em;
+}
