@@ -55,7 +55,8 @@ $this->breadcrumb = $this->topicId? array(
 		enable_context_menu('table.itemList tbody tr td:nth-child(2) a', '#articlesMenu', function(){});
 	</script>
 <? else: ?>
-	<h2>Статей в этом разделе нет</h2>
+	<h2>Не выбран раздел</h2>
+	<p class="warning">&larr; Выберите раздел из левого меню</p>
 <? endif ?>
 </div>
 

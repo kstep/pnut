@@ -33,7 +33,8 @@ $this->breadcrumb = $this->groupId? array(
     </table>
 	<?stripe("table tbody tr:odd")?>
 <? else: ?>
-	<h2>Пользователей в этой группе нет</h2>
+	<h2>Не выбрана группа</h2>
+	<p class="warning">&larr; Выберите группу пользователей из левого меню</p>
 <? endif ?>
 </div>
 
