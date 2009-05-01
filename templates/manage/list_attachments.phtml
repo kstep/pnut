@@ -1,6 +1,6 @@
 <? $attachments = $this->article->getAttachments() ?>
 <div>
-<table class="itemList" summary="Вложения в статье">
+<table class="item-list" summary="Вложения в статье">
 <thead>
 <tr><th>Заголовок / имя файла</th><th>MIME-тип</th><th>Размер</th><th>Создано / изменено</th><th>&nbsp;</th></tr>
 </thead>
@@ -12,7 +12,7 @@
 	<tr><td colspan="6"><a class="add" href="#">Добавить</a>&nbsp;<a href="#" class="add5" title="Добавить пять файлов">&#215;5</a></td></tr>
 </tbody>
 </table>
-<ul class="thumbList">
+<ul class="thumb-list">
 	<? foreach ($attachments as $item): ?>
 	<li>
 		<a href="<?=$this->pathTo("Attachment", "edit", array( 'id' => $item->getId() ))?>"><span class="thumbnail" style="background-image: url(<?=$this->_prefix?>/../image/thumbnail/<?=$item->getId()?>/120/);" title="Миниатюра">&nbsp;</span><?=$item->title?></a>

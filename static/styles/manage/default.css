@@ -7,7 +7,7 @@ body
 	background: white url(../../images/admin/bodybg.gif) repeat-y;
 }
 
-#pageWrapper
+#page-wrapper
 {
 }
 
@@ -52,7 +52,7 @@ a.download:hover { background-position: 0 -128px; }
 .confirm a.no { background-position: 0 -80px; }
 .confirm a.no:hover { background-position: 0 -64px; }
 
-#pageNavigation input
+#page-navigation input
 {
 	background-color: transparent;
 }
@@ -94,18 +94,18 @@ li a:visited, li.active ul li span.name a:visited
     color: navy;
 }
 
-.moduleBox ul li span.actions,
-.moduleBox ul li span.confirm
+.module-box ul li span.actions,
+.module-box ul li span.confirm
 {
     float: right;
     clear: both;
 }
-.moduleBox ul li span.confirm
+.module-box ul li span.confirm
 {
     margin-right: 4px;
 }
 
-#pageNavigation
+#page-navigation
 {
     width: 240px;
 	padding: 0 0 2em 0;
@@ -113,17 +113,17 @@ li a:visited, li.active ul li span.name a:visited
 	height: 100%;
 }
 
-#pageContent
+#page-content
 {
 	margin: 0 0 1em 240px;
 	padding: 0;
 }
-#pageContent .description
+#page-content .description
 {
 	margin: 0 0 1em 2em;
 }
 
-#pageNavigation .moduleBox ul
+#page-navigation .module-box ul
 {
     list-style: none;
     margin: 2px 0 2px 8px;
@@ -131,11 +131,11 @@ li a:visited, li.active ul li span.name a:visited
     line-height: 17px;
 }
 
-#pageNavigation .moduleBox ul ul
+#page-navigation .module-box ul ul
 {
     margin-left: 0.5em;
 }
-#pageNavigation .moduleBox h1
+#page-navigation .module-box h1
 {
     font-size: 100%;
     background: silver;
@@ -146,14 +146,14 @@ li a:visited, li.active ul li span.name a:visited
     font-family: Verdana, Arial, sans-serif;
 }
 
-#pageNavigation .moduleBox
+#page-navigation .module-box
 {
     border: 1px solid lightgrey;
     margin: 0.5em 5px;
 	background-color: #eeeeee;
 }
 
-#pageNavigation .moduleBox h1 .fold
+#page-navigation .module-box h1 .fold
 {
     font-size: 120%;
     float: right;
@@ -164,7 +164,7 @@ li a:visited, li.active ul li span.name a:visited
 	padding-right: 16px;
 	height: 16px;
 }
-#pageNavigation .moduleBox h1.folded .fold
+#page-navigation .module-box h1.folded .fold
 {
 	background-position: 0 0;
 }
@@ -188,7 +188,7 @@ li a:visited, li.active ul li span.name a:visited
     cursor: move;
 }
 
-#pageContent h1
+#page-content h1
 {
 	font-size: 160%;
 	padding: 5px 0 5px 10px;
@@ -196,49 +196,49 @@ li a:visited, li.active ul li span.name a:visited
 	background-color: #dec8b1;
 }
 
-#pageContent h1 small
+#page-content h1 small
 {
 	font-size: 50%;
 }
 
-#pageContent ul.itemsList
+#page-content ul.items-list
 {
     margin-top: 0;
     list-style: none;
 }
 
-#pageContent ul.itemsList a
+#page-content ul.items-list a
 {
     padding-left: 18px;
     background-image: url(../../images/admin/icons.gif);
     background-repeat: no-repeat;
 }
-#pageContent ul.itemsList li a.article
+#page-content ul.items-list li a.article
 {
     background-position: 0 -160px;
 }
-#pageContent ul.itemsList li a.gallery
+#page-content ul.items-list li a.gallery
 {
     background-position: 0 -176px;
 }
 
-#pageContent ul.itemsList li a.superuser
+#page-content ul.items-list li a.superuser
 {
 	background-position: 0 -192px;
 }
-#pageContent ul.itemsList li a.admin
+#page-content ul.items-list li a.admin
 {
 	background-position: 0 -208px;
 }
-#pageContent ul.itemsList li a.manager
+#page-content ul.items-list li a.manager
 {
 	background-position: 0 -224px;
 }
-#pageContent ul.itemsList li a.user
+#page-content ul.items-list li a.user
 {
 	background-position: 0 -240px;
 }
-#pageContent ul.itemsList li a.guest
+#page-content ul.items-list li a.guest
 {
 	background-position: 0 -256px;
 }
@@ -255,12 +255,12 @@ div.clear
     width: 100%;
 }
 
-#pageContent form
+#page-content form
 {
 	padding-left: 12px;
 }
 
-/*#pageFooter*/
+/*#page-footer*/
 /*{*/
 	/*background-color: silver;*/
 	/*padding: 0.5em;*/
@@ -269,12 +269,12 @@ div.clear
 	/*clear: both;*/
 /*}*/
 
-#pageNavigation .filter
+#page-navigation .filter
 {
 	display: inline;
 }
 
-#pageNavigation .filter ins
+#page-navigation .filter ins
 {
 	text-decoration: none;
 	border-bottom: 1px dashed;
@@ -282,7 +282,7 @@ div.clear
 	cursor: hand;
 }
 
-#pageNavigation .filter ol
+#page-navigation .filter ol
 {
 	background-color: #e0e0e0;
 	border: 1px solid silver;
@@ -294,21 +294,21 @@ div.clear
 	z-index: 100;
 	font-weight: normal;
 }
-#pageNavigation .filter:hover ol
+#page-navigation .filter:hover ol
 {
 	display: block;
 }
 
-#pageNavigation .filter ol li
+#page-navigation .filter ol li
 {
 	padding: 0;
 }
-#pageNavigation .filter ol li a
+#page-navigation .filter ol li a
 {
 	display: block;
 	padding: 0 0.9em;
 }
-#pageNavigation .filter ol li a:hover
+#page-navigation .filter ol li a:hover
 {
 	background-color: #eeeeee;
 }

@@ -115,7 +115,7 @@ ul#topmenu li a.notimplemented
 	color: #800000;
 }
 
-ol.contextMenu
+ol.context-menu
 {
 	position: absolute;
 	background: #f6f6f6;
@@ -129,7 +129,7 @@ ol.contextMenu
 	min-width: 10em;
 }
 
-ol.contextMenu li a
+ol.context-menu li a
 {
 	display: block;
 	text-decoration: none;
@@ -139,88 +139,88 @@ ol.contextMenu li a
 	font-size: 90%;
 	_width: 100%;
 }
-ol.contextMenu li a:hover
+ol.context-menu li a:hover
 {
 	background: #008000 url(../images/manage/contextmenu.gif) no-repeat 2px center;
 	color: white;
 }
-ol.contextMenu li.disabled
+ol.context-menu li.disabled
 {
 	display: none;
 }
 
 
-ol.contextMenu li.newTopic a,
-ol.contextMenu li.newTopic a:hover
+ol.context-menu li.new-topic a,
+ol.context-menu li.new-topic a:hover
 {
 	background-position: 0 0px;
 }
-ol.contextMenu li.editTopic a,
-ol.contextMenu li.editTopic a:hover
+ol.context-menu li.edit-topic a,
+ol.context-menu li.edit-topic a:hover
 {
 	background-position: 0 -16px;
 }
-ol.contextMenu li.removeTopic a,
-ol.contextMenu li.removeTopic a:hover
+ol.context-menu li.remove-topic a,
+ol.context-menu li.remove-topic a:hover
 {
 	background-position: 0 -32px;
 }
 
-ol.contextMenu li.newArticle a,
-ol.contextMenu li.newArticle a:hover
+ol.context-menu li.new-article a,
+ol.context-menu li.new-article a:hover
 {
 	background-position: 0 -48px;
 }
-ol.contextMenu li.editArticle a,
-ol.contextMenu li.editArticle a:hover
+ol.context-menu li.edit-article a,
+ol.context-menu li.edit-article a:hover
 {
 	background-position: 0 -64px;
 }
-ol.contextMenu li.removeArticle a,
-ol.contextMenu li.removeArticle a:hover
+ol.context-menu li.remove-article a,
+ol.context-menu li.remove-article a:hover
 {
 	background-position: 0 -80px;
 }
 
-ol.contextMenu li.newComment a,
-ol.contextMenu li.newComment a:hover
+ol.context-menu li.new-comment a,
+ol.context-menu li.new-comment a:hover
 {
 	background-position: 0 -96px;
 }
-ol.contextMenu li.editComment a,
-ol.contextMenu li.editComment a:hover
+ol.context-menu li.edit-comment a,
+ol.context-menu li.edit-comment a:hover
 {
 	background-position: 0 -112px;
 }
-ol.contextMenu li.removeComment a,
-ol.contextMenu li.removeComment a:hover
+ol.context-menu li.remove-comment a,
+ol.context-menu li.remove-comment a:hover
 {
 	background-position: 0 -128px;
 }
 
 
-ol.contextMenu li.copyBuffer a,
-ol.contextMenu li.copyBuffer a:hover
+ol.context-menu li.copy-buffer a,
+ol.context-menu li.copy-buffer a:hover
 {
 	background-position: 0 -144px;
 }
-ol.contextMenu li.cutBuffer a,
-ol.contextMenu li.cutBuffer a:hover
+ol.context-menu li.cut-buffer a,
+ol.context-menu li.cut-buffer a:hover
 {
 	background-position: 0 -160px;
 }
-ol.contextMenu li.pasteBuffer a,
-ol.contextMenu li.pasteBuffer a:hover
+ol.context-menu li.paste-buffer a,
+ol.context-menu li.paste-buffer a:hover
 {
 	background-position: 0 -176px;
 }
 
-ol.contextMenu li.separator
+ol.context-menu li.separator
 {
 	border-top: 1px solid #d3d3d3;
 	margin-top: 0.1em;
 }
-ol.contextMenu li.separator a
+ol.context-menu li.separator a
 {
 	margin-top: 0.1em;
 }
@@ -230,7 +230,7 @@ ol.contextMenu li.separator a
 	color: #d3d3d3;
 }
 
-#body .popupForm
+#body .popup-form
 {
 	position: absolute;
 	margin: 0;
@@ -241,7 +241,7 @@ ol.contextMenu li.separator a
 	width: 16em;
 	display: none;
 }
-#body .popupForm h3
+#body .popup-form h3
 {
 	margin: 0 0 0.5em 0;
 	padding: 2px 4px;
@@ -250,64 +250,64 @@ ol.contextMenu li.separator a
 	border-bottom: 1px solid #d3d3d3;
 }
 
-#body .popupForm input
+#body .popup-form input
 {
 	border: 1px solid #cccccc;
 	font-size: 90%;
 }
 
-#body .popupForm ol
+#body .popup-form ol
 {
 	margin: 0.5em 1em;
 }
-#body .popupForm ol li
+#body .popup-form ol li
 {
 	margin: 0.5em 0;
 }
 
-#body .popupForm ol li input
+#body .popup-form ol li input
 {
 	width: 98%;
 }
 
-#body .popupForm ol li input.reset,
-#body .popupForm ol li input.submit
+#body .popup-form ol li input.reset,
+#body .popup-form ol li input.submit
 {
 	width: 6em;
 }
 
-#body .popupForm ol li input.reset
+#body .popup-form ol li input.reset
 {
 	float: right;
 }
 
-#body .errorForm
+#body .error-form
 {
 	background: #ffcccc;
 	border-color: #800000;
 }
 
-#body .errorForm p
+#body .error-form p
 {
 	margin: 0.5em 1em;
 	color: #800000;
 }
 
-#body .errorForm h3
+#body .error-form h3
 {
 	color: #ffcccc;
 	background: #cc0000;
 	border-color: #800000;
 }
 
-#body .itemList tr.ui-selected td,
-#body .itemList tr.ui-selected td a
+#body .item-list tr.ui-selected td,
+#body .item-list tr.ui-selected td a
 {
 	background: #008000;
 	color: white;
 }
 
-#body .itemList tr.ui-selecting td
+#body .item-list tr.ui-selecting td
 {
 	background: #eeeeee;
 }
@@ -348,35 +348,35 @@ ol.contextMenu li.separator a
 	background-position: 0 -32px;
 }
 
-table.itemList td .thumbnail
+table.item-list td .thumbnail
 {
 	display: none;
 }
 
-table.thumbList
+table.thumb-list
 {
 	display: block;
 }
 
-table.thumbList td,
-table.thumbList th,
-table.thumbList tbody
+table.thumb-list td,
+table.thumb-list th,
+table.thumb-list tbody
 {
 	display: block;
 	border: none;
 }
 
-table.thumbList thead
+table.thumb-list thead
 {
 	display: none;
 }
 
-table.thumbList tbody
+table.thumb-list tbody
 {
 	width: 100%;
 }
 
-table.thumbList tr
+table.thumb-list tr
 {
 	float: left;
 	width: 150px;
@@ -385,7 +385,7 @@ table.thumbList tr
 	/*border-bottom: 1px solid #f6f6f6;*/
 	padding: 0.5em;
 }
-table.thumbList td .thumbnail
+table.thumb-list td .thumbnail
 {
 	width: 120px;
 	height: 120px;
@@ -393,25 +393,25 @@ table.thumbList td .thumbnail
 	display: block;
 }
 
-table.thumbList .filesize
+table.thumb-list .filesize
 {
 	font-size: 80%;
 	color: #a9a9a9;
 }
 
-table.thumbList .filedate,
-table.thumbList .mimetype
+table.thumb-list .filedate,
+table.thumb-list .mimetype
 {
 	display: none;
 }
 
-table.thumbList tbody td small
+table.thumb-list tbody td small
 {
 	margin-left: 0;
 }
 
 
-ul.thumbList
+ul.thumb-list
 {
 	list-style: none;
 	margin: 0;
@@ -419,7 +419,7 @@ ul.thumbList
 	width: 95%;
 }
 
-ul.thumbList li
+ul.thumb-list li
 {
 	display: block;
 	float: left;
@@ -429,7 +429,7 @@ ul.thumbList li
 	margin: 0 1.5em;
 }
 
-ul.thumbList li .thumbnail
+ul.thumb-list li .thumbnail
 {
 	display: block;
 	width: 120px;
@@ -437,20 +437,20 @@ ul.thumbList li .thumbnail
 	background: no-repeat center center;
 }
 
-ul.thumbList li small
+ul.thumb-list li small
 {
 	margin: 0;
 	display: block;
 }
-ul.thumbList li var
+ul.thumb-list li var
 {
 	font-size: 80%;
 	color: #d3d3d3;
 	font-style: normal;
 }
 
-.table-view ul.thumbList,
-.thumb-view table.itemList,
+.table-view ul.thumb-list,
+.thumb-view table.item-list,
 .thumb-view .table-title,
 .table-view .thumb-title
 {

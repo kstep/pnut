@@ -19,7 +19,7 @@ $this->breadcrumb = $this->topicId? array(
 <div id="articles">
 
 <? if ($this->topic): ?>
-	<ul class="controls" id="topicControls">
+	<ul class="controls" id="topic-controls">
 		<li><a title="Редактировать свойства раздела" class="edit" href="<?=$this->pathTo("Topic", "edit", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
 		<li><a title="Удаить раздел" class="remove" href="<?=$this->pathTo("Topic", "remove", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
 		<li><a title="Создать новый подраздел" class="new" href="<?=$this->pathTo("Topic", "new", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
@@ -28,7 +28,7 @@ $this->breadcrumb = $this->topicId? array(
 	<h2>Статьи из раздела &laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h2>
 
 	<div class="description"><?=$this->topic->description?></div>
-    <table class="itemList" summary="Статьи из раздела">
+    <table class="item-list" summary="Статьи из раздела">
 		<thead>
 		<tr><th style="width: 2em;">&#8470;</th><th>Заголовок</th><th>Название</th><th>Создана / изменена</th><th>Опубликована / архивирована</th><th>&nbsp;</th></tr>
 		</thead>
@@ -41,18 +41,18 @@ $this->breadcrumb = $this->topicId? array(
     </table>
 
 
-<ol id="articlesMenu" class="contextMenu">
-	<li class="copyBuffer"><a title="Переименовать статью без перезагузки страницы" href="#rename">Переименовать</a></li>
-	<li class="cutBuffer"><a title="Вырезать статьи для вставки в другой раздел" href="#cut">Вырезать</a></li>
-	<li class="removeArticle separator"><a title="Удалить статьи" href="#remove">Удалить</a></li>
+<ol id="articles-menu" class="context-menu">
+	<li class="copy-buffer"><a title="Переименовать статью без перезагузки страницы" href="#rename">Переименовать</a></li>
+	<li class="cut-buffer"><a title="Вырезать статьи для вставки в другой раздел" href="#cut">Вырезать</a></li>
+	<li class="remove-article separator"><a title="Удалить статьи" href="#remove">Удалить</a></li>
 </ol>
 
 	<?=stripe("table tbody tr:odd")?>
 	<script type="text/javascript">
-		$('table.itemList tbody')
+		$('table.item-list tbody')
 			.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
 			.selectable({ filter: 'tr', cancel: 'tr#anew' });
-		enable_context_menu('table.itemList tbody tr td:nth-child(2) a', '#articlesMenu', function(){});
+		enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-menu', function(){});
 	</script>
 <? else: ?>
 	<h2>Не выбран раздел</h2>

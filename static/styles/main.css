@@ -45,8 +45,8 @@ html, body
     z-index: 100;
 }
 
-.imageView,
-.videoView
+.image-view,
+.video-view
 {
     position: absolute;
     z-index: 200;
@@ -55,7 +55,7 @@ html, body
 	background: transparent no-repeat center center;
 }
 
-.imageView .closeButton
+.image-view .close-button
 {
 	float: right;
 	width: 16px;
@@ -68,7 +68,7 @@ html, body
 	background: transparent no-repeat center center;
 	background-image: url(../images/close.gif);
 }
-/*.imageView .closeButton:hover
+/*.image-view .close-button:hover
 {
 	background-image: url(../images/close.gif);
 }*/
