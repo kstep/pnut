@@ -1,0 +1,17 @@
+a { color: #008000; border-color: #90ee90; }
+a:visited { color: #006000; }
+a:hover { color: #ffffff; background-color: #008000; }
+
+#wrapper { border-color: #d3d3d3; }
+
+#header { background-color: #f6f6f6; }
+#header h1 a { color: inherit; }
+#header h1 a:hover { background-color: transparent; color: black; }
+
+ul#topmenu { border-color: #d3d3d3; background-color: #eeeeee; }
+ul#topmenu li.separator, ul#topmenu li { border-color: #d3d3d3; }
+
+#footer { border-color: #d3d3d3; background-color: #eeeeee; }
+#footer a { color: #a9a9a9; }
+
+#body ol.itemlist li ins { color: #a9a9a9; }

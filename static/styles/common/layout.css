@@ -11,7 +11,7 @@ body
 /* header {{{ */
 #wrapper
 {
-	border: 1px #d3d3d3;
+	border-width: 1px;
 	border-style: none solid;
 }
 
@@ -22,7 +22,7 @@ body
 
 #header
 {
-	background: #f6f6f6 url(../images/shadow.png) repeat-x bottom;
+	background: url(../../images/shadow.png) repeat-x bottom;
 }
 
 #header h1
@@ -30,19 +30,16 @@ body
 	margin: 0;
 	padding: 0.25em 0.5em 0.5em;
 	position: relative;
-	background: url(../images/headerbg.png) no-repeat right;
+	background: url(../../images/headerbg.png) no-repeat right;
 }
 
 #header h1 a
 {
 	text-decoration: none;
-	color: inherit;
 	border: none;
 }
 #header h1 a:hover
 {
-	background: transparent;
-	color: black;
 }
 /* header }}} */
 
@@ -57,17 +54,16 @@ ul.menu
 ul#topmenu
 {
 	font-size: 10px;
-	border: 1px #d3d3d3;
+	border-width: 1px;
 	border-style: solid none;
 	float: left;
 	width: 100%;
-	background: #eeeeee;
 }
 
 ul#topmenu li
 {
 	float: left;
-	border-right: 1px solid #d3d3d3;
+	border-right: 1px solid;
 }
 
 ul#topmenu li a
@@ -81,15 +77,13 @@ ul#topmenu li a:hover,
 ul#topmenu li a.active,
 ul#topmenu li strong
 {
-	/*background: #d3d3d3;*/
-	/*color: black;*/
 	text-decoration: none;
 }
 
 ul#topmenu li.separator
 {
 	margin-left: 0.5em;
-	border-left: 1px solid #d3d3d3;
+	border-left: 1px solid;
 }
 
 ul#topmenu li.right
@@ -114,7 +108,7 @@ ul#breadcrumb
 ul#breadcrumb li
 {
 	display: inline;
-	background: url(../images/arrow.gif) no-repeat left center;
+	background: url(../../images/arrow.gif) no-repeat left center;
 	padding-left: 12px;
 }
 /* }}} breadcrumb */
@@ -132,16 +126,10 @@ ul#breadcrumb li
 /* footer {{{ */
 #footer
 {
-	border: 1px #d3d3d3;
+	border-width: 1px;
 	border-style: solid none;
-	background: #eeeeee;
 	padding: 0.5em 0.4em 0.8em 0.5em;
 	clear: both;
-}
-
-#footer a
-{
-	color: #a9a9a9;
 }
 
 #footer ul
@@ -153,7 +141,7 @@ ul#breadcrumb li
 
 #footer a:hover
 {
-	background: transparent;
+	background: none;
 	text-decoration: none;
 }
 /* }}} footer */
@@ -183,10 +171,10 @@ li a.secure, li a.logout
 	background-position: 5px center;
 	padding-left: 7px;
 }
-a.secure { background-image: url(../images/lock.gif); }
-a.secure:hover { background-image: url(../images/locki.gif); }
-a.logout { background-image: url(../images/exit.gif); }
-a.logout:hover { background-image: url(../images/exiti.gif); }
+a.secure { background-image: url(../../images/lock.gif); }
+a.secure:hover { background-image: url(../../images/locki.gif); }
+a.logout { background-image: url(../../images/exit.gif); }
+a.logout:hover { background-image: url(../../images/exiti.gif); }
 
 ul#topmenu li a.secure,
 ul#topmenu li a.logout
@@ -196,14 +184,14 @@ ul#topmenu li a.logout
 
 a.external
 {
-	background-image: url(../images/ext.gif);
+	background-image: url(../../images/ext.gif);
 	background-repeat: no-repeat;
 	background-position: 80% center;
 	padding-right: 7px;
 }
 a.external:hover
 {
-	background-image: url(../images/exti.gif);
+	background-image: url(../../images/exti.gif);
 }
 
 ul#topmenu li a.external
