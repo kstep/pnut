@@ -86,13 +86,13 @@ ol.context-menu li a
 	display: block;
 	text-decoration: none;
 	border: none;
-	padding: 1px 5px 1px 20px;
-	background: transparent url(../../images/manage/contextmenu.gif) no-repeat 2px center;
+	padding: 2px 5px 2px 20px;
+	background: transparent no-repeat 2px center;
 	font-size: 90%;
 }
 ol.context-menu li a:hover
 {
-	background: #008000 url(../../images/manage/contextmenu.gif) no-repeat 2px center;
+	background-color: #008000;
 	color: white;
 }
 ol.context-menu li.disabled
@@ -100,71 +100,19 @@ ol.context-menu li.disabled
 	display: none;
 }
 
+ol.context-menu li.topic a { background-image: url(../../images/manage/icons/folder.gif); }
+ol.context-menu li.article a { background-image: url(../../images/manage/icons/article.gif); }
+ol.context-menu li.comment a { background-image: url(../../images/manage/icons/comment.gif); }
+ol.context-menu li.buffer a { background-image: url(../../images/manage/icons/buffer.gif); }
+ol.context-menu li.attach a { background-image: url(../../images/manage/icons/attach.gif); }
 
-ol.context-menu li.new-topic a,
-ol.context-menu li.new-topic a:hover
-{
-	background-position: 0 0px;
-}
-ol.context-menu li.edit-topic a,
-ol.context-menu li.edit-topic a:hover
-{
-	background-position: 0 -16px;
-}
-ol.context-menu li.remove-topic a,
-ol.context-menu li.remove-topic a:hover
-{
-	background-position: 0 -32px;
-}
+ol.context-menu li.new a { background-position: 0 -0px; }
+ol.context-menu li.edit a { background-position: 0 -18px; }
+ol.context-menu li.remove a { background-position: 0 -36px; }
 
-ol.context-menu li.new-article a,
-ol.context-menu li.new-article a:hover
-{
-	background-position: 0 -48px;
-}
-ol.context-menu li.edit-article a,
-ol.context-menu li.edit-article a:hover
-{
-	background-position: 0 -64px;
-}
-ol.context-menu li.remove-article a,
-ol.context-menu li.remove-article a:hover
-{
-	background-position: 0 -80px;
-}
-
-ol.context-menu li.new-comment a,
-ol.context-menu li.new-comment a:hover
-{
-	background-position: 0 -96px;
-}
-ol.context-menu li.edit-comment a,
-ol.context-menu li.edit-comment a:hover
-{
-	background-position: 0 -112px;
-}
-ol.context-menu li.remove-comment a,
-ol.context-menu li.remove-comment a:hover
-{
-	background-position: 0 -128px;
-}
-
-
-ol.context-menu li.copy-buffer a,
-ol.context-menu li.copy-buffer a:hover
-{
-	background-position: 0 -144px;
-}
-ol.context-menu li.cut-buffer a,
-ol.context-menu li.cut-buffer a:hover
-{
-	background-position: 0 -160px;
-}
-ol.context-menu li.paste-buffer a,
-ol.context-menu li.paste-buffer a:hover
-{
-	background-position: 0 -176px;
-}
+ol.context-menu li.copy a { background-position: 0 -0px; }
+ol.context-menu li.cut a { background-position: 0 -18px; }
+ol.context-menu li.paste a { background-position: 0 -36px; }
 
 ol.context-menu li.separator
 {

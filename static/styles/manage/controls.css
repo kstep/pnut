@@ -12,23 +12,19 @@
 }
 #body ul.controls li a
 {
-	background-image: url(../../images/manage/contextmenu.gif);
 	background-repeat: no-repeat;
 	padding: 5px 0 0 14px;
+	display: inline-block;
 	border: none;
 }
 
-#body ul.controls li a.new
-{
-	background-position: 0 0px;
-}
-#body ul.controls li a.edit
-{
-	background-position: 0 -16px;
-}
-#body ul.controls li a.remove
-{
-	background-position: 0 -32px;
-}
+#body ul#topic-controls li a { background-image: url(../../images/manage/icons/folder.gif); }
+#body ul#article-controls li a { background-image: url(../../images/manage/icons/article.gif); }
+#body ul#attach-controls li a { background-image: url(../../images/manage/icons/attach.gif); }
+#body ul#comment-controls li a { background-image: url(../../images/manage/icons/comment.gif); }
+
+#body ul.controls li a.new { background-position: 0 0px; }
+#body ul.controls li a.edit { background-position: 0 -18px; }
+#body ul.controls li a.remove { background-position: 0 -36px; }
 
 
