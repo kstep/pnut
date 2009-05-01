@@ -1,0 +1,37 @@
+#body ul.controls
+{
+	float: right;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 80%;
+	_position: relative;
+	_top: 10px;
+}
+#body ul.controls li
+{
+	display: inline;
+}
+#body ul.controls li a
+{
+	background-image: url(../../images/manage/contextmenu.gif);
+	background-repeat: no-repeat;
+	padding: 5px 0 0 14px;
+	_font-size: 12px;
+	border: none;
+}
+
+#body ul.controls li a.new
+{
+	background-position: 0 0px;
+}
+#body ul.controls li a.edit
+{
+	background-position: 0 -16px;
+}
+#body ul.controls li a.remove
+{
+	background-position: 0 -32px;
+}
+
+

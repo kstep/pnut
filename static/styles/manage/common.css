@@ -1,0 +1,71 @@
+body
+{
+	width: 80%;
+}
+
+#body h2
+{
+	font-size: 105%;
+	margin: 1em 0;
+}
+
+table
+{
+	border-collapse: collapse;
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: 98%;
+}
+table td,
+table th
+{
+	margin: 0;
+	text-align: left;
+	padding: 2px 4px;
+	border-bottom: 1px solid #f6f6f6;
+	vertical-align: top;
+}
+table tr.odd td
+{
+	background-color: #f6f6f6;
+}
+
+table th
+{
+	background: #eeeeee;
+	border: 1px #d3d3d3;
+	border-style: solid none;
+	color: black;
+}
+
+dl
+{
+	border-bottom: 1px solid #d3d3d3;
+}
+
+dl dt
+{
+	float: left;
+	font-weight: bold;
+	width: 14em;
+	line-height: 2em;
+	clear: left;
+	border-top: 1px solid #d3d3d3;
+	padding: 0 0.4em;
+	white-space: nowrap;
+}
+
+dl dd
+{
+	margin-left: 14.2em;
+	line-height: 2em;
+	border-top: 1px solid #d3d3d3;
+	padding: 0 0.4em;
+	white-space: nowrap;
+}
+
+dl dd.odd, dl dt.odd
+{
+	background: #eeeeee;
+}
