@@ -331,13 +331,10 @@ html, body
 }
 
 
-#content ul.gallery li.image
-{
-	background: url(../images/imagefile.gif) no-repeat center center;
-}
+#content ul.gallery li.image,
 #content ul.gallery li.video
 {
-	background: url(../images/videofile.gif) no-repeat center center;
+	background: no-repeat center center;
 }
 
 #content ul.gallery li a
@@ -607,6 +604,15 @@ body.error404 #topmenu ul li.first
 body.error404 #logo a.logo,
 body.error404 #logo strong.logo
 {
-    background-image: url(../images/butterflybw.gif);
+    background-image: url(../../images/makeup-and-style/butterflybw.gif);
+}
+
+#content ul.gallery li.image
+{
+	background-image: url(../../images/makeup-and-style/imagefile.gif);
+}
+#content ul.gallery li.video
+{
+	background-image: url(../../images/makeup-and-style/videofile.gif);
 }
 /* }}} */
