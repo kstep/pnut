@@ -12,6 +12,12 @@ class Controller_Makeup_Default extends Controller
         'comment' => 'actionComment',
     );
 
+	private function notFound(View_Html $view)
+	{
+		$view->setTemplate('makeup-and-style/404');
+		throw new Controller_Exception('Not found', 404, $view);
+	}
+
 	public function init()
 	{
 		Model_List_Topic::setVisibleOnly();
@@ -27,8 +33,7 @@ class Controller_Makeup_Default extends Controller
         $view->topic = new Model_Topic($store, $path);
         if (!$view->topic->getId())
         {
-            $view->setTemplate('404');
-            throw new Controller_Exception('Not found', 404, $view);
+            $this->notFound($view);
         }
 
     }
@@ -106,8 +111,7 @@ class Controller_Makeup_Default extends Controller
             $view->article = new Model_Article($this->getStorage(), array( 'topic_id' => $view->topic->getId(), $idparam => $params['article'] ));
             if (!$view->article->isLoaded())
             {
-                $view->setTemplate('404');
-                throw new Controller_Exception('Not found', 404, $view);
+				$this->notFound($view);
             }
             else
             {
@@ -132,8 +136,7 @@ class Controller_Makeup_Default extends Controller
         }
         else
         {
-            $view->setTemplate('404');
-            throw new Controller_Exception("Not found", 404, $view);
+			$this->notFound($view);
         }
         
         return $view;
