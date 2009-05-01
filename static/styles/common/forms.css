@@ -1,7 +1,7 @@
 form
 {
     display: block;
-    width: 80%;
+    width: 95%;
 }
 
 form label
@@ -39,7 +39,14 @@ form ol
 form ol li
 {
     list-style: none;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+form ol li input,
+form ol li textarea,
+form ol li select
+{
+	border: 1px solid #cccccc;
 }
 
 form ol li.reset
