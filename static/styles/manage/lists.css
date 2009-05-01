@@ -1,13 +1,13 @@
 #body .item-list tr.ui-selected td,
 #body .item-list tr.ui-selected td a
 {
-	background: #008000;
+	background-color: #008000;
 	color: white;
 }
 
 #body .item-list tr.ui-selecting td
 {
-	background: #eeeeee;
+	background-color: #eeeeee;
 }
 
 table.item-list td .thumbnail

@@ -10,7 +10,8 @@
 {
 	display: inline;
 }
-#body ul.controls li a
+
+#body .controls a
 {
 	background-repeat: no-repeat;
 	padding: 5px 0 0 14px;
@@ -18,13 +19,13 @@
 	border: none;
 }
 
-#body ul#topic-controls li a { background-image: url(../../images/manage/icons/folder.gif); }
-#body ul#article-controls li a { background-image: url(../../images/manage/icons/article.gif); }
-#body ul#attach-controls li a { background-image: url(../../images/manage/icons/attach.gif); }
-#body ul#comment-controls li a { background-image: url(../../images/manage/icons/comment.gif); }
+#body .controls a.topic { background-image: url(../../images/manage/icons/folder.gif); }
+#body .controls a.article { background-image: url(../../images/manage/icons/article.gif); }
+#body .controls a.attach { background-image: url(../../images/manage/icons/attach.gif); }
+#body .controls a.comment { background-image: url(../../images/manage/icons/comment.gif); }
 
-#body ul.controls li a.new { background-position: 0 0px; }
-#body ul.controls li a.edit { background-position: 0 -18px; }
-#body ul.controls li a.remove { background-position: 0 -36px; }
+#body .controls a.new { background-position: 0 0px; }
+#body .controls a.edit { background-position: 0 -18px; }
+#body .controls a.remove { background-position: 0 -36px; }
 
 

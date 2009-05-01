@@ -20,9 +20,9 @@ $this->breadcrumb = $this->topicId? array(
 
 <? if ($this->topic): ?>
 	<ul class="controls" id="topic-controls">
-		<li><a title="Редактировать свойства раздела" class="edit" href="<?=$this->pathTo("Topic", "edit", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
-		<li><a title="Удаить раздел" class="remove" href="<?=$this->pathTo("Topic", "remove", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
-		<li><a title="Создать новый подраздел" class="new" href="<?=$this->pathTo("Topic", "new", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
+		<li><a title="Редактировать свойства раздела" class="edit topic" href="<?=$this->pathTo("Topic", "edit", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
+		<li><a title="Удаить раздел" class="remove topic" href="<?=$this->pathTo("Topic", "remove", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
+		<li><a title="Создать новый подраздел" class="new topic" href="<?=$this->pathTo("Topic", "new", array( 'id' => $this->topicId ))?>">&nbsp;</a></li>
 	</ul>
 
 	<h2>Статьи из раздела &laquo;<?=$this->topic->title?>&raquo; <small>(<?=$this->topic->name?>)</small></h2>
@@ -34,7 +34,7 @@ $this->breadcrumb = $this->topicId? array(
 		</thead>
 		<tbody>
     <? foreach ($this->topic->getArticles() as $item): ?>
-		<tr id="a<?=$item->getId()?>" class="<?=$item->type?> <?=implode(" ", $item->flags)?>"><td><?=$item->order?></td><td><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td><?=date("d.m.Y H:i", $item->published)?><br /><?=date("d.m.Y H:i", $item->archived)?></td><td><a class="remove" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
+		<tr id="a<?=$item->getId()?>" class="<?=$item->type?> <?=implode(" ", $item->flags)?>"><td><?=$item->order?></td><td><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td><?=date("d.m.Y H:i", $item->published)?><br /><?=date("d.m.Y H:i", $item->archived)?></td><td class="controls"><a class="remove article" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
         <tr id="anew"><td colspan="6"><a class="add" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></td></tr>
 		</tbody>
@@ -42,9 +42,9 @@ $this->breadcrumb = $this->topicId? array(
 
 
 <ol id="articles-menu" class="context-menu">
-	<li class="copy-buffer"><a title="Переименовать статью без перезагузки страницы" href="#rename">Переименовать</a></li>
-	<li class="cut-buffer"><a title="Вырезать статьи для вставки в другой раздел" href="#cut">Вырезать</a></li>
-	<li class="remove-article separator"><a title="Удалить статьи" href="#remove">Удалить</a></li>
+	<li class="copy buffer"><a title="Переименовать статью без перезагузки страницы" href="#rename">Переименовать</a></li>
+	<li class="cut buffer"><a title="Вырезать статьи для вставки в другой раздел" href="#cut">Вырезать</a></li>
+	<li class="remove article separator"><a title="Удалить статьи" href="#remove">Удалить</a></li>
 </ol>
 
 	<?=stripe("table tbody tr:odd")?>
