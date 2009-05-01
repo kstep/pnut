@@ -410,3 +410,54 @@ table.thumbList tbody td small
 	margin-left: 0;
 }
 
+
+ul.thumbList
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 95%;
+}
+
+ul.thumbList li
+{
+	display: block;
+	float: left;
+	width: 120px;
+	height: 180px;
+	overflow: hidden;
+	margin: 0 1.5em;
+}
+
+ul.thumbList li .thumbnail
+{
+	display: block;
+	width: 120px;
+	height: 120px;
+	background: no-repeat center center;
+}
+
+ul.thumbList li small
+{
+	margin: 0;
+	display: block;
+}
+ul.thumbList li var
+{
+	font-size: 80%;
+	color: #d3d3d3;
+	font-style: normal;
+}
+
+.table-view ul.thumbList,
+.thumb-view table.itemList,
+.thumb-view .table-title,
+.table-view .thumb-title
+{
+	display: none;
+}
+.table-title,
+.thumb-title
+{
+	font-style: normal;
+}
