@@ -179,7 +179,7 @@ function enable_context_menu(selector, menu, func)
 		return false;
 	};
 
-	var $activator = $("<a href=\"#\" class=\"menu-activator\">&#8964;<"+"/a>");
+	var $activator = $("<a href=\"#\" class=\"menu-activator\">&nbsp;<"+"/a>");
 	var $menu = $(menu).data('callback', func);
 	$menu.find("li > a").each(function(){$(this).click(menufunc)}).end();
 

@@ -175,3 +175,14 @@ ol.context-menu li.separator a
 {
 	margin-top: 0.1em;
 }
+
+a.menu-activator
+{
+	background: url(../../images/darr.gif) no-repeat bottom center;
+	padding-left: 5px;
+	margin-left: 0.1em;
+}
+a.menu-activator:hover
+{
+	background-image: url(../../images/darri.gif);
+}
