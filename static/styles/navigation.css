@@ -405,3 +405,8 @@ table.thumbList .mimetype
 	display: none;
 }
 
+table.thumbList tbody td small
+{
+	margin-left: 0;
+}
+
