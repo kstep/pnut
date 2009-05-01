@@ -1,0 +1,4 @@
+#body ul.controls { position: relative; top: 10px; }
+#body ul.controls li a { font-size: 12px; }
+ol.context-menu { width: 10em; }
+ol.context-menu li a { width: 100%; }

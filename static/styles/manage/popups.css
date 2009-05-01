@@ -78,7 +78,6 @@ ol.context-menu
 	padding: 0;
 	display: none;
 	overflow: hidden;
-	_width: 10em;
 	min-width: 10em;
 }
 
@@ -90,7 +89,6 @@ ol.context-menu li a
 	padding: 1px 5px 1px 20px;
 	background: transparent url(../../images/manage/contextmenu.gif) no-repeat 2px center;
 	font-size: 90%;
-	_width: 100%;
 }
 ol.context-menu li a:hover
 {
