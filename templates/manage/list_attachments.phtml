@@ -5,17 +5,17 @@
 </thead>
 <tbody>
 	<? foreach ($attachments as $item): ?>
-	<tr id="f<?=$item->getId()?>"><td class="filename"><a href="<?=$this->pathTo("Attachment", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a><br /><small><?=$item->filename?></small></td><td class="mimetype"><?=$item->mimetype?></td><td class="filesize"><?=Filter_File::humanizeSize($item->filesize, 0)?></td><td class="filedate"><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td class="controls"><a href="<?=$this->pathTo("File", "download", array( 'id' => $item->getId() ))?>" title="Скачать" class="download attach">&nbsp;</a><a class="remove article" href="<?=$this->pathTo("Article", "dettach", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></td></tr>
+	<tr id="f<?=$item->getId()?>"><td class="filename"><a href="<?=$this->pathTo("Attachment", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a><br /><small><?=$item->filename?></small></td><td class="mimetype"><?=$item->mimetype?></td><td class="filesize"><?=Filter_File::humanizeSize($item->filesize, 0)?></td><td class="filedate"><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td class="controls"><a href="<?=$this->pathTo('File', 'download', array( 'id' => $item->getId() ))?>" title="Скачать" class="download attach">&nbsp;</a><a class="remove article" href="<?=$this->pathTo("Article", "dettach", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></td></tr>
 	<? endforeach ?>
 </tbody>
 </table>
 <ul class="thumb-list">
 	<? foreach ($attachments as $item): ?>
 	<li>
-		<a href="<?=$this->pathTo("Attachment", "edit", array( 'id' => $item->getId() ))?>"><span class="thumbnail" style="background-image: url(<?=$this->_prefix?>/../image/thumbnail/<?=$item->getId()?>/120/);" title="Миниатюра">&nbsp;</span><?=$item->title?></a>
+		<a href="<?=$this->pathTo("Attachment", "edit", array( 'id' => $item->getId() ))?>"><span class="thumbnail" style="background-image: url(<?=$this->pathTo('Image', 'thumbnail', array( 'id' => $item->getId(), 'scale' => 120 ))?>);" title="Миниатюра">&nbsp;</span><?=$item->title?></a>
 		<small><?=$item->filename?></small>
 		<var><?=Filter_File::humanizeSize($item->filesize, 0)?></var>
-		<em class="controls"><a href="<?=$this->pathTo("File", "download", array( 'id' => $item->getId() ))?>" title="Скачать" class="download attach">&nbsp;</a><a title="Удалить" class="remove article" href="<?=$this->pathTo('Article', 'dettach', array( 'id' => $item->getId() ))?>">&nbsp;</a></em>
+		<em class="controls"><a href="<?=$this->pathTo('File', 'download', array( 'id' => $item->getId() ))?>" title="Скачать" class="download attach">&nbsp;</a><a title="Удалить" class="remove article" href="<?=$this->pathTo('Article', 'dettach', array( 'id' => $item->getId() ))?>">&nbsp;</a></em>
 	</li>
 	<? endforeach ?>
 </ul>

@@ -24,6 +24,16 @@
 				<targid>3</targid>
 			</params>
 		</route>
+		<route controller="Image" cache="2592000">
+			<match>#^image/([a-z]+)/([0-9]+)(?:/([0-9]+))?#</match>
+			<build>image/%s/%d/%d</build>
+			<controller>image</controller>
+			<action>1</action>
+			<params>
+				<id>2</id>
+				<scale>3</scale>
+			</params>
+		</route>
 		<route action="default">
 			<build>%s/%d</build>
 			<controller>1</controller>

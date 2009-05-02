@@ -39,7 +39,7 @@
 				<? if ($check && $this->attachment->isImage()): ?>
 				<? list($width, $height) = getimagesize($this->attachment->getFilepath()) ?>
 				<dt>Размеры изображения</dt><dd><?=$width?>&times;<?=$height?></dd>
-				<dt>Миниатюра</dt><dd><img src="<?=$this->_prefix?>/../image/thumbnail/<?=$this->attachment->getId()?>/200" /></dd>
+				<dt>Миниатюра</dt><dd><img src="<?=$this->pathTo('Image', 'thumbnail', array( 'id' => $this->attachment->getId(), 'scale' => 200 ))?>" /></dd>
 				<? endif ?>
             </dl>
 			<?stripe("dl dd:even, dl dt:even")?>
