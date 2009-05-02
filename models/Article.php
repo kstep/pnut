@@ -4,7 +4,7 @@
  * @subpackage Content
  * Article model
  */
-class Model_Article extends Model_Timestamped implements Model_Rightful
+class Model_Article extends Model_Timestamped implements Model_Rightful, Model_Tagged
 {
     protected $_fields = array(
         'id'             => Model::TYPE_INTEGER,
@@ -220,6 +220,11 @@ class Model_Article extends Model_Timestamped implements Model_Rightful
 	public function isInTopic(Model_Topic $topic)
 	{
 		return $this->topic == $topic->getId();
+	}
+
+	public function getTags()
+	{
+		return Model_List_Tag::getModelTags($this->_db, $this);
 	}
 }
 ?>

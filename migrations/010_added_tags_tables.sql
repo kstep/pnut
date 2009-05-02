@@ -16,7 +16,7 @@ CREATE TABLE `tags` (
 
 DROP TABLE IF EXISTS `tag_relations`;
 CREATE TABLE `tag_relations` (
-  `obj_type` enum('article','topic') NOT NULL default 'article',
+  `obj_type` enum('articles','topics') NOT NULL default 'articles',
   `obj_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`obj_type`,`obj_id`)
