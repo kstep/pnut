@@ -5,7 +5,7 @@
 
 	<ul>
 		<? foreach ($this->groups as $group): ?>
-		<? if ($this->groups->getStep() > 0): ?><?=str_repeat("<ul>", $this->groups->getStep())?><? elseif ($this->groups->getStep() < 0): ?><?=str_repeat("</li></ul></li>", -($this->groups->getStep()))?><? elseif (!$this->groups->isFirst()): ?></li><? endif ?>
+		<? if ($this->groups->getStep() == 1): ?><ul><? elseif ($this->groups->getStep() < 0): ?><?=str_repeat("</li></ul>", -($this->groups->getStep()))?></li><? elseif (!$this->groups->isFirst()): ?></li><? endif ?>
 		<li id="g<?=$group->getId()?>"<? if ($group->getId() == $this->groupId): ?> class="active"<?endif?>>
 			<a href="<?=$this->pathTo("Admin_Group", "default", array( 'id' => $group->getId() ))?>" title="<?=$group->name?>"><?=$group->title?></a>
 		<? endforeach ?>
