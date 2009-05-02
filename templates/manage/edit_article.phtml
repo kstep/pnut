@@ -7,8 +7,8 @@
 ) ?>
 <? include("header.phtml") ?>
 <script type="text/javascript">
-var topicId = <?=$this->topicId?>;
-var articleId = <?=$this->article->getId()?>;
+var topicId = <?=(int)$this->topicId?>;
+var articleId = <?=(int)$this->article->getId()?>;
 </script>
 
 <div id="navigation">
@@ -43,6 +43,7 @@ var articleId = <?=$this->article->getId()?>;
 			</ul>
 		</fieldset>
 <script type="text/javascript">
+//<![CDATA[
 function remove_tag()
 {
 	$(this.parentNode).fadeOut('normal', function(){ $(this).remove() });
@@ -76,6 +77,7 @@ $('.tag-list a.remove').click(remove_tag);//function () {
 	//remove_tag();
 	//return false;
 //});
+//]]>
 </script>
 	</li>
     <li id="options">
@@ -110,6 +112,8 @@ $('.tag-list a.remove').click(remove_tag);//function () {
 
 	<? //show_rights($this, $this->article) ?>
 
+	<? $attachments = $this->article->getAttachments() ?>
+	<? if ($attachments && count($attachments)): ?>
     <li id="attachments" class="table-view">
         <fieldset>
             <legend>Вложения <a href="#"><var class="table-title">в виде списка</var><var class="thumb-title">с миниатюрами</var></a></legend>
@@ -121,6 +125,21 @@ $('.tag-list a.remove').click(remove_tag);//function () {
 			;})</script>
         </fieldset>
     </li>
+	<? endif ?>
+
+
+	<li id="attachfiles">
+		<fieldset>	
+			<legend>Вложить новые файлы</legend>
+			<ul class="item-list" style="clear: both;">
+				<li class="controls"><input type="file" name="attach[]" /><a href="#" class="remove article" title="Убрать">&nbsp;</a></li>
+				<li class="controls"><a class="new attach" href="#">Добавить</a>&nbsp;<a href="#" class="new attach add5" title="Добавить пять файлов">&times;5</a></li>
+			</ul>
+		</fieldset>	
+
+		<?=$this->script("manage/attach_files")?>
+	</li>
+
     <? $comments = $this->article->getComments() ?>
     <? if ($comments && count($comments)): ?>
     <li id="comments">

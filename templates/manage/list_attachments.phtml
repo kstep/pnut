@@ -1,4 +1,3 @@
-<? $attachments = $this->article->getAttachments() ?>
 <div>
 <table class="item-list" summary="Вложения в статье">
 <thead>
@@ -8,8 +7,6 @@
 	<? foreach ($attachments as $item): ?>
 	<tr id="f<?=$item->getId()?>"><td class="filename"><a href="<?=$this->pathTo("Attachment", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a><br /><small><?=$item->filename?></small></td><td class="mimetype"><?=$item->mimetype?></td><td class="filesize"><?=Filter_File::humanizeSize($item->filesize, 0)?></td><td class="filedate"><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td class="controls"><a href="<?=$this->pathTo("File", "download", array( 'id' => $item->getId() ))?>" title="Скачать" class="download attach">&nbsp;</a><a class="remove article" href="<?=$this->pathTo("Article", "dettach", array( 'id' => $item->getId() ))?>" title="Удалить">&nbsp;</a></td></tr>
 	<? endforeach ?>
-	<tr><td colspan="6"><input type="file" name="attach[]" /><a class="remove" href="#" title="Убрать">&nbsp;</a></td></tr>
-	<tr><td colspan="6"><a class="add" href="#">Добавить</a>&nbsp;<a href="#" class="add5" title="Добавить пять файлов">&times;5</a></td></tr>
 </tbody>
 </table>
 <ul class="thumb-list">
