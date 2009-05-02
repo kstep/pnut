@@ -201,10 +201,10 @@ class Controller_Admin_Article extends Controller_Admin
         $view = $this->ajaxView('article');
         $view->state = "failed";
 
-        if ($params["id"] && $_REQUEST["to"])
+        if ($params["id"] && $params["targid"])
         {
             $article = new Model_Article($this->getStorage(), $params["id"]);
-            $topic   = new Model_Topic($this->getStorage(), $_REQUEST["to"]);
+            $topic   = new Model_Topic($this->getStorage(), $params["targid"]);
             $view->id       = $article->getId();
             $view->topic_id = $topic->getId();
 
@@ -287,10 +287,10 @@ class Controller_Admin_Article extends Controller_Admin
 		$view = $this->ajaxView('article');
 		$view->state = 'failed';
 
-		if ($params['id'] && $_REQUEST['to'])
+		if ($params['id'] && $params['targid'])
 		{
 			$oarticle = new Model_Article($this->getStorage(), $params['id']);
-			$tarticle = new Model_Article($this->getStorage(), $_REQUEST['to']);
+			$tarticle = new Model_Article($this->getStorage(), $params['targid']);
 			$view->id        = $oarticle->getId();
 			$view->target_id = $tarticle->getId();
 
@@ -298,10 +298,32 @@ class Controller_Admin_Article extends Controller_Admin
 			{
 				$this->canPerform($oarticle, 'edit');
 				$view->state = 'reordered';
+				$view->place = $params['place'];
+
+				switch ($params['place'])
+				{
+				case 'before':
+					$method = 'insertBefore';
+					break;
+				case 'after':
+					$method = 'insertAfter';
+					break;
+				default:
+					if ($oarticle->isBefore($tarticle))
+					{
+						$method = 'insertAfter';
+						$view->place = 'after';
+					}
+					else
+					{
+						$method = 'insertBefore';
+						$view->place = 'before';
+					}
+				}
 
 				try
 				{
-					$oarticle->insertAfter($tarticle);
+					$oarticle->$method($tarticle);
 				}
 				catch (Exception $e)
 				{

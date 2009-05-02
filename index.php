@@ -28,5 +28,5 @@ $dispatcher = new Dispatcher($routes['site']);
 $dispatcher->run();
 
 $end_time = microtime(true);
-include("debug.php");
+//include("debug.php");
 ?>

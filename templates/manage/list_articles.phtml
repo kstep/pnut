@@ -47,7 +47,6 @@ $this->breadcrumb = $this->topicId? array(
 	<li class="remove article separator"><a title="Удалить статьи" href="#remove">Удалить</a></li>
 </ol>
 
-	<?=stripe("table tbody tr:odd")?>
 	<script type="text/javascript">
 		function rename_article(result)
 		{
@@ -64,8 +63,7 @@ $this->breadcrumb = $this->topicId? array(
 
 		function remove_article(result)
 		{
-			var $item = $("table.item-list tr#a"+result.id);
-			$item.fadeOut("normal", function(){$(this).remove()});
+			remove_element($("table.item-list tr#a"+result.id));
 		}
 
 		$('table.item-list tbody')
@@ -93,6 +91,10 @@ enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-men
 			.find("#ttitle").focus();
 		break;
 	case 'cut':
+		$('table.item-list tbody tr.cut').removeClass('cut');
+		$('table.item-list tbody tr.ui-selected').addClass('cut');
+		$('.context-menu li.paste').removeClass('disabled');
+		$item.addClass('cut');
 		break;
 	case 'remove':
 		ask_question("Точно удалить эту статью?", $href, sitePrefix+"/article/remove/"+itemid, remove_article);

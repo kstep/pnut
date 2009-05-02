@@ -140,3 +140,9 @@ ul.tag-list li
 	display: inline;
 	margin-right: 0.5em;
 }
+
+table.item-list tr.cut td,
+table.item-list tr.cut td a
+{
+	color: #d3d3d3;
+}

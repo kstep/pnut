@@ -1,4 +1,7 @@
-var cut_topic_id;
+function remove_element($elem)
+{
+	$elem.fadeOut('normal', function(){$(this).remove()});
+}
 
 function ask_question(question, $obj, href, ajaxaction)
 {
@@ -19,16 +22,28 @@ function run_form(e)
 		if (result.state != "failed" && ok_handler)
 			ok_handler(result);
 		else
-			error_form(result.error, $form);
+			error_form(result, $form);
 	});
 	return false;
 }
 
-function error_form(errmsg, $obj)
+function error_form(result, $obj)
 {
 	var $form = $("#error-form");
 	var pos = $obj.offset();
 	pos.top += $obj.height();
+
+	var errmsg = result.error;
+	if (result.errors)
+	{
+		result.error += "<ul>";
+		for (errmsg in result.errors)
+		{
+			result.error += "<li>"+result.errors[errmsg]+"</li>";
+		}
+		result.error += "</ul>";
+	}
+
 	$form.css(pos).find("p").html(errmsg).end().fadeIn("fast", function(){setTimeout("$('#error-form').fadeOut('slow')", 5000)});
 }
 
@@ -40,8 +55,7 @@ function rename_topic(result)
 
 function remove_topic(result)
 {
-	var $item = $("#topics li#t"+result.id);
-	$item.fadeOut("normal", function(){$(this).remove()});
+	remove_element($('#topics li#t'+result.id));
 }
 
 function reorder_topic(e, ui)
@@ -78,7 +92,7 @@ function reorder_topic(e, ui)
 		}
 		else
 		{
-			error_form(result.error, $item);
+			error_form(result, $item);
 		}
 	});
 }
@@ -99,15 +113,13 @@ function handle_topic_context_menu(action, item, pos)
 		window.location = sitePrefix+"/topic/new/"+itemid;
 		break;
 	case "cut":
-		if (cut_topic_id) $("#t"+cut_topic_id).removeClass("cut");
-		cut_topic_id = itemid;
+		$('#topics ul li.cut').removeClass("cut");
 		$item.addClass("cut");
 		$(".context-menu li.paste").removeClass("disabled");
 		break;
 	case "paste":
-		if (cut_topic_id)
-		{
-			$.getJSON(sitePrefix+"/topic/move/"+cut_topic_id+"/"+itemid, { ajax: true }, function (result) {
+		$('#topics ul li.cut').each(function () {
+			$.getJSON(sitePrefix+"/topic/move/"+this.id.substring(1)+"/"+itemid, { ajax: true }, function (result) {
 				var $cutitem = $("#t"+result.id);
 				if (result.state == 'moved')
 				{
@@ -119,23 +131,24 @@ function handle_topic_context_menu(action, item, pos)
 				}
 				else
 				{
-					if (result.errors)
-					{
-						result.error += "<ul>";
-						for (errmsg in result.errors)
-						{
-							result.error += "<li>"+result.errors[errmsg]+"</li>";
-						}
-						result.error += "</ul>";
-					}
-					error_form(result.error, $cutitem.find("a:first-child"));
+					error_form(result, $cutitem.find("a:first-child"));
 				}
 			});
-
-			$("#t"+cut_topic_id).removeClass("cut");
-			cut_topic_id = null;
-			$(".context-menu li.paste").addClass("disabled");
-		}
+		}).removeClass('cut');
+		$('#articles .item-list tr.cut').each(function () {
+			$.getJSON(sitePrefix+"/article/move/"+this.id.substring(1)+"/"+itemid, { ajax: true }, function (result) {
+				var $cutitem = $("#a"+result.id);
+				if (result.state == 'moved')
+				{
+					remove_element($cutitem);
+				}
+				else
+				{
+					error_form(result, $cutitem);
+				}
+			});
+		}).removeClass('cut');
+		$(".context-menu li.paste").addClass("disabled");
 		break;
 	case "rename":
 		var pos = $item.offset();
