@@ -4,7 +4,7 @@
  * @subpackage Content
  * Topic model
  */
-class Model_Topic extends Model_TraversedTree implements Model_Rightful
+class Model_Topic extends Model_TraversedTree implements Model_Rightful, Model_Tagged
 {
     protected $_fields = array(
         'id'                 => Model::TYPE_INTEGER,
@@ -171,6 +171,11 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 	{
 		if (!$this->_rights) $this->_rights = new Model_Rights($this);
 		return $this->_rights;
+	}
+
+	public function getTags()
+	{
+		return Model_List_Tag::getModelTags($this->_db, $this);
 	}
 }
 ?>
