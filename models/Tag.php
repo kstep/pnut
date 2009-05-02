@@ -3,20 +3,27 @@ class Model_Tag extends Model_Tree implements Countable
 {
 
     protected $_table = 'tags';
+	protected $_parent_field = 'syn_id';
 
     protected $_attributes = array(
         'name'   => 'name',
-        'parent' => 'parent_id',
+        'parent' => 'syn_id',
     );
 
     protected $_fields = array(
-        'name'      => Model::TYPE_STRING,
-        'parent_id' => Model::TYPE_INTEGER,
+        'name'   => Model::TYPE_STRING,
+        'syn_id' => Model::TYPE_INTEGER,
     );
 
 	private $_total = null;
 
     protected $_list_class_name = 'Model_List_Tag';
+
+	public function __construct(Storage_Db $db, $id = null)
+	{
+		if (is_string($id)) $id = array( 'name' => $id );
+		parent::__construct($db, $id);
+	}
 
 	private function getModelsList($objname, $page = 0)
 	{
@@ -54,6 +61,16 @@ class Model_Tag extends Model_Tree implements Countable
 			$this->_total = (int)$result['total'];
 		}
 		return $this->_total;
+	}
+
+	public function tagModel(Model_Tagged $model)
+	{
+		$this->_db->insert('tag_relations', array( 'tag_id' => $this->getId(), 'obj_type' => $model->getTable(), 'obj_id' => $model->getId() ));
+	}
+
+	public function untagModel(Model_Tagged $model)
+	{
+		$this->_db->delete('tag_relations', array( 'tag_id' => $this->getId(), 'obj_type' => $model->getTable(), 'obj_id' => $model->getId() ));
 	}
 
 	public function regenerate($parent = 0, $state = 0) {}

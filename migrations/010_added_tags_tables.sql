@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL default '0',
+  `syn_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
 
