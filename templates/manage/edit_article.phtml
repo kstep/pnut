@@ -6,6 +6,10 @@
 	"" => "Статья &laquo;".$this->article->title."&raquo;",
 ) ?>
 <? include("header.phtml") ?>
+<script type="text/javascript">
+var topicId = <?=$this->topicId?>;
+var articleId = <?=$this->article->getId()?>;
+</script>
 
 <div id="navigation">
 <? include("nav_topics.phtml") ?>
@@ -38,6 +42,41 @@
 				<li><a href="<?=$this->pathTo('Tag', 'default')?>" class="new comment">новый тег</a></li>
 			</ul>
 		</fieldset>
+<script type="text/javascript">
+function remove_tag()
+{
+	$(this.parentNode).fadeOut('normal', function(){ $(this).remove() });
+	return false;
+}
+
+function add_tag(e)
+{
+	var $me = $(this.parentNode);
+	var tagname = $(this).prev().show().end().remove().val();
+	var $newtag = $('<a>').attr({ href: sitePrefix+'/article/untag/'+articleId+'/', class: 'remove comment' }).text(tagname).click(remove_tag);
+	var $li = $('<li>').append($newtag);
+	$me.before($li);
+
+	//$.getJSON(sitePrefix+"/article/tag/"+articleId, { ajax: true, name: tagname }, function(result){
+		//var $newtag = $('<a>').attr('href', sitePrefix+'/article/untag/'+result.article_id+'/'+result.id).text(result.name).click(remove_tag);
+		//var $li = $('<li>').append($newtag);
+		//$('.tag-list').prepend($newtag);	
+	//});
+}
+$('.tag-list a.new').click(function () {
+	var $li = $(this.parentNode);
+	var $tag = $('<input type="text" />').attr({ size: 8 }).blur(add_tag);
+	$(this).hide();
+	$li.append($tag);
+	$tag.focus();
+	return false;
+});
+$('.tag-list a.remove').click(remove_tag);//function () {
+	//ask_question('Точно удалить этот тег?', $(this.parentNode), remove_tag)
+	//remove_tag();
+	//return false;
+//});
+</script>
 	</li>
     <li id="options">
         <fieldset>
