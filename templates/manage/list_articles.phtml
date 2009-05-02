@@ -34,7 +34,7 @@ $this->breadcrumb = $this->topicId? array(
 		</thead>
 		<tbody>
     <? foreach ($this->topic->getArticles() as $item): ?>
-		<tr id="a<?=$item->getId()?>" class="<?=$item->type?> <?=implode(" ", $item->flags)?>"><td><?=$item->order?></td><td><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td><?=date("d.m.Y H:i", $item->published)?><br /><?=date("d.m.Y H:i", $item->archived)?></td><td class="controls"><a class="remove article" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
+		<tr id="a<?=$item->getId()?>" class="<?=$item->type?> <?=implode(" ", $item->flags)?>"><td class="order"><?=$item->order?></td><td class="title"><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td class="name"><?=$item->name?></td><td><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td><?=date("d.m.Y H:i", $item->published)?><br /><?=date("d.m.Y H:i", $item->archived)?></td><td class="controls"><a class="remove article" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
         <tr id="anew"><td colspan="6" class="controls"><a class="new article" href="<?=$this->pathTo("Admin_Article", "new", array( 'id' => $this->topic->getId() ))?>">Новая статья</a></td></tr>
 		</tbody>
@@ -49,10 +49,56 @@ $this->breadcrumb = $this->topicId? array(
 
 	<?=stripe("table tbody tr:odd")?>
 	<script type="text/javascript">
+		function rename_article(result)
+		{
+			var $item = $('#a'+result.id);
+			if (result.state != 'failed')
+			{
+				$item.find("td.title > a:first-child").text(result.title).end().find("td.name").text(result.name);
+			}
+			else
+			{
+				error_form(result.error, $item);
+			}
+		}
+
+		function remove_article(result)
+		{
+			var $item = $("table.item-list tr#a"+result.id);
+			$item.fadeOut("normal", function(){$(this).remove()});
+		}
+
 		$('table.item-list tbody')
 			.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
 			.selectable({ filter: 'tr', cancel: 'tr#anew' });
-		enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-menu', function(){});
+enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-menu', function(action, item, pos){
+
+	var $href = $(item);
+	var $item = $(item).parent().parent();
+	var itemid = parseInt($item.attr("id").substring(1));
+	if (isNaN(itemid)) itemid = 0;
+
+	switch (action)
+	{
+	case 'rename':
+		var pos = $item.offset();
+		pos.top += $href.height();
+		$("#rename-topic")
+			.attr("action", sitePrefix+"/article/rename/"+itemid)
+			.data("ajaxaction", rename_article)
+			.css(pos)
+			.find("#ttitle").val($href.text()).end()
+			.find("#tname").val($item.find("td.name").text()).end()
+			.show()
+			.find("#ttitle").focus();
+		break;
+	case 'cut':
+		break;
+	case 'remove':
+		ask_question("Точно удалить эту статью?", $href, sitePrefix+"/article/remove/"+itemid, remove_article);
+		break;
+	}
+});
 	</script>
 <? else: ?>
 	<h2>Не выбран раздел</h2>

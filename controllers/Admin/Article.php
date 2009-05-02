@@ -169,7 +169,9 @@ class Controller_Admin_Article extends Controller_Admin
             {
                 $this->canPerform($article, "edit");
                 $article->title = $_GET["title"];
+                $article->name  = $_GET["name"];
                 $view->title    = $article->title;
+                $view->name     = $article->name;
 
                 if ($errors = $article->validate())
                 {

@@ -142,6 +142,7 @@ function handle_topic_context_menu(action, item, pos)
 		pos.top += $href.height();
 		$("#rename-topic")
 			.attr("action", sitePrefix+"/topic/rename/"+itemid)
+			.data("ajaxaction", rename_topic)
 			.css(pos)
 			.find("#ttitle").val($href.text()).end()
 			.find("#tname").val($href.attr("title")).end()
@@ -213,4 +214,3 @@ function enable_context_menu(selector, menu, func)
 $("#topics ul li#troot ul").sortable({ items: 'li', handle: 'a', update: reorder_topic });
 enable_context_menu("#topics ul li#troot ul li a", '#topics-menu', handle_topic_context_menu);
 enable_context_menu("#topics ul li#troot > a", '#root-topic-menu', handle_topic_context_menu);
-$("#rename-topic").data("ajaxaction", rename_topic);
