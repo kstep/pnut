@@ -124,3 +124,19 @@ ul.thumb-list li var
 	font-style: normal;
 }
 
+#body ul.tag-list
+{
+	float: none;
+}
+
+ul.tag-list
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.tag-list li
+{
+	display: inline;
+	margin-right: 0.5em;
+}

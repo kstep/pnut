@@ -31,12 +31,12 @@
 	<li id="tags">
 		<fieldset>
 			<legend>Теги</legend>
-			<ol class="tag-list controls">
+			<ul class="tag-list controls">
 			<? foreach ($this->article->getTags() as $tag): ?>
 				<li><a href="<?=$this->pathTo('Article', 'untag', array( 'id' => $tag->getId() ))?>" class="remove comment"><?=$tag?></a></li>
 			<? endforeach ?>
 				<li><a href="<?=$this->pathTo('Tag', 'default')?>" class="new comment">новый тег</a></li>
-			</ol>
+			</ul>
 		</fieldset>
 	</li>
     <li id="options">
