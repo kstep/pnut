@@ -1,0 +1,17 @@
+<?
+$this->title = "Список тегов";
+?>
+<? include("header.phtml") ?>
+<h2>Теги</h2>
+<table style="width: 80%;">
+<thead>
+<tr><th>Название</th><th style="width: 5em;">Размер</th><th style="width: 1em;">&nbsp;</th></tr>
+</thead>
+<tbody>
+<? foreach ($this->tags as $item): ?>
+<tr><td><a href="<?=$this->pathTo('Tag', 'edit', array( 'id' => $item->getId() ))?>"><?=$item->name?></a></td><td><?=count($item)?></td><td class="controls"><a href="<?=$this->pathTo('Tag', 'remove', array( 'id' => $item->getId() ))?>" class="remove comment" title="Удалить тег">&nbsp;</a></td></tr>
+<? endforeach ?>
+<tr><td colspan="3" class="controls"><a href="<?=$this->pathTo('Tag', 'new')?>" class="new comment">Новый тег</a></td></tr>
+</tbody>
+</table>
+<? include("footer.phtml") ?>

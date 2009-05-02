@@ -1,0 +1,23 @@
+<? $this->title = "Правка тега" ?>
+<? include("header.phtml") ?>
+
+<? if ($this->tag->getId()): ?>
+<h2>&laquo;<?=$this->tag->name?>&raquo;</h2>
+<? else: ?>
+<h2>Новый тег</h2>
+<? endif ?>
+
+<form action="#" method="post">
+<ol>
+    <?li($this, 'name')?><?=$this->input("name", $this->tag->name, "Название")?></li>
+
+    <li id="submit">
+        <input type="submit" value="Сохранить" />
+        <input type="reset" value="Сбросить" />
+        <input type="hidden" name="save" value="1" />
+    </li>
+</ol>
+</form>
+
+<?//=$this->tinymce()?>
+<? include("footer.phtml") ?>

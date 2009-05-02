@@ -21,7 +21,7 @@
 	<title><?=$this->title?> &mdash; p-nut.manage &beta;</title>
 	<?=$this->meta("Content-Type", "text/html; charset=UTF-8", true)?>
 
-    <link rel="icon" href="<?=$this->_prefix?>/static/images/pfavicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?=$this->_prefix?>/static/images/favicon.ico" type="image/x-icon" />
 	<?=$this->style("common/style")?>
 	<?=$this->style("manage/style")?>
 	<!--[if IE]><?=$this->style("manage/iefix")?><![endif]-->
@@ -55,7 +55,7 @@
 		<li><a href="<?=$this->pathTo('Topic', 'default')?>">Контент</a></li>
 		<li><a href="<?=$this->pathTo('Group', 'default')?>">Пользователи</a></li>
 		<li><a href="#<?//=$this->pathTo('Poll', 'default')?>" class="not-implemented">Опросы</a></li>
-		<li><a href="#<?//=$this->pathTo('Tag', 'default')?>" class="not-implemented">Теги</a></li>
+		<li><a href="<?=$this->pathTo('Tag', 'default')?>">Теги</a></li>
 
 		<li class="right"><a class="logout" href="#manage">Выйти</a></li>
 		<li class="separator right"><a href="#manage">Вы зашли как <strong style="text-transform: capitalize;"><?=$_SERVER['PHP_AUTH_USER']?></strong></a></li>

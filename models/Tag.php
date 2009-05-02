@@ -55,5 +55,7 @@ class Model_Tag extends Model_Tree implements Countable
 		}
 		return $this->_total;
 	}
+
+	public function regenerate($parent = 0, $state = 0) {}
 }
 ?>
