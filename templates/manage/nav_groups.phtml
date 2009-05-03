@@ -18,11 +18,22 @@
 </div>
 
 <ol id="groups-menu" class="context-menu">
-	<li class="edit group"><a title="Открыть полную форму правки раздела" href="#edit">Изменить</a></li>
-	<li class="new article"><a title="Создать новую статью в этом разделе" href="#write">Написать</a></li>
-	<li class="new topic"><a title="Создать подраздел в этом разделе" href="#create">Создать</a></li>
-	<li class="copy buffer"><a title="Переименовать раздел без перезагузки страницы" href="#rename">Переименовать</a></li>
-	<li class="cut buffer separator"><a title="Вырезать раздел для вставки в другой в качестве подраздела" href="#cut">Вырезать</a></li>
-	<li class="paste buffer disabled"><a title="Поместить вырезанный раздел в этот" href="#paste">Вставить</a></li>
-	<li class="remove topic separator"><a title="Удалить раздел" href="#remove">Удалить</a></li>
+	<li class="edit group"><a title="Открыть полную форму правки группы" href="#edit">Изменить</a></li>
+	<li class="new user"><a title="Создать пользователя в этой группе" href="#write">Добавить</a></li>
+	<li class="new group"><a title="Создать подгруппу в этой группе" href="#create">Создать</a></li>
+	<li class="copy buffer"><a title="Переименовать группу без перезагузки страницы" href="#rename">Переименовать</a></li>
+	<li class="cut buffer separator"><a title="Вырезать группу для вставки в другую в качестве подгруппы" href="#cut">Вырезать</a></li>
+	<li class="paste buffer disabled"><a title="Поместить вырезанную группу в эту" href="#paste">Вставить</a></li>
+	<li class="remove group separator"><a title="Удалить группу" href="#remove">Удалить</a></li>
 </ol>
+
+<script type="text/javascript">
+//<!CDATA[
+function handle_group_context_menu(action, item, pos)
+{
+}
+
+enable_context_menu("#groups ul li#groot ul li a", '#groups-menu', handle_group_context_menu);
+enable_context_menu("#groups ul li#groot > a", '#root-group-menu', handle_group_context_menu);
+//]]>
+</script>

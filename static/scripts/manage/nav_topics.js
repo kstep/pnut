@@ -122,59 +122,6 @@ function handle_topic_context_menu(action, item, pos)
 	}
 }
 
-var context_menu;
-function enable_context_menu(selector, menu, func)
-{
-	var actfunc = function(){
-		var $me     = $(this);
-		var $caller = $me.prev();
-		var $menu   = $caller.data('menu');
-		var invis   = !$me.data('menuvisible');
-
-		if (context_menu)
-		{
-			context_menu.hide();
-			context_menu.data('caller').next().data('menuvisible', false);
-			context_menu = null;
-		}
-
-		if (invis)
-		{
-			var pos = $me.offset();
-			pos.top += $me.height();
-			$menu.data('caller', $caller).css(pos).show();
-			context_menu = $menu;
-			$me.data('menuvisible', true);
-		}
-		else
-		{
-			$me.data('menuvisible', false);
-		}
-		return false;
-	};
-	var menufunc = function(){
-		var $me = $(this).parents("ol");
-		var pos = $me.offset();
-		var func = $me.data('callback');
-		var $item = $me.data('caller');
-		var act  = $(this).attr('href').substring(1);
-
-		context_menu.hide();
-		context_menu.data('caller').next().data('menuvisible', false);
-		context_menu = null;
-
-		func(act, $item.get(0), pos);
-		return false;
-	};
-
-	var $activator = $("<a href=\"#\" class=\"menu-activator\">&nbsp;<"+"/a>");
-	var $menu = $(menu).data('callback', func);
-	$menu.find("li > a").each(function(){$(this).click(menufunc)}).end();
-
-	$(selector).data("menu", $menu).after($activator);
-	return $(selector).not("a.menu-activator").each(function(){$(this).next().click(actfunc)}).end();
-}
-
 $("#topics ul li#troot ul").sortable({ items: 'li', handle: 'a', update: reorder_topic });
 enable_context_menu("#topics ul li#troot ul li a", '#topics-menu', handle_topic_context_menu);
 enable_context_menu("#topics ul li#troot > a", '#root-topic-menu', handle_topic_context_menu);

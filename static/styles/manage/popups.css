@@ -111,6 +111,8 @@ ol.context-menu li.article a { background-image: url(../../images/manage/icons/a
 ol.context-menu li.comment a { background-image: url(../../images/manage/icons/comment.gif); }
 ol.context-menu li.buffer a { background-image: url(../../images/manage/icons/buffer.gif); }
 ol.context-menu li.attach a { background-image: url(../../images/manage/icons/attach.gif); }
+ol.context-menu li.group a { background-image: url(../../images/manage/icons/group.gif); }
+ol.context-menu li.user a { background-image: url(../../images/manage/icons/user.gif); }
 
 ol.context-menu li.new a { background-position: 0 -0px; }
 ol.context-menu li.edit a { background-position: 0 -18px; }
