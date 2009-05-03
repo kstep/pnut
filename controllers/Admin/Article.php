@@ -4,7 +4,7 @@
  * @subpackage Admin
  * Admin controller for articles management
  */
-class Controller_Admin_Article extends Controller_Admin
+class Controller_Admin_Article extends Controller_Admin_Content
 {
     protected $_actions = array(
         'default' => 'actionDefault',

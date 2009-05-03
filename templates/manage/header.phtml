@@ -60,7 +60,7 @@
 		<li><a href="<?=$this->pathTo('Tag', 'default')?>">Теги</a></li>
 
 		<li class="right"><a class="logout" href="#manage">Выйти</a></li>
-		<li class="separator right"><a href="#manage">Вы зашли как <strong style="text-transform: capitalize;"><?=$_SERVER['PHP_AUTH_USER']?></strong></a></li>
+		<li class="separator right"><a href="<?=$this->pathTo('User', 'edit', array( 'id' => $this->current_user->getId() ))?>">Вы зашли как <strong style="text-transform: capitalize;"><?=$this->current_user->username?></strong></a></li>
 	</ul>
 	<ul id="breadcrumb">
 		<? if ($this->breadcrumb): ?>

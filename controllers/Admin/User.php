@@ -4,7 +4,7 @@
  * @subpackage Admin
  * Admin controller for users management
  */
-class Controller_Admin_User extends Controller_Admin
+class Controller_Admin_User extends Controller_Admin_Access
 {
     protected $_actions = array(
         "remove"  => "actionRemove",

@@ -42,8 +42,7 @@ abstract class Controller_Admin extends Controller_Restricted
     protected function htmlView($template)
     {
         $view = new View_Html("manage/$template");
-        $view->topics = new Model_List_Topic($this->getStorage());
-		$view->groups = new Model_List_Group($this->getStorage());
+		$view->current_user = $this->getAuthorizator()->getUser();
         return $view;
     }
 
