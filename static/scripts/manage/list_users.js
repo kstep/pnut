@@ -4,8 +4,8 @@ function rename_user(result)
 	if (result.state != 'failed')
 	{
 		$item.find("td.username > a:first-child").text(result.username).end()
-			.find("td.login").text(result.login)
-			.find("td.email").text(result.email);
+			.find("td.login").text(result.login).end()
+			.find("td.email a").attr("href", "mailto:" + result.email).text(result.email);
 	}
 	else
 	{
