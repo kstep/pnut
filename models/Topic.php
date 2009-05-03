@@ -59,7 +59,7 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 
 	public function __construct(Storage_Db $db, $id = null)
 	{
-		if (self::$_visible_only) $this->_table = 'visible_topics';
+		//if (self::$_visible_only) $this->_table = 'visible_topics';
 		parent::__construct($db, $id);
 	}
 

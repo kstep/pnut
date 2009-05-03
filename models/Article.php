@@ -231,32 +231,35 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 	{
 		if (!$tag instanceof Model_Tag)
 		{
-			if (is_array($tag))
+			if (is_array($tag) or $tag instanceof Model_List_Tag)
 			{
 				foreach ($tag as $item)
 				{
 					$this->addTags($item);
 				}
+				return true;
 			}
 			else
 			{
 				$tag = new Model_Tag($this->_db, $tag);
 			}
 		}
-		
+
 		return $tag->tagModel($this);
 	}
 
 	public function dropTags($tag = null)
 	{
+		$isnull = $tag === null;
 		if (!$tag instanceof Model_Tag)
 		{
-			if (is_array($tag))
+			if (is_array($tag) or $tag instanceof Model_List_Tag)
 			{
 				foreach ($tag as $item)
 				{
 					$this->removeTag($item);
 				}
+				return true;
 			}
 			else
 			{
@@ -264,7 +267,7 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 			}
 		}
 
-		return $tag->untagModel($this, $tag === null);
+		return $tag->untagModel($this, $isnull);
 	}
 
 }
