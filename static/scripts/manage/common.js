@@ -17,6 +17,7 @@ function run_form(e)
 	var $form = $(e.target);
 	var pos = $form.offset();
 	var ok_handler = $form.data("ajaxaction");
+
 	$form.hide().find(":input[name]").each(function(){ data[this.name] = this.value; });
 	data.ajax = true;
 	$.getJSON($form.attr("action"), data, function (result) {

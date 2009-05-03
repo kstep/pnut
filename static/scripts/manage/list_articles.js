@@ -1,3 +1,7 @@
+$('#articles table.item-list tbody')
+	.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
+	.selectable({ filter: 'tr', cancel: 'tr#anew, a' });
+
 function rename_article(result)
 {
 	var $item = $('tr#a'+result.id);
@@ -15,10 +19,6 @@ function remove_article(result)
 {
 	remove_element($("table.item-list tr#a"+result.id));
 }
-
-$('#articles table.item-list tbody')
-	.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
-	.selectable({ filter: 'tr', cancel: 'tr#anew, a' });
 
 enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-menu', function(action, item, pos){
 
@@ -53,3 +53,5 @@ break;
 }
 });
 
+$('.item-list tbody tr td.controls a.remove').click(function(){ask_question("Точно удалить эту статью?", $(this), $(this).attr('href'), remove_article); return false;});
+$('#topic-controls a.remove').click(function(){ask_question("Точно удалить этот раздел?", $(this), $(this).attr('href'), function(){window.location = sitePrefix+"/topic/"}); return false;});

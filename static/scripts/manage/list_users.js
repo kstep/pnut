@@ -1,3 +1,6 @@
+$('#users table.item-list tbody')
+	.selectable({ filter: 'tr', cancel: 'tr#unew, a' });
+
 function rename_user(result)
 {
 	var $item = $('tr#u'+result.id);
@@ -47,12 +50,11 @@ case 'cut':
 	$item.addClass('cut');
 break;
 case 'remove':
-	ask_question("Точно удалить эту статью?", $href, sitePrefix+"/article/remove/"+itemid, remove_article);
+	ask_question("Точно удалить этого пользователя?", $href, sitePrefix+"/user/remove/"+itemid, remove_user);
 break;
 }
 });
 
-$('#users table.item-list tbody')
-	.selectable({ filter: 'tr', cancel: 'tr#unew, a' });
 
-
+$('.item-list tbody tr td.controls a.remove').click(function(){ask_question("Точно удалить этого пользователя?", $(this), $(this).attr('href'), remove_user); return false;});
+$('#group-controls a.remove').click(function(){ask_question("Точно удалить эту группу?", $(this), $(this).attr('href'), function(){window.location = sitePrefix+"/group/"}); return false;});
