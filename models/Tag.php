@@ -85,6 +85,19 @@ class Model_Tag extends Model_Tree implements Countable
 		$this->_db->delete('tag_relations', $cond);
 	}
 
-	public function regenerate($parent = 0, $state = 0) {}
+	public function regenerate($parent = 0, $state = 0)
+	{
+		return;
+	}
+
+	public function remove()
+	{
+		$id = $this->getId();
+		if ($id)
+		{
+			parent::remove();
+			$this->_db->delete('tag_relations', array( 'tag_id' => $id ));
+		}
+	}
 }
 ?>

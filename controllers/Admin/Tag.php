@@ -59,5 +59,42 @@ class Controller_Admin_Tag extends Controller_Admin
 		return $view;
 	}
 
+	public function actionRemove($params)
+	{
+		$view = $this->ajaxView('tag');
+		$view->state = 'failed';
+
+        if ($params["id"])
+        {
+            $tag = new Model_Tag($this->getStorage(), $params["id"]);
+            $view->id = $tag->getId();
+
+            if ($view->id)
+            {
+				$this->canPerform($tag, "delete");
+
+                $view->state = "removed";
+                try
+                {
+                    $tag->remove();
+                }
+                catch (Exception $e)
+                {
+                    $view->state = "failed";
+                    $view->error = $e->getMessage();
+                }
+            }
+            else
+            {
+                $view->error = "Tag not found.";
+            }
+        }
+        else
+        {
+            $view->error = "Tag ID is not set.";
+        }
+        return $view;
+	}
+
 }
 ?>
