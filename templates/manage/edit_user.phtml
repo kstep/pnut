@@ -25,6 +25,7 @@
     <?li($this, 'email')?><?=$this->input("email", $this->user->email, "Электропочта")?></li>
 	<?li($this, 'role')?><?=$this->select("role", array('guest' => 'Гость', 'user' => 'Пользователь', 'manager' => 'Менеджер', 'admin' => 'Администратор', 'superuser' => 'Суперпользовтатель'), $this->user->role, "Роль")?></li>
 	<?li($this, 'gender')?><?=$this->select("gender", array( "male" => "Муж", "female" => "Жен" ), $this->user->gender, 'Пол')?></li>
+	<?li($this, 'group')?><?=$this->select("group", $this->groups, $this->user->group, "Группа")?></li>
 
     <li id="options">
         <fieldset>
@@ -52,15 +53,6 @@
             <ol>
                 <li>&hellip;создан <?=Filter_Date::toString($this->user->created)?>.</li>
                 <li>&hellip;последний раз на сайте <?=Filter_Date::toString($this->user->online)?>.</li>
-            </ol>
-        </fieldset>
-    </li>
-
-    <li id="placement">
-        <fieldset>
-            <legend>Размещение</legend>
-            <ol>
-                <?li($this, 'group')?><?=$this->select("group", $this->groups, $this->user->group, "Группа")?></li>
             </ol>
         </fieldset>
     </li>

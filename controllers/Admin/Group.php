@@ -2,12 +2,13 @@
 class Controller_Admin_Group extends Controller_Admin_Access
 {
     protected $_actions = array(
-        "default" => "actionDefault",
+        "default" => "actionListUsers",
         "edit"    => "actionEdit",
 		"new"     => "actionNew",
         "remove"  => "actionRemove",
 		"rename"  => "actionRename",
 		"move"    => "actionMove",
+		"create"  => "actionCreate",
     );
 
 	public function saveGroup(Model_Group $group, View_Html $view)
@@ -27,7 +28,7 @@ class Controller_Admin_Group extends Controller_Admin_Access
         return false;
 	}
 
-    public function actionDefault($params)
+    public function actionListUsers($params)
     {
         $view = $this->htmlView('list_users');
         if ($params['id'])
@@ -39,9 +40,6 @@ class Controller_Admin_Group extends Controller_Admin_Access
 
 	public function actionEdit($params)
 	{
-        if ($_REQUEST['ajax'])
-            return $this->actionRename($params);
-
 		$view = $this->htmlView('edit_group');
         if ($params["id"])
         {
@@ -60,9 +58,6 @@ class Controller_Admin_Group extends Controller_Admin_Access
 
 	public function actionNew($params)
 	{
-        if ($_REQUEST["ajax"])
-            return $this->actionCreate($params);
-
         $store = $this->getStorage();
         $view = $this->htmlView('edit_group');
         $view->group   = new Model_Group($store);
@@ -210,10 +205,10 @@ class Controller_Admin_Group extends Controller_Admin_Access
             $group    = new Model_Group($this->getStorage(), $params["id"]);
             $view->id = $group->getId();
 
-            $view->parent_id = (int)$_REQUEST["to"];
+            $view->parent_id = (int)$params['targid'];
             if ($view->parent_id != 0)
             {
-                $targGroup = new Model_Group($this->getStorage(), $_REQUEST["to"]);
+                $targGroup = new Model_Group($this->getStorage(), $params["targid"]);
                 $view->parent_id = $targGroup->getId();
                 if (!$view->parent_id)
                 {

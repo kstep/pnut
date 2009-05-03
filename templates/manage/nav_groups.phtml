@@ -27,13 +27,18 @@
 	<li class="remove group separator"><a title="Удалить группу" href="#remove">Удалить</a></li>
 </ol>
 
-<script type="text/javascript">
-//<!CDATA[
-function handle_group_context_menu(action, item, pos)
-{
-}
+<ol id="root-group-menu" class="context-menu">
+	<li class="new group"><a title="Создать корневую группу" href="#create">Создать</a></li>
+	<li class="paste buffer disabled separator"><a title="Сделать вырезанную гуппу корневой" href="#paste">Вставить</a></li>
+</ol>
 
-enable_context_menu("#groups ul li#groot ul li a", '#groups-menu', handle_group_context_menu);
-enable_context_menu("#groups ul li#groot > a", '#root-group-menu', handle_group_context_menu);
-//]]>
-</script>
+<form id="rename-group" class="popup-form" action="#">
+	<h3>&#8963; переименовать</h3>
+	<ol>
+		<li><label for="gtitle">Заголовок</label><input type="text" value="" id="gtitle" name="title" /></li>
+		<li><label for="gname">Название</label><input type="text" value="" id="gname" name="name" /></li>
+		<li><input type="reset" value="Отмена" class="reset" /><input type="submit" value="ОК" class="submit" /></li>
+	</ol>
+</form>
+
+<?=$this->script("manage/nav_groups")?>

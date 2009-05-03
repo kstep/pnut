@@ -17,18 +17,28 @@ $this->breadcrumb = $this->groupId? array(
 </div>
 
 <div id="contents">
+
 <div id="users">
+
 <? if ($this->group): ?>
+
+	<ul class="controls" id="group-controls">
+		<li><a title="Редактировать свойства группы" class="edit group" href="<?=$this->pathTo("Group", "edit", array( 'id' => $this->groupId ))?>">&nbsp;</a></li>
+		<li><a title="Удалить группу" class="remove group" href="<?=$this->pathTo("Group", "remove", array( 'id' => $this->groupId ))?>">&nbsp;</a></li>
+		<li><a title="Создать новую подгруппу" class="new group" href="<?=$this->pathTo("Group", "new", array( 'id' => $this->groupId ))?>">&nbsp;</a></li>
+	</ul>
+
 	<h2>Пользователи в группе &laquo;<?=$this->group->title?>&raquo; <small>(<?=$this->group->name?>)</small></h2>
+
     <table class="item-list" summary="Пользователи в группе">
 	<thead>
 	<tr><th>Имя пользователя</th><th>Логин</th><th>Роль</th><th>Создан</th><th>E-mail</th><th>&nbsp;</th></tr>
 	</thead>
 	<tbody>
     <? foreach ($this->group->getUsers() as $item): ?>
-		<tr id="u<?=$item->getId()?>" class="<?=$item->role?>"><td><a href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a></td><td><?=$item->login?></td><td><?=$item->role?></td><td><?=date("d.m.Y H:i", $item->created)?></td><td><a href="mailto:<?=$item->email?>"><?=$item->email?></a></td><td><a class="remove" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
+		<tr id="u<?=$item->getId()?>" class="<?=$item->role?>"><td><a href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a></td><td><?=$item->login?></td><td><?=$item->role?></td><td><?=date("d.m.Y H:i", $item->created)?></td><td><a href="mailto:<?=$item->email?>"><?=$item->email?></a></td><td class="controls"><a class="remove user" title="Удалить пользователя" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
-        <tr id="unew"><td colspan="6"><a class="add" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></td></tr>
+        <tr id="unew"><td colspan="6" class="controls"><a class="new user" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></td></tr>
 	</tbody>
     </table>
 	<?stripe("table tbody tr:odd")?>
