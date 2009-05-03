@@ -2,7 +2,7 @@
 interface Model_Tagged
 {
 	function getTags();
-	function addTag($tag);
-	function removeTag($tag);
+	function addTags($tag);
+	function dropTags($tag = null);
 }
 ?>

@@ -16,6 +16,8 @@ class Controller_Admin_Article extends Controller_Admin
         'rename'  => 'actionRename',
         'dettach' => 'actionDettach',
 		'reorder' => 'actionReorder',
+
+		'tag'     => 'actionTag',
     );
 
     private function saveArticle(Model_Article $article, View_Html $view)
@@ -33,6 +35,11 @@ class Controller_Admin_Article extends Controller_Admin
             {
                 $article->save();
 				$article->getRights()->setRights($_POST['rights'], $_POST['owner'], $_POST['group'])->save();
+
+				$article->dropTags();
+				$tags = isset($_POST['tag'])? $_POST['tag']: (isset($_POST['tags'])? explode(", ", $_POST['tags']): null);
+				Model_Tag::setAutoCreate();
+				if ($tags) $article->addTags($tags);
 
                 if ($_FILES && $_FILES["attach"])
                 {

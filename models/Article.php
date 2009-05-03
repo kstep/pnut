@@ -227,7 +227,7 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 		return Model_List_Tag::getModelTags($this->_db, $this);
 	}
 
-	public function addTag($tag)
+	public function addTags($tag)
 	{
 		if (!$tag instanceof Model_Tag)
 		{
@@ -235,7 +235,7 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 			{
 				foreach ($tag as $item)
 				{
-					$this->addTag($item);
+					$this->addTags($item);
 				}
 			}
 			else
@@ -247,7 +247,7 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 		return $tag->tagModel($this);
 	}
 
-	public function removeTag($tag)
+	public function dropTags($tag = null)
 	{
 		if (!$tag instanceof Model_Tag)
 		{
@@ -264,7 +264,8 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 			}
 		}
 
-		return $tag->untagModel($this);
+		return $tag->untagModel($this, $tag === null);
 	}
+
 }
 ?>

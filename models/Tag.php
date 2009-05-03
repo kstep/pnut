@@ -16,13 +16,22 @@ class Model_Tag extends Model_Tree implements Countable
     );
 
 	private $_total = null;
+	private static $_auto_create = false;
 
     protected $_list_class_name = 'Model_List_Tag';
+
+
+	public function setAutoCreate($value = true) { self::$_auto_create = (bool)$value; }
 
 	public function __construct(Storage_Db $db, $id = null)
 	{
 		if (is_string($id)) $id = array( 'name' => $id );
 		parent::__construct($db, $id);
+		if (self::$_auto_create && !$this->getId() && is_array($id) && isset($id['name']))
+		{
+			$this->name = $id['name'];
+			$this->save();
+		}
 	}
 
 	private function getModelsList($objname, $page = 0)
@@ -68,9 +77,11 @@ class Model_Tag extends Model_Tree implements Countable
 		$this->_db->insert('tag_relations', array( 'tag_id' => $this->getId(), 'obj_type' => $model->getTable(), 'obj_id' => $model->getId() ));
 	}
 
-	public function untagModel(Model_Tagged $model)
+	public function untagModel(Model_Tagged $model, $alltags = false)
 	{
-		$this->_db->delete('tag_relations', array( 'tag_id' => $this->getId(), 'obj_type' => $model->getTable(), 'obj_id' => $model->getId() ));
+		$cond = array( 'obj_type' => $model->getTable(), 'obj_id' => $model->getId() );
+		if (!$alltags) $cond['tag_id'] = $this->getId();
+		$this->_db->delete('tag_relations', $cond);
 	}
 
 	public function regenerate($parent = 0, $state = 0) {}
