@@ -7,7 +7,7 @@
 		<? foreach ($this->topics as $topic): ?>
 		<? if ($this->topics->getStep() == 1): ?><ul><? elseif ($this->topics->getStep() < 0): ?><?=str_repeat("</li></ul>", -($this->topics->getStep()))?></li><? elseif (!$this->topics->isFirst()): ?></li><? endif ?>
 		<li id="t<?=$topic->getId()?>"<? if ($topic->getId() == $this->topicId): ?> class="active"<?endif?>>
-			<a href="<?=$this->pathTo("Admin_Topic", "default", array( 'id' => $topic->getId() ))?>" title="<?=$topic->name?>"><?=$topic->title?></a>
+			<a href="<?=$this->pathTo("Topic", "default", array( 'id' => $topic->getId() ))?>" title="<?=$topic->name?>"><?=$topic->title?></a>
 		<? endforeach ?>
 		<? if ($this->topics->getLevel() > 1): ?><?=str_repeat("</li></ul>", $this->topics->getLevel()-1)?><? endif ?>
 		</li>
