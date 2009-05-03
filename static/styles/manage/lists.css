@@ -127,6 +127,7 @@ ul.thumb-list li var
 #body ul.tag-list
 {
 	float: none;
+	margin-left: 10em;
 }
 
 ul.tag-list

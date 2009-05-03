@@ -1,1 +1,12 @@
 set tags=@SITEPATH@/tags
+
+noremap <Leader>bi :tabe @SITEPATH@/static/images<cr>
+noremap <Leader>bs :tabe @SITEPATH@/static/styles<cr>
+noremap <Leader>bj :tabe @SITEPATH@/static/scripts<cr>
+
+noremap <Leader>bc :tabe @SITEPATH@/controllers<cr>
+noremap <Leader>bt :tabe @SITEPATH@/templates<cr>
+noremap <Leader>bm :tabe @SITEPATH@/migrations<cr>
+noremap <Leader>ba :tabe @SITEPATH@/classes<cr>
+noremap <Leader>bx :tabe @SITEPATH@/configs<cr>
+

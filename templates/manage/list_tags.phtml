@@ -9,9 +9,9 @@ $this->title = "Список тегов";
 </thead>
 <tbody>
 <? foreach ($this->tags as $item): ?>
-<tr><td><a href="<?=$this->pathTo('Tag', 'edit', array( 'id' => $item->getId() ))?>"><?=$item->name?></a></td><td><?=count($item)?></td><td class="controls"><a href="<?=$this->pathTo('Tag', 'remove', array( 'id' => $item->getId() ))?>" class="remove comment" title="Удалить тег">&nbsp;</a></td></tr>
+<tr><td><a href="<?=$this->pathTo('Tag', 'edit', array( 'id' => $item->getId() ))?>"><?=$item->name?></a></td><td><?=count($item)?></td><td class="controls"><a href="<?=$this->pathTo('Tag', 'remove', array( 'id' => $item->getId() ))?>" class="remove tag" title="Удалить тег">&nbsp;</a></td></tr>
 <? endforeach ?>
-<tr><td colspan="3" class="controls"><a href="<?=$this->pathTo('Tag', 'new')?>" class="new comment">Новый тег</a></td></tr>
+<tr><td colspan="3" class="controls"><a href="<?=$this->pathTo('Tag', 'new')?>" class="new tag">Новый тег</a></td></tr>
 </tbody>
 </table>
 <? include("footer.phtml") ?>

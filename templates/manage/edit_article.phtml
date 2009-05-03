@@ -30,56 +30,20 @@ var articleId = <?=(int)$this->article->getId()?>;
     <?li($this, 'name')?><?=$this->input("name", $this->article->name, "Название")?></li>
     <?li($this, 'abstract')?><?=$this->input("abstract", $this->article->abstract, "Резюме", 5)?></li>
     <?li($this, 'content')?><?=$this->input("content", $this->article->content, "Содержание", 20)?></li>
+	<li id="taglist">
+		<? $tags = $this->article->getTags() ?>
+		<?=$this->input('tags', implode(", ", $tags->toArray()), "Теги", 1, 50)?>
+		<ul class="tag-list controls hidden">
+			<? foreach ($tags as $tag): ?>
+			<li><a href="#" class="remove tag"><?=$tag?></a><?=$this->hidden('tag[]', $tag->name)?></li>
+			<? endforeach ?>
+			<li><a href="#" class="new tag">новый тег</a></li>
+		</ul>
+		<?=$this->script("manage/edit_tags")?>
+	</li>
     <?li($this, 'type')?><?=$this->select("type", array( "article" => "Обычная статья", "gallery" => "Галерея" ), $this->article->type, "Тип статьи")?></li>
 	<?li($this, 'author')?><?=$this->select('author', $this->users, $this->article->author, 'Автор')?></li>
-	<li id="tags">
-		<fieldset>
-			<legend>Теги</legend>
-			<ul class="tag-list controls">
-			<? foreach ($this->article->getTags() as $tag): ?>
-				<li><a href="<?=$this->pathTo('Article', 'untag', array( 'id' => $tag->getId() ))?>" class="remove comment"><?=$tag?></a></li>
-			<? endforeach ?>
-				<li><a href="<?=$this->pathTo('Tag', 'default')?>" class="new comment">новый тег</a></li>
-			</ul>
-		</fieldset>
-<script type="text/javascript">
-//<![CDATA[
-function remove_tag()
-{
-	$(this.parentNode).fadeOut('normal', function(){ $(this).remove() });
-	return false;
-}
 
-function add_tag(e)
-{
-	var $me = $(this.parentNode);
-	var tagname = $(this).prev().show().end().remove().val();
-	var $newtag = $('<a>').attr({ href: sitePrefix+'/article/untag/'+articleId+'/', class: 'remove comment' }).text(tagname).click(remove_tag);
-	var $li = $('<li>').append($newtag);
-	$me.before($li);
-
-	//$.getJSON(sitePrefix+"/article/tag/"+articleId, { ajax: true, name: tagname }, function(result){
-		//var $newtag = $('<a>').attr('href', sitePrefix+'/article/untag/'+result.article_id+'/'+result.id).text(result.name).click(remove_tag);
-		//var $li = $('<li>').append($newtag);
-		//$('.tag-list').prepend($newtag);	
-	//});
-}
-$('.tag-list a.new').click(function () {
-	var $li = $(this.parentNode);
-	var $tag = $('<input type="text" />').attr({ size: 8 }).blur(add_tag);
-	$(this).hide();
-	$li.append($tag);
-	$tag.focus();
-	return false;
-});
-$('.tag-list a.remove').click(remove_tag);//function () {
-	//ask_question('Точно удалить этот тег?', $(this.parentNode), remove_tag)
-	//remove_tag();
-	//return false;
-//});
-//]]>
-</script>
-	</li>
     <li id="options">
         <fieldset>
             <legend>Опции</legend>

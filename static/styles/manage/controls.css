@@ -22,9 +22,14 @@
 #body .controls a.article { background-image: url(../../images/manage/icons/article.gif); }
 #body .controls a.attach { background-image: url(../../images/manage/icons/attach.gif); }
 #body .controls a.comment { background-image: url(../../images/manage/icons/comment.gif); }
+#body .controls a.tag { background-image: url(../../images/manage/icons/tag.gif); }
+#body .controls a.user { background-image: url(../../images/manage/icons/user.gif); }
+#body .controls a.group { background-image: url(../../images/manage/icons/group.gif); }
 
 #body .controls a.new { background-position: 0 0px; }
 #body .controls a.edit { background-position: 0 -18px; }
 #body .controls a.remove { background-position: 0 -36px; }
 
+#body .controls a.download { background-position: 0 -54px; }
+#body .controls a.view { background-position: 0 -72px; }
 
