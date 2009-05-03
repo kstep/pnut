@@ -7,7 +7,7 @@ abstract class Model_Tree extends Model_Ordered implements IteratorAggregate
 
     public function __construct(Storage_Db $db, $path = null)
     {
-        if ($path && !is_array($path) && !is_numeric($path))
+        if ($path && is_string($path) && !is_numeric($path))
         {
             $condition = $tables = array();
             $apath = explode("/", trim($path, "/"));

@@ -11,6 +11,7 @@ class Model_Tag extends Model_Tree implements Countable
     );
 
     protected $_fields = array(
+        'id'     => Model::TYPE_INTEGER,
         'name'   => Model::TYPE_STRING,
         'syn_id' => Model::TYPE_INTEGER,
     );
@@ -25,7 +26,7 @@ class Model_Tag extends Model_Tree implements Countable
 
 	public function __construct(Storage_Db $db, $id = null)
 	{
-		if (is_string($id)) $id = array( 'name' => $id );
+		if (is_string($id) && !is_numeric($id)) $id = array( 'name' => $id );
 		parent::__construct($db, $id);
 		if (self::$_auto_create && !$this->getId() && is_array($id) && isset($id['name']))
 		{
