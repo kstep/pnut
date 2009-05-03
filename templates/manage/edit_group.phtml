@@ -1,6 +1,16 @@
-<? $this->title = "Правка группы" ?>
-<? $this->groupId = $this->group->getId() ?>
-<? include("header.phtml") ?>
+<?
+$this->title = "Правка группы";
+$this->groupId = $this->group->getId()? $this->group->getId(): $this->group->parent;
+$this->breadcrumb = $this->groupId? array(
+	$this->pathTo("Group", "default") => "Пользователи",
+	$this->pathTo("Group", "default", array( 'id' => $this->groupId )) => "Группа &laquo;".$this->group->title."&raquo;",
+	'' => 'Правка',
+): array(
+	"" => "Пользователи",
+);
+
+include("header.phtml");
+?>
 
 <div id="navigation">
 <? include("nav_groups.phtml") ?>

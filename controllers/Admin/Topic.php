@@ -119,6 +119,7 @@ class Controller_Admin_Topic extends Controller_Admin_Content
         $view->topic->order = 0;
 		$view->topic->flags   = array();
 		$view->topic->parent  = (int)$params['id'];
+		$view->topic->items_per_page = 20;
         return $view;
     }
 

@@ -1,14 +1,16 @@
-<? $this->title = "Правка раздела" ?>
-<? $this->topicId = $this->topic->getId() ?>
 <?
+$this->title = "Правка раздела";
+$this->topicId = $this->topic->getId()? $this->topic->getId(): $this->topic->parent;
 $this->breadcrumb = $this->topicId? array(
 	$this->pathTo("Topic", "default") => "Контент",
-	"" => "Раздел &laquo;".$this->topic->title."&raquo;",
+	$this->pathTo("Topic", "default", array( 'id' => $this->topicId )) => "Раздел &laquo;".$this->topic->title."&raquo;",
+	'' => 'Правка',
 ): array(
 	"" => "Контент",
 );
+
+include("header.phtml");
 ?>
-<? include("header.phtml") ?>
 
 <div id="navigation">
 <? include("nav_topics.phtml") ?>

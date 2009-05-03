@@ -1,5 +1,11 @@
-<? $this->title = "Правка тега" ?>
-<? include("header.phtml") ?>
+<?
+$this->title = "Правка тега";
+$this->breadcrumb = array(
+	$this->pathTo("Tag", "default") => "Теги",
+	"" => "Тег &laquo;".$this->tag->name."&raquo;",
+);
+include("header.phtml");
+?>
 
 <? if ($this->tag->getId()): ?>
 <h2>&laquo;<?=$this->tag->name?>&raquo;</h2>

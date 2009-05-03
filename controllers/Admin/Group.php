@@ -65,7 +65,8 @@ class Controller_Admin_Group extends Controller_Admin_Access
             return $view;
 
         $view->parents = new Model_List_Group($store);
-		$view->group->role = 'user';
+		$view->group->role   = 'user';
+		$view->group->parent = (int)$params['id'];
         return $view;
 	}
 
