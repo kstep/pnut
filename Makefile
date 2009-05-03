@@ -47,6 +47,16 @@ setperm: $(VARDIRS)
 
 install: config setperm
 
+push: push_makeup push_production
+
+push_makeup:
+	git push makeup
+	ssh makeup-and-style.by 'cd ~/www/pnut && git pull'
+
+push_production:
+	git push production
+	ssh p-nut.info 'cd ~/www/pnut && git pull'
+
 # Development tasks
 syntax:
 	$(EACHPROG) -exec php -l {} \; 2>&1 | grep -v "No syntax errors detected in " $(DONE) || exit 0
@@ -113,5 +123,6 @@ all: install
 		syntax update dev \
 		notsvn lsdbgcode rmdbgcode \
 		backupdb structdb fulldbdump migrate \
+		push push_makeup push_production \
 		all
 
