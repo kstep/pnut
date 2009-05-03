@@ -16,7 +16,8 @@ abstract class Controller_Admin extends Controller_Restricted
             $view->objname = $objname;
         } else {
             $view = new View_Html();
-            $view->redir("Admin_Topic");
+			$class = substr(get_class($this), 17);
+            $view->redir($class);
         }
         return $view;
     }
