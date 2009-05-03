@@ -8,6 +8,7 @@ class Controller_Admin_User extends Controller_Admin_Access
 {
     protected $_actions = array(
         "remove"  => "actionRemove",
+        "rename"  => "actionRename",
         "edit"    => "actionEdit",
         "new"     => "actionNew",
         "save"    => "actionSave",
@@ -111,10 +112,10 @@ class Controller_Admin_User extends Controller_Admin_Access
         $view = $this->ajaxView('user');
         $view->state = "failed";
 
-        if ($params["id"] && $_REQUEST["to"])
+        if ($params["id"] && $params["targid"])
         {
             $user  = new Model_User($this->getStorage(), $params["id"]);
-            $group = new Model_Group($this->getStorage(), $_REQUEST["to"]);
+            $group = new Model_Group($this->getStorage(), $params["targid"]);
             $view->id       = $user->getId();
             $view->group_id = $group->getId();
 
@@ -154,5 +155,49 @@ class Controller_Admin_User extends Controller_Admin_Access
         return $view;
 	}
 
+    public function actionRename($params)
+    {
+        $view = $this->ajaxView('user');
+        $view->state = "failed";
+
+        if ($params["id"])
+        {
+            $user  = new Model_User($this->getStorage(), $params["id"]);
+            $view->id = $user->getId();
+
+            if ($view->id)
+            {
+                $this->canPerform($user, "edit");
+
+                $user->username = $_GET["username"];
+                $user->login    = $_GET["login"];
+                $user->email    = $_GET["email"];
+
+                $view->username = $user->username;
+                $view->login    = $user->login;
+                $view->email    = $user->email;
+
+                if ($errors = $user->validate())
+                {
+                    $view->error = "validation failed";
+                    $view->errors = $errors;
+                }
+                else
+                {
+                    $view->state = "renamed";
+                    try
+                    {
+                        $user->save();
+                    }
+                    catch (Exception $e)
+                    {
+                        $view->state = "failed";
+                        $view->error = $e->getMessage();
+                    }
+                }
+            }
+        }
+        return $view;
+    }
 }
 ?>

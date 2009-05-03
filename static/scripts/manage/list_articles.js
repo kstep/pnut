@@ -1,6 +1,6 @@
 function rename_article(result)
 {
-	var $item = $('#a'+result.id);
+	var $item = $('tr#a'+result.id);
 	if (result.state != 'failed')
 	{
 		$item.find("td.title > a:first-child").text(result.title).end().find("td.name").text(result.name);
@@ -18,7 +18,7 @@ function remove_article(result)
 
 $('#articles table.item-list tbody')
 	.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
-	.selectable({ filter: 'tr', cancel: 'tr#anew' });
+	.selectable({ filter: 'tr', cancel: 'tr#anew, a' });
 
 enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-menu', function(action, item, pos){
 

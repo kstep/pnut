@@ -1,9 +1,11 @@
 function rename_user(result)
 {
-	var $item = $('#a'+result.id);
+	var $item = $('tr#u'+result.id);
 	if (result.state != 'failed')
 	{
-		$item.find("td.username > a:first-child").text(result.username).end().find("td.login").text(result.login);
+		$item.find("td.username > a:first-child").text(result.username).end()
+			.find("td.login").text(result.login)
+			.find("td.email").text(result.email);
 	}
 	else
 	{
@@ -16,10 +18,7 @@ function remove_user(result)
 	remove_element($("table.item-list tr#u"+result.id));
 }
 
-$('#articles table.item-list tbody')
-	.selectable({ filter: 'tr', cancel: 'tr#unew' });
-
-enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#users-menu', function(action, item, pos){
+enable_context_menu('table.item-list tbody tr td.username a', '#users-menu', function(action, item, pos){
 
 var $href = $(item);
 var $item = $(item).parent().parent();
@@ -28,17 +27,18 @@ if (isNaN(itemid)) itemid = 0;
 
 switch (action)
 {
-case 'rename':
+case 'edit':
 	var pos = $item.offset();
 	pos.top += $href.height();
 	$("#rename-user")
-		.attr("action", sitePrefix+"/group/rename/"+itemid)
-		.data("ajaxaction", rename_article)
+		.attr("action", sitePrefix+"/user/rename/"+itemid)
+		.data("ajaxaction", rename_user)
 		.css(pos)
 		.find("#uusername").val($href.text()).end()
-		.find("#tname").val($item.find("td.name").text()).end()
+		.find("#ulogin").val($item.find("td.login").text()).end()
+		.find("#uemail").val($item.find("td.email").text()).end()
 		.show()
-		.find("#ttitle").focus();
+		.find("#uusername").focus();
 break;
 case 'cut':
 	$('table.item-list tbody tr.cut').removeClass('cut');
@@ -51,4 +51,8 @@ case 'remove':
 break;
 }
 });
+
+$('#users table.item-list tbody')
+	.selectable({ filter: 'tr', cancel: 'tr#unew, a' });
+
 

@@ -36,12 +36,29 @@ $this->breadcrumb = $this->groupId? array(
 	</thead>
 	<tbody>
     <? foreach ($this->group->getUsers() as $item): ?>
-		<tr id="u<?=$item->getId()?>" class="<?=$item->role?>"><td><a href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a></td><td><?=$item->login?></td><td><?=$item->role?></td><td><?=date("d.m.Y H:i", $item->created)?></td><td><a href="mailto:<?=$item->email?>"><?=$item->email?></a></td><td class="controls"><a class="remove user" title="Удалить пользователя" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
+		<tr id="u<?=$item->getId()?>" class="<?=$item->role?>"><td class="username"><a href="<?=$this->pathTo("Admin_User", "edit", array( 'id' => $item->getId() ))?>"><?=$item->username?></a></td><td class="login"><?=$item->login?></td><td class="role"><?=$item->role?></td><td class="created"><?=date("d.m.Y H:i", $item->created)?></td><td class="email"><a href="mailto:<?=$item->email?>"><?=$item->email?></a></td><td class="controls"><a class="remove user" title="Удалить пользователя" href="<?=$this->pathTo("Admin_User", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a></td></tr>
     <? endforeach ?>
         <tr id="unew"><td colspan="6" class="controls"><a class="new user" href="<?=$this->pathTo("Admin_User", "new", array( 'id' => $this->group->getId() ))?>">Новый пользователь</a></td></tr>
 	</tbody>
     </table>
-	<?stripe("table tbody tr:odd")?>
+
+	<ol id="users-menu" class="context-menu">
+		<li class="edit user"><a title="Изменить пользователя без перезагузки страницы" href="#edit">Изменить</a></li>
+		<li class="cut buffer"><a title="Вырезать пользователей для вставки в другую группу" href="#cut">Вырезать</a></li>
+		<li class="remove user separator"><a title="Удалить пользователей" href="#remove">Удалить</a></li>
+	</ol>
+
+	<form id="rename-user" class="popup-form" action="#">
+		<h3>&#8963; изменить</h3>
+		<ol>
+			<li><label for="uusername">Полное имя</label><input type="text" value="" id="uusername" name="username" /></li>
+			<li><label for="ulogin">Логин</label><input type="text" value="" id="ulogin" name="login" /></li>
+			<li><label for="uemail">Электропочта</label><input type="text" value="" id="uemail" name="email" /></li>
+			<li><input type="reset" value="Отмена" class="reset" /><input type="submit" value="ОК" class="submit" /></li>
+		</ol>
+	</form>
+
+	<?=$this->script("manage/list_users")?>
 <? else: ?>
 	<h2>Не выбрана группа</h2>
 	<p class="message">&larr; Выберите группу пользователей из левого меню,<br />или <a href="<?=$this->pathTo('Group', 'new')?>">создайте новую</a> корневую группу.</p>

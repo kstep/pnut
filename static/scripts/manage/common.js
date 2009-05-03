@@ -15,6 +15,7 @@ function run_form(e)
 {
 	var data = new Object();
 	var $form = $(e.target);
+	var pos = $form.offset();
 	var ok_handler = $form.data("ajaxaction");
 	$form.hide().find(":input[name]").each(function(){ data[this.name] = this.value; });
 	data.ajax = true;
@@ -22,7 +23,8 @@ function run_form(e)
 		if (result.state != "failed" && ok_handler)
 			ok_handler(result);
 		else
-			error_form(result, $form);
+			error_form(result, pos);
+		$form.hide();
 	});
 	return false;
 }
@@ -31,18 +33,27 @@ function error_form(result, $obj)
 {
 	if (!result.error) return;
 	var $form = $("#error-form");
-	var pos = $obj.offset();
-	pos.top += $obj.height();
+	var pos;
+	if ($obj.offset)
+	{
+		pos = $obj.offset();
+		pos.top += $obj.height();
+	}
+	else
+	{
+		pos = $obj;
+	}
+
 
 	var errmsg = result.error;
 	if (result.errors)
 	{
-		result.error += "<ul>";
-		for (errmsg in result.errors)
+		errmsg += "<ul>";
+		for (errm in result.errors)
 		{
-			result.error += "<li>"+result.errors[errmsg]+"</li>";
+			errmsg += "<li>"+result.errors[errm]+"</li>";
 		}
-		result.error += "</ul>";
+		errmsg += "</ul>";
 	}
 
 	$form.css(pos).find("p").html(errmsg).end().fadeIn("fast", function(){setTimeout("$('#error-form').fadeOut('slow')", 5000)});
