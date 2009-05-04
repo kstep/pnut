@@ -98,10 +98,10 @@ var articleId = <?=(int)$this->article->getId()?>;
 	<li id="attachfiles">
 		<fieldset>	
 			<legend>Вложить новые файлы</legend>
-			<ul class="item-list" style="clear: both;">
+			<ol>
 				<li class="controls"><input type="file" name="attach[]" /><a href="#" class="remove article" title="Убрать">&nbsp;</a></li>
 				<li class="controls"><a class="new attach" href="#">Добавить</a>&nbsp;<a href="#" class="new attach add5" title="Добавить пять файлов">&times;5</a></li>
-			</ul>
+			</ol>
 		</fieldset>	
 
 		<?=$this->script("manage/attach_files")?>
