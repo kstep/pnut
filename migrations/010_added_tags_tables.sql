@@ -19,5 +19,5 @@ CREATE TABLE `tag_relations` (
   `obj_type` enum('articles','topics') NOT NULL default 'articles',
   `obj_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`obj_type`,`obj_id`)
+  PRIMARY KEY  (`obj_type`,`obj_id`,`tag_id`)
 ) ENGINE=MyISAM;
