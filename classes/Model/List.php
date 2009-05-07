@@ -148,5 +148,10 @@ abstract class Model_List implements Iterator, Countable, ArrayAccess
      * @author kstep
      */
     abstract protected function createClass($entry);
+
+	public function getObjectName()
+	{
+		return strtolower(substr(get_class($this), 11));
+	}
 }
 ?>

@@ -318,5 +318,9 @@ abstract class Model implements Serializable
         $this->parseData(unserialize($serialized));
     }
 
+	public function getObjectName()
+	{
+		return strtolower(substr(get_class($this), 6));
+	}
 }
 ?>

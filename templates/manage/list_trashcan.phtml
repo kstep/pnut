@@ -18,14 +18,15 @@ $this->breadcrumb = array(
 
 <table class="item-list" summary="Корзина">
 <thead>
-<tr><th style="width: 1em;"><input type="checkbox" /></th><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
+<tr><th style="width: 1em;"><input type="checkbox" id="all-objects" /></th><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
 </thead>
 <tbody>
 <? foreach ($this->trashcan as $title => $olist): ?>
 <? if (count($olist)): ?>
-<tr><th><input type="checkbox" /></th><th colspan="2"><?=$title?></th><th></th></tr>
+<? $objname = $olist->getObjectName() ?>
+<tr><th><input type="checkbox" id="all-<?=$objname?>" /></th><th colspan="2"><?=$title?></th><th></th></tr>
 <? foreach ($olist as $item): ?>
-<tr><td><input type="checkbox" /></td><td><?=$item->title?></td><td><?=$item->name?></td><td></td></tr>
+<tr><td><input type="checkbox" id="<?=$objname?>-<?=$item->getId()?>" /></td><td><a href="<?=$this->pathTo($objname, 'edit', array( 'id' => $item->getId() ))?>"><?=$item->title?></td><td><?=$item->name?></td><td></td></tr>
 <? endforeach ?>
 <? endif ?>
 <? endforeach ?>
