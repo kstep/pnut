@@ -12,7 +12,7 @@ function add_file_input($place)
 	return false;
 }
 
-$('#attachfiles ul.item-list a.new').click(function(){add_file_input($(this.parentNode)); return false;});
-$('#attachfiles ul.item-list a.add5').click(function(){for (var i = 1; i < 5; i++) add_file_input($(this.parentNode)); return false;});
-$('#attachfiles ul.item-list a.remove').click(remove_file_input);
+$('#attachfiles ol a.new').click(function(){add_file_input($(this.parentNode)); return false;});
+$('#attachfiles ol a.add5').click(function(){for (var i = 1; i < 5; i++) add_file_input($(this.parentNode)); return false;});
+$('#attachfiles ol a.remove').click(remove_file_input);
 
