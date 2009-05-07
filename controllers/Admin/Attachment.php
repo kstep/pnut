@@ -1,5 +1,5 @@
 <?php
-class Controller_Admin_Attachment extends Controller_Admin
+class Controller_Admin_Attachment extends Controller_Admin_Content
 {
     protected $_actions = array(
         'edit'   => 'actionEdit',
