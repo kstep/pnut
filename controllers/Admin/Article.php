@@ -89,8 +89,8 @@ class Controller_Admin_Article extends Controller_Admin_Content
         if ($this->saveArticle($view->article, $view))
             return $view;
 
-        $view->users   = new Model_List_User($store);
-        $view->groups  = new Model_List_Group($store);
+        $view->users   = new Model_List_User($store, '');
+        $view->groups  = new Model_List_Group($store, '');
 
         $view->article->published = time();
         $view->article->archived = $view->article->published + (10*365+2)*86400;
@@ -116,8 +116,8 @@ class Controller_Admin_Article extends Controller_Admin_Content
             if ($this->saveArticle($view->article, $view))
                 return $view;
            
-            $view->users  = new Model_List_User($store);
-            $view->groups = new Model_List_Group($store);
+            $view->users  = new Model_List_User($store, '');
+            $view->groups = new Model_List_Group($store, '');
         } else {
             $view->redir("Admin_Topic");
         }

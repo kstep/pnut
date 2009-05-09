@@ -376,7 +376,7 @@ class Controller_Admin_Topic extends Controller_Admin_Content
 			$mode = isset($_POST['restore'])? 'update': (isset($_POST['cleanup'])? 'delete': '');
 			if ($mode)
 			{
-				foreach ($_POST['objects'] as $objname => $idlist)
+				foreach ($_POST['objects'] as $oname => $idlist)
 				{
 					// @fixme: this is really ugly & incorrect way to do things,
 					// I need to find some better way to do it:
@@ -389,23 +389,22 @@ class Controller_Admin_Topic extends Controller_Admin_Content
 					// for real removal of a model,
 					// - getting list of removed objects should be incapsulated into
 					// model list class.
-					$class = "Model_".ucfirst($objname);
-					$model = new $class ($store);
+					$list = Model_List::create($store, $oname);
 					if ($mode == 'delete')
-						$store->delete($model->getTable(), array($model->getPk() => $idlist));
+						$list->remove($idlist);
 					else
-						$store->update($model->getTable(), "flags = REPLACE(flags, 'removed', '')",  array($model->getPk() => $idlist));
-					unset($model);
+						$store->update($list->getTable(), "flags = REPLACE(flags, 'removed', '')",  array($model->getPk() => $idlist));
+					unset($list);
 				}
 			}
 		}
 		$olist = array();
 		foreach (array('Статьи' => 'Article', 'Разделы' => 'Topic'/*, 'Опросы' => 'Poll'*/, 'Комментарии' => 'Comment') as $title => $oname)
 		{
-			$class = "Model_List_$oname";
-			$model = new $class ($store, "FIND_IN_SET('removed', flags) > 0");
-			if (count($model)) $olist[$title] = $model;
-			unset($model);
+			$list = Model_List::create($store, $oname);
+			$list->find("FIND_IN_SET('removed', flags) > 0");
+			if (count($list)) $olist[$title] = $list;
+			unset($list);
 		}
 		$view->trashcan = $olist;
 		return $view;

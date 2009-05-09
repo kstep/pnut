@@ -40,4 +40,8 @@ function __autoload($className)
         }
     }
 }
+
+set_error_handler(create_function('$errno, $errstr, $errfile, $errline', '
+	throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
+'), E_ALL &~ E_NOTICE);
 ?>

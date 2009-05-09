@@ -9,12 +9,13 @@ class Model_List_TraversedTree extends Model_List_Ordered implements TreeIterato
 
     protected $_order_by_fields = "lside,id";
 
-    public function __construct(Storage_Db $db, $filter = "", $limit = 0, $offset = 0, $order = "", $group = "", $having = "")
+    public function find($filter = "", $limit = 0, $offset = 0, $order = "", $group = "", $having = "")
     {
-        parent::__construct($db, $filter, $limit, $offset, $order, $group, $having);
+        parent::find($filter, $limit, $offset, $order, $group, $having);
 		$this->rewind();
 		if ($this->_current_model)
 			$this->_basePath = $this->_current_model->getPath('/', false);
+		return $this;
     }
 
     public function getStep()

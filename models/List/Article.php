@@ -16,10 +16,10 @@ class Model_List_Article extends Model_List_Paged// implements Model_HasVisible
 		self::$_visible_only = (bool)$value;
 	}
 
-    public function __construct(Storage_Db $db, $filter = "", $items_per_page = 20, $page = 0, $order = "", $group = "", $having = "")
+    public function find($filter = "", $items_per_page = 20, $page = 0, $order = "", $group = "", $having = "")
 	{
 		if (self::$_visible_only) $this->_table = 'visible_articles';
-		parent::__construct($db, $filter, $items_per_page, $page, $order, $group, $having);
+		return parent::find($filter, $items_per_page, $page, $order, $group, $having);
 	}
 }
 ?>

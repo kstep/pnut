@@ -16,10 +16,11 @@ class Model_List_Topic extends Model_List_TraversedTree// implements Model_HasVi
 		self::$_visible_only = (bool)$value;
 	}
 
-    public function __construct(Storage_Db $db, $filter = "", $limit = 0, $offset = 0, $order = "", $group = "", $having = "")
+    public function find($filter = "", $limit = 0, $offset = 0, $order = "", $group = "", $having = "")
 	{
 		if (self::$_visible_only) $this->_table = 'visible_topics';
-		parent::__construct($db, $filter, $limit, $offset, $order, $group, $having);
+		parent::find($filter, $limit, $offset, $order, $group, $having);
+		return $this;
 	}
 }
 ?>

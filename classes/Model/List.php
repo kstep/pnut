@@ -32,10 +32,11 @@ abstract class Model_List implements Iterator, Countable, ArrayAccess
      * @return Model_List
      * @author kstep
      */
-    public function __construct(Storage $db, Storage_Result $result)
+    public function __construct(Storage $db)
     {
-        $this->_db     = $db;
-        $this->_result = $result;
+		$find_args = func_get_args();
+		$this->_db = array_shift($find_args);
+		if ($find_args) call_user_func_array(array($this, 'find'), $find_args);
     }
 
     /**
@@ -152,6 +153,20 @@ abstract class Model_List implements Iterator, Countable, ArrayAccess
 	public function getObjectName()
 	{
 		return strtolower(substr(get_class($this), 11));
+	}
+
+	abstract public function remove($list = null);
+
+	public function find(Storage_Result $condition)
+	{
+		$this->_result = $condition;
+	}
+
+	public function create(Storage $db, $object)
+	{
+		$class = "Model_List_".ucfirst(strtolower($object));
+		$list = new $class ($db);
+		return $list;
 	}
 }
 ?>

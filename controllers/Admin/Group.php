@@ -64,7 +64,7 @@ class Controller_Admin_Group extends Controller_Admin_Access
         if ($this->saveGroup($view->group, $view))
             return $view;
 
-        $view->parents = new Model_List_Group($store);
+        $view->parents = new Model_List_Group($store, '');
 		$view->group->role   = 'user';
 		$view->group->parent = (int)$params['id'];
         return $view;
