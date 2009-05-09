@@ -16,6 +16,7 @@ $this->breadcrumb = array(
 
 	<h2>Корзина</h2>
 
+<form action="#">
 <table class="item-list" summary="Корзина">
 <thead>
 <tr><th style="width: 1em;"><input type="checkbox" id="all-objects" /></th><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
@@ -23,17 +24,41 @@ $this->breadcrumb = array(
 <tbody>
 <? foreach ($this->trashcan as $title => $olist): ?>
 <? if (count($olist)): ?>
-<? $objname = $olist->getObjectName() ?>
-<tr><th><input type="checkbox" id="all-<?=$objname?>" /></th><th colspan="2"><?=$title?></th><th></th></tr>
+<tr><th><input type="checkbox" id="all-<?=$objname = $olist->getObjectName()?>" /></th><th colspan="2"><?=$title?></th><th></th></tr>
 <? foreach ($olist as $item): ?>
-<tr><td><input type="checkbox" id="<?=$objname?>-<?=$item->getId()?>" /></td><td><a href="<?=$this->pathTo($objname, 'edit', array( 'id' => $item->getId() ))?>"><?=$item->title?></td><td><?=$item->name?></td><td></td></tr>
+<tr><td><input type="checkbox" id="<?=$objname?>-<?=$item->getId()?>" name="object[<?=$objname?>][<?=$item->getId()?>]" /></td><td><a href="<?=$this->pathTo($objname, 'edit', array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td></td></tr>
 <? endforeach ?>
 <? endif ?>
 <? endforeach ?>
 </tbody>
 </table>
 
+<input type="submit" value="Восстановить" />
+<input type="submit" value="Удалить" />
+</form>
+
 </div>
 </div>
+
+<script type="text/javascript">
+//<![CDATA[
+function select_row(checkbox, value)
+{
+	var $row = $(checkbox.parentNode.parentNode);
+	if (value) $row.addClass('ui-selected'); else $row.removeClass('ui-selected');
+	checkbox.checked = value;
+}
+$('#all-objects').click(function(){
+	var value = this.checked;
+	$(this.parentNode.parentNode.parentNode.parentNode).find(':checkbox').each(function(){select_row(this, value)});
+});
+$('th :checkbox').not('#all-objects').click(function(){
+	var value = this.checked;
+	var objname = this.id.substring(4);
+	$(this.parentNode.parentNode.parentNode).find(':checkbox[id^='+objname+'-]').each(function(){select_row(this, value)});
+});
+$('td :checkbox').click(function(){select_row(this, this.checked)});
+//]]>
+</script>
 
 <? include("footer.phtml") ?>
