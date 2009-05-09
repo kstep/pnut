@@ -55,6 +55,32 @@ class Model_Comment extends Model_ArticleObject
     public function getAuthor() { return new Model_User($this->_db, $this->author); }
     public function getArticle() { return new Model_Article($this->_db, $this->article); }
 
+    public function remove($trashcan = false)
+    {
+		if ($trashcan)
+		{
+			if (!$this->isRemoved())
+			{
+				$this->flags[] = 'removed';
+				$this->_db->update($this->_table, array( $this->_pk => $this->getId() ), array( 'flags = CONCAT_WS(",", flags, "removed")' ));
+			}
+		}
+		else
+		{
+			parent::remove();
+		}
+    }
+
+	public function isRemoved()
+	{
+		return in_array('removed', $this->flags);
+	}
+
+	public function isVisible()
+	{
+        return !count($this->flags);
+	}
+
     public function validate(array $attributes = array())
     {
         //$errors = parent::validate($errors, $attributes);

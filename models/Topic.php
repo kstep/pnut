@@ -133,6 +133,22 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
         return $this->name;
     }
 
+	public function remove($trashcan = false)
+	{
+		if ($trashcan)
+		{
+			if (!$this->isRemoved())
+			{
+				$this->flags[] = 'removed';
+				$this->_db->update($this->_table, array( $this->_pk => $this->getId() ), array( 'flags = CONCAT_WS(",", flags, "removed")' ));
+			}
+		}
+		else
+		{
+			parent::remove();
+		}
+	}
+
 	public function isVisible()
 	{
         return !array_intersect($this->flags, array('hidden', 'removed'));
@@ -146,6 +162,11 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
 	public function isRecursive()
 	{
 		return in_array('recursive', $this->flags);
+	}
+
+	public function isRemoved()
+	{
+		return in_array('removed', $this->flags);
 	}
 
     public function validate(array $attributes = array())

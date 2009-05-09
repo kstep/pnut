@@ -129,10 +129,21 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
         return $this->title;
     }
 
-    public function remove()
+    public function remove($trashcan = false)
     {
-        parent::remove();
-        $this->dettach();
+		if ($trashcan)
+		{
+			if (!$this->isRemoved())
+			{
+				$this->flags[] = 'removed';
+				$this->_db->update($this->_table, array( $this->_pk => $this->getId() ), array( 'flags = CONCAT_WS(",", flags, "removed")' ));
+			}
+		}
+		else
+		{
+			parent::remove();
+			$this->dettach();
+		}
     }
 
     public function isVisible()
@@ -144,6 +155,11 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 	public function isArchived()
 	{
 		return in_array('archived', $this->flags) or time() < $this->archived;
+	}
+
+	public function isRemoved()
+	{
+		return in_array('removed', $this->flags);
 	}
 
     public function validate(array $attributes = array())
