@@ -368,12 +368,44 @@ class Controller_Admin_Topic extends Controller_Admin_Content
 
 	public function actionTrashcan($params)
 	{
-		$view = $this->htmlView("list_trashcan");
+		$view  = $this->htmlView("list_trashcan");
+		$store = $this->getStorage();
+
+		if ($_POST && isset($_POST['objects']))
+		{
+			$mode = isset($_POST['restore'])? 'update': (isset($_POST['cleanup'])? 'delete': '');
+			if ($mode)
+			{
+				foreach ($_POST['objects'] as $objname => $idlist)
+				{
+					// @fixme: this is really ugly & incorrect way to do things,
+					// I need to find some better way to do it:
+					// - model class names should be incapsulated into some class,
+					// - real removing & restoring objects should be incapsulated into
+					// model class,
+					// - removing of a model which can be put into trashcan should be
+					// put into model class and it should mark object as removed
+					// instead of removing it for real, there can be other method
+					// for real removal of a model,
+					// - getting list of removed objects should be incapsulated into
+					// model list class.
+					$class = "Model_".ucfirst($objname);
+					$model = new $class ($store);
+					if ($mode == 'delete')
+						$store->delete($model->getTable(), array($model->getPk() => $idlist));
+					else
+						$store->update($model->getTable(), "flags = REPLACE(flags, 'removed', '')",  array($model->getPk() => $idlist));
+					unset($model);
+				}
+			}
+		}
 		$olist = array();
 		foreach (array('Статьи' => 'Article', 'Разделы' => 'Topic'/*, 'Опросы' => 'Poll'*/, 'Комментарии' => 'Comment') as $title => $oname)
 		{
 			$class = "Model_List_$oname";
-			$olist[$title] = new $class ($this->getStorage(), "FIND_IN_SET('removed', flags) > 0");
+			$model = new $class ($store, "FIND_IN_SET('removed', flags) > 0");
+			if (count($model)) $olist[$title] = $model;
+			unset($model);
 		}
 		$view->trashcan = $olist;
 		return $view;
