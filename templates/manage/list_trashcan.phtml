@@ -15,8 +15,9 @@ $this->breadcrumb = array(
 <div id="trashcan">
 
 	<h2>Корзина</h2>
+<? print_r($_POST) ?>
 
-<form action="#">
+<form action="#" method="post">
 <table class="item-list" summary="Корзина">
 <thead>
 <tr><th style="width: 1em;"><input type="checkbox" id="all-objects" /></th><th>Заголовок</th><th>Название</th><th>&nbsp;</th></tr>
@@ -26,15 +27,15 @@ $this->breadcrumb = array(
 <? if (count($olist)): ?>
 <tr><th><input type="checkbox" id="all-<?=$objname = $olist->getObjectName()?>" /></th><th colspan="2"><?=$title?></th><th></th></tr>
 <? foreach ($olist as $item): ?>
-<tr><td><input type="checkbox" id="<?=$objname?>-<?=$item->getId()?>" name="object[<?=$objname?>][<?=$item->getId()?>]" /></td><td><a href="<?=$this->pathTo($objname, 'edit', array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td></td></tr>
+<tr><td><input type="checkbox" id="<?=$objname?>-<?=$item->getId()?>" name="object[<?=$objname?>][]" value="<?=$item->getId()?>" /></td><td><a href="<?=$this->pathTo($objname, 'edit', array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td><?=$item->name?></td><td></td></tr>
 <? endforeach ?>
 <? endif ?>
 <? endforeach ?>
 </tbody>
 </table>
 
-<input type="submit" value="Восстановить" />
-<input type="submit" value="Удалить" />
+<input type="submit" value="Восстановить" name="restore" />
+<input type="submit" value="Удалить" name="cleanup" />
 </form>
 
 </div>
@@ -58,6 +59,7 @@ $('th :checkbox').not('#all-objects').click(function(){
 	$(this.parentNode.parentNode.parentNode).find(':checkbox[id^='+objname+'-]').each(function(){select_row(this, value)});
 });
 $('td :checkbox').click(function(){select_row(this, this.checked)});
+$('#trashcan table.item-list tbody').selectable({items: 'tr', cancel: 'th, input', selected: function(e, ui){$(ui.selected).find(':checkbox').attr('checked', 'checked')}, unselected: function(e, ui){$(ui.selected).find(':checkbox').removeAttr('checked')}});
 //]]>
 </script>
 
