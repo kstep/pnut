@@ -42,3 +42,17 @@
 	text-decoration: none;
 }
 
+#body ul.tag-list
+{
+	list-style: none;
+	margin: 1em 0;
+	padding: 0;
+	text-align: right;
+}
+#body ul.tag-list li
+{
+	display: inline;
+	background: url(../../images/tag.gif) no-repeat left center;
+	padding-left: 18px;
+	margin-left: 0.5em;
+}

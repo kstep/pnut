@@ -1,4 +1,9 @@
 <? include('header.phtml') ?>
 <h2><?=$this->article->title?></h2>
 <?=$this->article->content?>
+<ul class='tag-list'>
+<? foreach ($this->article->getTags() as $tag): ?>
+<li><a href="<?=$this->pathTo('Default', 'tag', array('id' => $tag->getId()))?>"><?=$tag?></a></li>
+<? endforeach ?>
+</ul>
 <? include('footer.phtml') ?>
