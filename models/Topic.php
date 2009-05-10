@@ -4,7 +4,7 @@
  * @subpackage Content
  * Topic model
  */
-class Model_Topic extends Model_TraversedTree implements Model_Rightful
+class Model_Topic extends Model_TraversedTree implements Model_Rightful, Model_Trashable
 {
     protected $_fields = array(
         'id'                 => Model::TYPE_INTEGER,
@@ -132,22 +132,6 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful
     {
         return $this->name;
     }
-
-	public function remove($trashcan = false)
-	{
-		if ($trashcan)
-		{
-			if (!$this->isRemoved())
-			{
-				$this->flags[] = 'removed';
-				$this->_db->update($this->_table, array( $this->_pk => $this->getId() ), array( 'flags = CONCAT_WS(",", flags, "removed")' ));
-			}
-		}
-		else
-		{
-			parent::remove();
-		}
-	}
 
 	public function isVisible()
 	{

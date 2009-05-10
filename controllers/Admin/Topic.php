@@ -368,41 +368,25 @@ class Controller_Admin_Topic extends Controller_Admin_Content
 
 	public function actionTrashcan($params)
 	{
-		$view  = $this->htmlView("list_trashcan");
-		$store = $this->getStorage();
+		$view = $this->htmlView("list_trashcan");
+		$trashcan = new Model_Trashcan($this->getStorage());
 
 		if ($_POST && isset($_POST['objects']))
 		{
-			$mode = isset($_POST['restore'])? 'update': (isset($_POST['cleanup'])? 'delete': '');
+			$mode = isset($_POST['restore'])? 'restore': (isset($_POST['cleanup'])? 'cleanup': '');
+			
 			if ($mode)
 			{
 				foreach ($_POST['objects'] as $oname => $idlist)
 				{
-					// @fixme: this is really ugly & incorrect way to do things,
-					// I need to find some better way to do it:
-					// - model class names should be incapsulated into some class,
-					// - real removing & restoring objects should be incapsulated into
-					// model class,
-					// - removing of a model which can be put into trashcan should be
-					// put into model class and it should mark object as removed
-					// instead of removing it for real, there can be other method
-					// for real removal of a model,
-					// - getting list of removed objects should be incapsulated into
-					// model list class.
-					$list = Model_List::create($store, $oname);
-					if ($mode == 'delete')
-						$list->remove($idlist);
-					else
-						$store->update($list->getTable(), "flags = REPLACE(flags, 'removed', '')",  array($model->getPk() => $idlist));
-					unset($list);
+					$trashcan->$mode($oname, $idlist);
 				}
 			}
 		}
 		$olist = array();
 		foreach (array('Статьи' => 'Article', 'Разделы' => 'Topic'/*, 'Опросы' => 'Poll'*/, 'Комментарии' => 'Comment') as $title => $oname)
 		{
-			$list = Model_List::create($store, $oname);
-			$list->find("FIND_IN_SET('removed', flags) > 0");
+			$list = $trashcan->getList($oname);
 			if (count($list)) $olist[$title] = $list;
 			unset($list);
 		}

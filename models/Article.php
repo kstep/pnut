@@ -4,7 +4,7 @@
  * @subpackage Content
  * Article model
  */
-class Model_Article extends Model_Timestamped implements Model_Rightful, Model_Tagged
+class Model_Article extends Model_Timestamped implements Model_Rightful, Model_Tagged, Model_Trashable
 {
     protected $_fields = array(
         'id'             => Model::TYPE_INTEGER,
@@ -129,21 +129,10 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
         return $this->title;
     }
 
-    public function remove($trashcan = false)
+    public function remove()
     {
-		if ($trashcan)
-		{
-			if (!$this->isRemoved())
-			{
-				$this->flags[] = 'removed';
-				$this->_db->update($this->_table, array( $this->_pk => $this->getId() ), array( 'flags = CONCAT_WS(",", flags, "removed")' ));
-			}
-		}
-		else
-		{
-			parent::remove();
-			$this->dettach();
-		}
+		parent::remove();
+		$this->dettach();
     }
 
     public function isVisible()
