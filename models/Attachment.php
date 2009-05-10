@@ -58,12 +58,12 @@ class Model_Attachment extends Model_ArticleObject implements Model_Rightful
 	protected function getNextResult($limit = 1, $fields = '*')
 	{
 		$myId = $this->getId();
-		return $this->_db->select($this->_table, $fields, "article_id = {$this->article} AND ({$this->_order_by_field} > {$this->order} OR ({$this->_order_by_field} = {$this->_order} AND {$this->_pk} > {$myId}))", $limit);
+		return $this->_db->select($this->_view, $fields, "article_id = {$this->article} AND ({$this->_order_by_field} > {$this->order} OR ({$this->_order_by_field} = {$this->_order} AND {$this->_pk} > {$myId}))", $limit);
 	}
 	protected function getPrevResult($limit = 1, $fields = '*')
 	{
 		$myId = $this->getId();
-		return $this->_db->select($this->_table, $fields, "article_id = {$this->article} AND ({$this->_order_by_field} < {$this->order} OR ({$this->_order_by_field} = {$this->_order} AND {$this->_pk} < {$myId}))", $limit);
+		return $this->_db->select($this->_view, $fields, "article_id = {$this->article} AND ({$this->_order_by_field} < {$this->order} OR ({$this->_order_by_field} = {$this->_order} AND {$this->_pk} < {$myId}))", $limit);
 	}
 
     public function getArticle()

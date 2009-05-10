@@ -22,13 +22,19 @@ class Controller_Admin_Topic extends Controller_Admin_Content
 	protected function init()
 	{
 		if ($_GET['tf']) $_SESSION['tf'] = $_GET['tf'];
-		if ($_SESSION['tf'] == 'visible')
+		switch ($_SESSION['tf'])
 		{
-			Model_List_Topic::setVisibleOnly();
-			Model_List_Article::setVisibleOnly();
-			Model_Topic::setVisibleOnly();
-			Model_Article::setVisibleOnly();
+		case 'visible':
+		case 'nonremoved':
+			$visibility = $_SESSION['tf'];
+		default:
+			$visibility = 'nonremoved';
+		break;
 		}
+		Model_List_Topic::setVisibility($visibility);
+		Model_List_Article::setVisibility($visibility);
+		Model_Topic::setVisibility($visibility);
+		Model_Article::setVisibility($visibility);
 	}
 
     private function saveTopic(Model_Topic $topic, View_Html $view)
@@ -369,6 +375,11 @@ class Controller_Admin_Topic extends Controller_Admin_Content
 
 	public function actionTrashcan($params)
 	{
+		Model_List_Topic::setVisibility('');
+		Model_List_Article::setVisibility('');
+		Model_Topic::setVisibility('');
+		Model_Article::setVisibility('');
+
 		$view = $this->htmlView("list_trashcan");
 		$trashcan = new Model_Trashcan($this->getStorage());
 

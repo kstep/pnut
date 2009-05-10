@@ -9,17 +9,17 @@ abstract class Model_Tree extends Model_Ordered implements IteratorAggregate
     {
         if ($path && is_string($path) && !is_numeric($path))
         {
+            parent::__construct($db);
             $condition = $tables = array();
             $apath = explode("/", trim($path, "/"));
             $pathlen = count($apath) - 1;
             // t0.parent_id = 0 and t1.parent_id = t2.id and ... and tN.parent_id = 0 and t0.name = $apath[0] and ... and tN.name = $apath[N]
             foreach ($apath as $index => $name)
             {
-                $tables[] = "{$this->_table} as t$index";
+                $tables[] = "{$this->_view} as t$index";
                 $condition[] = ($index > 0? "t{$index}.{$this->_parent_field} = t".($index-1).".id": "t0.{$this->_parent_field} = 0") . " AND t{$index}.name = '".addslashes($name)."'";
             }
             $data = $db->select($tables, "t{$pathlen}.*", implode(" AND ", $condition), 1)->fetchFirst();
-            parent::__construct($db);
             if ($data)
             {
                 $this->parseData($data);
@@ -168,12 +168,12 @@ abstract class Model_Tree extends Model_Ordered implements IteratorAggregate
 
 	protected function getNextResult($limit = 1, $fields = '*')
 	{
-		return $this->_db->select($this->_table, $fields, "{$this->_parent_field} = {$this->parent} and {$this->_order_by_field} > {$this->order}", $limit, 0, $this->_order_by_field);
+		return $this->_db->select($this->_view, $fields, "{$this->_parent_field} = {$this->parent} and {$this->_order_by_field} > {$this->order}", $limit, 0, $this->_order_by_field);
 	}
 
 	protected function getPrevResult($limit = 1, $fields = '*')
 	{
-		return $this->_db->select($this->_table, $fields, "{$this->_parent_field} = {$this->parent} and {$this->_order_by_field} < {$this->order}", $limit, 0, $this->_order_by_field);
+		return $this->_db->select($this->_view, $fields, "{$this->_parent_field} = {$this->parent} and {$this->_order_by_field} < {$this->order}", $limit, 0, $this->_order_by_field);
 	}
 
 	public function validate(array $attributes = array())

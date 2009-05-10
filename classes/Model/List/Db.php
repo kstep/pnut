@@ -2,13 +2,24 @@
 abstract class Model_List_Db extends Model_List
 {
     protected $_table;
+	protected $_view;
     protected $_pk = "id";
+	protected $_views;
+	protected static $_visibility;
 
     /**
      * @var string name of model's class
      * @author kstep
      */
     protected $_model_class_name = null;
+
+    public function __construct(Storage $db)
+    {
+		$this->_view = self::$_visibility? $this->_views[self::$_visibility]: $this->_table;
+		$find_args = func_get_args();
+		$this->_db = array_shift($find_args);
+		if ($find_args) call_user_func_array(array($this, 'find'), $find_args);
+    }
 
     protected function createClass($entry)
     {
@@ -17,6 +28,11 @@ abstract class Model_List_Db extends Model_List
 		$model->parseData($entry);
         return $model;
     }
+
+	public static function setVisibility($value = "visible")
+	{
+		self::$_visibility = $value;
+	}
 
 	public function remove($list = null)
 	{
@@ -34,7 +50,7 @@ abstract class Model_List_Db extends Model_List
 	public function find($condition, $limit = 0, $offset = 0, $order = "", $group = "", $having = "")
 	{
 		if (!$condition instanceof Storage_Db_Result)
-			$condition = $this->_db->select($this->_table, "*", $condition, $limit, $offset, $order, $group, $having);
+			$condition = $this->_db->select($this->_view, "*", $condition, $limit, $offset, $order, $group, $having);
 		return parent::find($condition);
 	}
 

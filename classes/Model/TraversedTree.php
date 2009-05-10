@@ -22,7 +22,7 @@ abstract class Model_TraversedTree extends Model_Tree
     {
         if (!$this->isLoaded() or $this->getNumDescendants() == 0) return array();
 		$id = $this->getId();
-        $query = $this->_db->select($this->_table, $this->_pk, $depth? "{$this->_left_side} > {$this->lside} AND {$this->_left_side} < {$this->rside}": "{$this->_parent_field} = {$id}");
+        $query = $this->_db->select($this->_view, $this->_pk, $depth? "{$this->_left_side} > {$this->lside} AND {$this->_left_side} < {$this->rside}": "{$this->_parent_field} = {$id}");
         $result = array();
         foreach ($query as $row)
         {
@@ -154,7 +154,7 @@ abstract class Model_TraversedTree extends Model_Tree
 
 			if ($this->parent)
 			{
-				$query = $this->_db->select($this->_table, "name", "{$this->_left_side} <= {$this->lside} AND {$this->_right_side} >= {$this->rside}", 0, 0, "{$this->_left_side} DESC");
+				$query = $this->_db->select($this->_view, "name", "{$this->_left_side} <= {$this->lside} AND {$this->_right_side} >= {$this->rside}", 0, 0, "{$this->_left_side} DESC");
 				$this->_path = '';
 				foreach ($query as $item)
 				{
@@ -172,12 +172,12 @@ abstract class Model_TraversedTree extends Model_Tree
 
 	protected function getNextResult($limit = 1, $fields = '*')
 	{
-		return $this->_db->select($this->_table, $fields, "parent_id = {$this->parent} and {$this->_order_by_field} > {$this->lside}", $limit, 0, $this->_order_by_field);
+		return $this->_db->select($this->_view, $fields, "parent_id = {$this->parent} and {$this->_order_by_field} > {$this->lside}", $limit, 0, $this->_order_by_field);
 	}
 
 	protected function getPrevResult($limit = 1, $fields = '*')
 	{
-		return $this->_db->select($this->_table, $fields, "parent_id = {$this->parent} and {$this->_order_by_field} < {$this->lside}", $limit, 0, $this->_order_by_field);
+		return $this->_db->select($this->_view, $fields, "parent_id = {$this->parent} and {$this->_order_by_field} < {$this->lside}", $limit, 0, $this->_order_by_field);
 	}
 
     /**
@@ -188,7 +188,7 @@ abstract class Model_TraversedTree extends Model_Tree
      */
     public function regenerate($parent = 0, $lside = 0)
     {
-        $children = $this->_db->select($this->_table, array( $this->_pk, $this->_parent_field ), array( $this->_parent_field => $parent ), 0, 0, array( $this->_order_by_field, $this->_pk ));
+        $children = $this->_db->select($this->_view, array( $this->_pk, $this->_parent_field ), array( $this->_parent_field => $parent ), 0, 0, array( $this->_order_by_field, $this->_pk ));
         foreach ($children as $child)
         {
             $this->_db->update($this->_table, array( $this->_left_side => $lside, $this->_right_side => ($lside = $this->regenerate($child[$this->_pk], $lside + 1)) ), array( $this->_pk => $child[$this->_pk] ));

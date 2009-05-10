@@ -32,6 +32,10 @@ class Model_Comment extends Model_ArticleObject implements Model_Trashable
         'email'     => 'email',
     );
 
+	protected $_visibility = array(
+			'nonremoved' => 'nonremoved_comments',
+		);
+
     protected $_table = 'comments';
 	protected $_list_class_name = 'Model_List_Comment';
 	protected $_order_by_field = 'created_at';
@@ -40,11 +44,11 @@ class Model_Comment extends Model_ArticleObject implements Model_Trashable
 
 	protected function getNextResult($limit = 1, $fields = '*')
 	{
-		return $this->_db->select($this->_table, $fields, "article_id = {$this->article} AND UNIX_TIMESTAMP({$this->_order_by_field}) > {$this->created}", $limit);
+		return $this->_db->select($this->_view, $fields, "article_id = {$this->article} AND UNIX_TIMESTAMP({$this->_order_by_field}) > {$this->created}", $limit);
 	}
 	protected function getPrevResult($limit = 1, $fields = '*')
 	{
-		return $this->_db->select($this->_table, $fields, "article_id = {$this->article} AND UNIX_TIMESTAMP({$this->_order_by_field}) < {$this->created}", $limit);
+		return $this->_db->select($this->_view, $fields, "article_id = {$this->article} AND UNIX_TIMESTAMP({$this->_order_by_field}) < {$this->created}", $limit);
 	}
 
 	protected function moveTo(Model_Comment $target, $aftertarget = true)

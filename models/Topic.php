@@ -49,19 +49,12 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful, Model_T
     protected $_table = 'topics';
     protected $_list_class_name = 'Model_List_Topic';
 
+	protected $_views = array(
+			'visible' => 'visible_topics',
+			'nonremoved' => 'nonremoved_topics',
+		);
+
 	private $_rights = null;
-
-	private static  $_visible_only = false;
-	public static function setVisibleOnly($value = true)
-	{
-		self::$_visible_only = (bool)$value;
-	}
-
-	public function __construct(Storage_Db $db, $id = null)
-	{
-		if (self::$_visible_only) $this->_table = 'visible_topics';
-		parent::__construct($db, $id);
-	}
 
 	public function getArticle($id)
 	{

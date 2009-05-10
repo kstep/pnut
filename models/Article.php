@@ -59,17 +59,15 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
     protected $_table = 'articles';
 	protected $_list_class_name = 'Model_List_Article';
 
-	private $_rights = null;
+	protected $_views = array(
+			'visible' => 'visible_articles',
+			'nonremoved' => 'nonremoved_articles',
+		);
 
-	private static  $_visible_only = false;
-	public static function setVisibleOnly($value = true)
-	{
-		self::$_visible_only = (bool)$value;
-	}
+	private $_rights = null;
 
 	public function __construct(Storage_Db $db, $id = null, $lang = null)
 	{
-		if (self::$_visible_only) $this->_table = 'visible_articles';
 		if ($lang !== null) $id = array( 'original_id' => $id, 'language' => $lang );
 		parent::__construct($db, $id);
 	}
@@ -190,13 +188,13 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 	protected function getNextResult($limit = 1, $fields = '*')
 	{
 		$myId = $this->getId();
-		return $this->_db->select($this->_table, $fields, "topic_id = {$this->topic} and ({$this->_order_by_field} > {$this->order} or ({$this->_order_by_field} = {$this->order} and {$this->_pk} > {$myId}))", $limit, 0, array( $this->_order_by_field, $this->_pk ));
+		return $this->_db->select($this->_view, $fields, "topic_id = {$this->topic} and ({$this->_order_by_field} > {$this->order} or ({$this->_order_by_field} = {$this->order} and {$this->_pk} > {$myId}))", $limit, 0, array( $this->_order_by_field, $this->_pk ));
 	}
 
 	protected function getPrevResult($limit = 1, $fields = '*')
 	{
 		$myId = $this->getId();
-		return $this->_db->select($this->_table, $fields, "topic_id = {$this->topic} and ({$this->_order_by_field} < {$this->order} or ({$this->_order_by_field} = {$this->order} and {$this->_pk} < {$myId}))", $limit, 0, array( $this->_order_by_field, $this->_pk ));
+		return $this->_db->select($this->_view, $fields, "topic_id = {$this->topic} and ({$this->_order_by_field} < {$this->order} or ({$this->_order_by_field} = {$this->order} and {$this->_pk} < {$myId}))", $limit, 0, array( $this->_order_by_field, $this->_pk ));
 	}
 
 	public function regenerate($parent = 0, $state = 0)
@@ -211,7 +209,7 @@ class Model_Article extends Model_Timestamped implements Model_Rightful, Model_T
 		}
 		else
 		{
-			$minId = $this->_db->select($this->_table, "min(id) as minid", array( 'topic_id' => $parent ))->fetchFirst();
+			$minId = $this->_db->select($this->_view, "min(id) as minid", array( 'topic_id' => $parent ))->fetchFirst();
 			$this->_db->update($this->_table, "{$this->_order_by_field} = {$this->_pk} - {$minId['minid']}", array( 'topic_id' => $parent ), array( $this->_order_by_field, $this->_pk ));
 		}
 	}

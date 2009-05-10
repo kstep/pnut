@@ -9,6 +9,12 @@ class Controller_Default extends Controller
 		'tag' => 'actionTag',
 	);
 
+	public function init()
+	{
+		Model_List_Topic::setVisibility('visible'); Model_Topic::setVisibility('visible');
+		Model_List_Article::setVisibility('visible'); Model_Article::setVisibility('visible');
+	}
+
 	public function actionTest($params)
 	{
 		$view = new View_Html("test");
