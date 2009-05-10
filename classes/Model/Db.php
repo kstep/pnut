@@ -15,7 +15,7 @@ abstract class Model_Db extends Model
 
     public function __construct(Storage_Db $db, $id = null)
     {
-		$this->_view = self::$_visibility? $this->_views[self::$_visibility]: $this->_table;
+		$this->_view = self::$_visibility && isset($this->_views[self::$_visibility])? $this->_views[self::$_visibility]: $this->_table;
         parent::__construct($db, $id);
     }
 

@@ -20,10 +20,8 @@ class Controller_Makeup_Default extends Controller
 
 	public function init()
 	{
-		Model_List_Topic::setVisibility('visible');
-		Model_List_Article::setVisibility('visible');
-		Model_Topic::setVisibility('visible');
-		Model_Article::setVisibility('visible');
+		Model_List_Db::setVisibility('visible');
+		Model_Db::setVisibility('visible');
 	}
 
     private function prepareNavigation(&$view, $path)

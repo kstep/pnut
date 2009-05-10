@@ -15,7 +15,7 @@ abstract class Model_List_Db extends Model_List
 
     public function __construct(Storage $db)
     {
-		$this->_view = self::$_visibility? $this->_views[self::$_visibility]: $this->_table;
+		$this->_view = self::$_visibility && isset($this->_views[self::$_visibility])? $this->_views[self::$_visibility]: $this->_table;
 		$find_args = func_get_args();
 		$this->_db = array_shift($find_args);
 		if ($find_args) call_user_func_array(array($this, 'find'), $find_args);
