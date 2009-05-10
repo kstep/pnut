@@ -17,13 +17,13 @@ class Model_Trashcan
 
 	private function _update_model(Model_Trashable $model, $expression)
 	{
-		$this->_db->update($model->getTable(), array( $model->getPk() => $model->getId() ), $expression);
+		$this->_db->update($model->getTable(), $expression, array( $model->getPk() => $model->getId() ));
 	}
 
 	private function _update_list($objname, $idlist, $expression)
 	{
-		$model = Model::create($object);
-		$this->_db->update($model->getTable(), array( $model->getPk() => $idlist ), $expression);
+		$model = Model::create($this->_db, $objname);
+		$this->_db->update($model->getTable(), $expression, array( $model->getPk() => $idlist ));
 	}
 
 	public function cleanup($object, $idlist = null)
@@ -67,8 +67,11 @@ class Model_Trashcan
 
 	static public function put(Model_Trashable $model)
 	{
-		$model->flags[] = 'removed';
-		$model->getStorage()->update($model->getTable(), array( $model->getPk() => $model->getId() ), "flags = CONCAT_WS(',', flags, 'removed')");
+		if (!$model->isRemoved())
+		{
+			$model->flags[] = 'removed';
+			$model->getStorage()->update($model->getTable(), "flags = CONCAT_WS(',', flags, 'removed')", array( $model->getPk() => $model->getId() ));
+		}
 	}
 }
 ?>
