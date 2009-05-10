@@ -8,7 +8,7 @@ CREATE TABLE `tags` (
   `name` varchar(255) NOT NULL,
   `syn_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `tag_relations`
@@ -20,4 +20,4 @@ CREATE TABLE `tag_relations` (
   `obj_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`obj_type`,`obj_id`,`tag_id`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

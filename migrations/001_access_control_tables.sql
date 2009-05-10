@@ -18,7 +18,7 @@ CREATE TABLE `users` (
   `gender` enum('male','female') NOT NULL default 'male',
   PRIMARY KEY  (`id`),
   KEY `login` (`login`(32),`password`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `groups`
@@ -34,7 +34,7 @@ CREATE TABLE `groups` (
   `lside` int(10) unsigned NOT NULL default '0',
   `rside` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `rights`
@@ -61,5 +61,5 @@ CREATE TABLE `config` (
   `name` varchar(255) NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
