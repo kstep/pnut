@@ -194,5 +194,25 @@ abstract class Model_Tree extends Model_Ordered implements IteratorAggregate
 
 		return $errors;
 	}
+
+	public function remove($recursive = false)
+	{
+		if ($recursive)
+		{
+			foreach ($this as $child)
+			{
+				$child->remove(true);
+			}
+			parent::remove();
+		}
+		else
+		{
+			$children = $this->getChildren();
+			if (count($children))
+				throw new Model_Exception("Can't remove non-leaf tree item");
+			else
+				parent::remove();
+		}
+	}
 }
 ?>

@@ -4,7 +4,7 @@
  * @subpackage Content
  * Comment model
  */
-class Model_Comment extends Model_ArticleObject, Model_Trashable
+class Model_Comment extends Model_ArticleObject implements Model_Trashable
 {
     protected $_fields = array(
         'id'          => Model::TYPE_INTEGER,

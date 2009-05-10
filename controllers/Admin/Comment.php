@@ -58,7 +58,8 @@ class Controller_Admin_Comment extends Controller_Admin
                 $view->id = $comment->getId();
                 try
                 {
-                    $comment->remove();
+                    //$comment->remove();
+					Model_Trashcan::put($comment);
                 }
                 catch (Exception $e)
                 {

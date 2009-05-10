@@ -231,11 +231,12 @@ class Controller_Admin_Topic extends Controller_Admin_Content
                 $view->state = "removed";
                 try
                 {
-                    foreach ($children as $child)
-                    {
-                        $child->remove();
-                    }
-                    $topic->remove();
+                    //foreach ($children as $child)
+                    //{
+                        //$child->remove();
+                    //}
+                    //$topic->remove();
+					Model_Trashcan::put($topic);
                 }
                 catch (Exception $e)
                 {

@@ -142,7 +142,8 @@ class Controller_Admin_Article extends Controller_Admin_Content
                 $view->state = "removed";
                 try
                 {
-                    $article->remove();
+                    //$article->remove();
+					Model_Trashcan::put($article);
                 }
                 catch (Exception $e)
                 {
