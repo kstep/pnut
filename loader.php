@@ -44,4 +44,12 @@ function __autoload($className)
 set_error_handler(create_function('$errno, $errstr, $errfile, $errline', '
 	throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
 '), E_ALL &~ E_NOTICE);
+
+if (get_magic_quotes_gpc())
+{
+	if ($_GET) $_GET = array_map('stripslashes', $_GET);
+	if ($_POST) $_POST = array_map('stripslashes', $_POST);
+	if ($_COOKIES) $_COOKIES = array_map('stripslashes', $_COOKIES);
+	if ($_REQUEST) $_REQUEST = array_map('stripslashes', $_REQUEST);
+}
 ?>
