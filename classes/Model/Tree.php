@@ -199,10 +199,8 @@ abstract class Model_Tree extends Model_Ordered implements IteratorAggregate
 	{
 		if ($recursive)
 		{
-			foreach ($this as $child)
-			{
-				$child->remove(true);
-			}
+			$children = $this->getDescendantsId();
+			$this->_db->delete($this->_table, array( $this->_pk => $children ));
 			parent::remove();
 		}
 		else
