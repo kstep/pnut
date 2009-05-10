@@ -1,5 +1,5 @@
 <? include('header.phtml') ?>
-<h2><?=$this->topic->title?></h2>
+<h2><?=$this->topic instanceof Model_Tag? "Статьи с тегом &laquo;{$this->topic->name}&raquo;": $this->topic->title?></h2>
 <ol class="itemlist">
 <? foreach ($this->topic->getArticles() as $item): ?>
 	<li>

@@ -6,6 +6,7 @@ class Controller_Default extends Controller
 		'default' => 'actionTopic',
 		'topic' => 'actionTopic',
 		'article' => 'actionArticle',
+		'tag' => 'actionTag',
 	);
 
 	public function actionTest($params)
@@ -28,6 +29,13 @@ class Controller_Default extends Controller
 		$store = $this->getStorage();
 		$view->topic = new Model_Topic($store, $params['path']);
 		$view->article = $view->topic->getArticle($params['name']);
+		return $view;
+	}
+
+	public function actionTag($params)
+	{
+		$view = new View_Html('topic');
+		$view->topic = new Model_Tag($this->getStorage(), $params['id']);
 		return $view;
 	}
 }

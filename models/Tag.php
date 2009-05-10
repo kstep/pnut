@@ -37,9 +37,11 @@ class Model_Tag extends Model_Tree implements Countable
 
 	private function getModelsList($objname, $page = 0)
 	{
-		$result = $this->_db->select(array('tag_relations', $objname), "{$objname}.*", "tag_relations.obj_type = '$objname' and tag_relations.obj_id = {$objname}.id and tag_relations.tag_id = ".$this->getId());
-		$class = "Model_List_".ucfirst(strtolower($objname));
-		return new $class ($this->_db, $result);
+		$model = Model_List::create($this->_db, $objname);
+		$table = $model->getTable();
+		$result = $this->_db->select(array('tag_relations', $table), "{$table}.*", "tag_relations.obj_type = '$table' and tag_relations.obj_id = {$table}.id and tag_relations.tag_id = ".$this->getId());
+		$model->find($result);
+		return $model;
 	}
 
 	public function getArticles($page = 0)
