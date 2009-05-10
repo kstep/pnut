@@ -1,0 +1,12 @@
+<? include('header.phtml') ?>
+<h2><?=$this->topic->title?></h2>
+<ol class="itemlist">
+<? foreach ($this->topic->getArticles() as $item): ?>
+	<li>
+		<a href="<?=$this->pathTo('Default', 'article', array( 'path' => $item->getTopic()->getPath(), 'name' => $item->name ))?>"><?=$item->title?></a>
+		<ins title="<?=Filter_Date::toString($item->published)?>"><?=Filter_Date::timeAgo($item->published)?></ins>
+		<p><?=strip_tags($item->abstract, "<a><b><i><u><strike><strong><em><ins><del>")?></p>
+	</li>
+<? endforeach ?>
+</ol>
+<? include('footer.phtml') ?>

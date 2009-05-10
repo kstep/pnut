@@ -3,13 +3,13 @@ function report_exception (Exception $e)
 {
 	function build_arg_desc($item)
 	{
-		$type = is_object($item)? get_class($item): gettype($item);
 		if (is_string($item)) {
-			if (strlen($var = $item) > 20) {
+			if (strlen($var = $item) > 50) {
 				$title .= $var;
-				$var = substr($var, 0, 20)."&hellip;";
+				$var = substr($var, 0, 50)."&hellip;";
 			}
 			$var = "&quot;$var&quot;";
+			$type = 'string';
 		} elseif (is_array($item)) {
 			$var = "(";
 			$num = 0;
@@ -19,8 +19,16 @@ function report_exception (Exception $e)
 				if (++$num > 3) { $var .= "&hellip;"; break; }
 			}
 			$var = trim($var, ", ").")";
+			$type = 'array';
+		} elseif (is_object($item)) {
+			$type = get_class($item);
+			if (method_exists($item, '__toString'))
+				$var = (string)$item;
+			else
+				$var = 'object';
 		} else {
 			$var = (string)$item;
+			$type = gettype($item);
 		}
 		return "<var title=\"$title\"><ins>$type</ins> $var</var>";
 	}
@@ -65,27 +73,27 @@ session_start();
 require_once("compat.php");
 require_once("loader.php");
 
-$config_cache = Cache::getInstance("cached_config");
-$route_config = "configs/routes.xml";
-$store_config = "configs/db.xml";
-$min_time = max(filemtime($route_config), filemtime($store_config));
-
-if ($config = $config_cache->get($min_time))
-{
-    $routes = $config->routes;
-}
-else
-{
-    $config = Config::getInstance();
-    $config->loadXML($store_config, "storage");
-    $routes = $config->loadXML($route_config, "routes");
-    $config_cache->put($config);
-}
-
-//$dispatcher = new Dispatcher_Cached($routes["site"]);
-$dispatcher = new Dispatcher($routes['site']);
 try
 {
+	$config_cache = Cache::getInstance("cached_config");
+	$route_config = "configs/routes.xml";
+	$store_config = "configs/db.xml";
+	$min_time = max(filemtime($route_config), filemtime($store_config));
+
+	if ($config = $config_cache->get($min_time))
+	{
+		$routes = $config->routes;
+	}
+	else
+	{
+		$config = Config::getInstance();
+		$config->loadXML($store_config, "storage");
+		$routes = $config->loadXML($route_config, "routes");
+		$config_cache->put($config);
+	}
+
+	//$dispatcher = new Dispatcher_Cached($routes["site"]);
+	$dispatcher = new Dispatcher($routes['site']);
 	$dispatcher->run();
 } catch (Exception $e) {
 	report_exception($e);

@@ -20,7 +20,8 @@ class Cache
     private function __construct($key)
     {
         $this->_filename = self::getFile($key);
-		$this->_filemtime = @filemtime($this->_filename);
+		if (file_exists($this->_filename))
+			$this->_filemtime = @filemtime($this->_filename);
     }
 
     /**

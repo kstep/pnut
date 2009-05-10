@@ -59,8 +59,14 @@ class Model_Topic extends Model_TraversedTree implements Model_Rightful, Model_T
 
 	public function __construct(Storage_Db $db, $id = null)
 	{
-		//if (self::$_visible_only) $this->_table = 'visible_topics';
+		if (self::$_visible_only) $this->_table = 'visible_topics';
 		parent::__construct($db, $id);
+	}
+
+	public function getArticle($id)
+	{
+		$field = is_numeric($id)? 'id': 'name';
+		return new Model_Article($this->_db, array( 'topic_id' => $this->getId(), $field => $id ));
 	}
 
     public function getArticles($page = 0)

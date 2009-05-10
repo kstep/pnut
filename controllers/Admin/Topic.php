@@ -111,9 +111,9 @@ class Controller_Admin_Topic extends Controller_Admin_Content
         if ($this->saveTopic($view->topic, $view))
             return $view;
 
-        $view->parents = new Model_List_Topic($store);
-        $view->users   = new Model_List_User($store);
-        $view->groups  = new Model_List_Group($store);
+        $view->parents = new Model_List_Topic($store, '');
+        $view->users   = new Model_List_User($store, '');
+        $view->groups  = new Model_List_Group($store, '');
 
         $view->topic->getRights()->setRights(array('ur','uw','ux','gr','gw','or'), $this->getAuthorizator()->getUser(), $this->getAuthorizator()->getUser()->getGroup());
         $view->topic->order = 0;
@@ -136,8 +136,8 @@ class Controller_Admin_Topic extends Controller_Admin_Content
                 return $view;
 
             $view->parents = new Model_List_Topic($store, "id <> ".$view->topic->getId());
-            $view->users   = new Model_List_User($store);
-            $view->groups  = new Model_List_Group($store);
+            $view->users   = new Model_List_User($store, '');
+            $view->groups  = new Model_List_Group($store, '');
         } else {
             $view->redir("Admin_Topic");
         }
