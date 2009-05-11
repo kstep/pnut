@@ -15,6 +15,26 @@ table.item-list td .thumbnail
 	display: none;
 }
 
+table.item-list th.sort-asc,
+table.item-list th.sort-desc,
+table.item-list th.sort-me
+{
+	cursor: pointer;
+	cursor: hand;
+	text-decoration: underline;
+	background-image: url(../../images/manage/icons/sort.gif);
+	background-repeat: no-repeat;
+	background-position: 95% 2px;
+}
+table.item-list th.sort-asc
+{
+	background-position: 95% -16px;
+}
+table.item-list th.sort-desc
+{
+	background-position: 95% -32px;
+}
+
 table.thumb-list
 {
 	display: block;

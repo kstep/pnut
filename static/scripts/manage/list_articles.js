@@ -1,4 +1,10 @@
-$('#articles table.item-list tbody')
+var table_cols = $('#articles table.item-list thead tr').get(0).cells.length;
+var sort_headers = Object;
+sort_headers[table_cols - 1] = { sorter: false };
+
+$('#articles table.item-list')
+	.tablesorter({ cssAsc: 'sort-asc', cssDesc: 'sort-desc', cssHeader: 'sort-me', headers: sort_headers })
+	.find('tbody')
 	.sortable({ items: 'tr', cancel: 'tr#anew', handle: 'a' })
 	.selectable({ filter: 'tr', cancel: 'tr#anew, a' });
 
