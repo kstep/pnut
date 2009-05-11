@@ -20,7 +20,7 @@ function remove_article(result)
 	remove_element($("table.item-list tr#a"+result.id));
 }
 
-enable_context_menu('table.item-list tbody tr td:nth-child(2) a', '#articles-menu', function(action, item, pos){
+enable_context_menu('table.item-list tbody tr td.title a', '#articles-menu', function(action, item, pos){
 
 var $href = $(item);
 var $item = $(item).parent().parent();

@@ -113,6 +113,7 @@ ol.context-menu li.buffer a { background-image: url(../../images/manage/icons/bu
 ol.context-menu li.attach a { background-image: url(../../images/manage/icons/attach.gif); }
 ol.context-menu li.group a { background-image: url(../../images/manage/icons/group.gif); }
 ol.context-menu li.user a { background-image: url(../../images/manage/icons/user.gif); }
+ol.context-menu li.tag a { background-image: url(../../images/manage/icons/tag.gif); }
 
 ol.context-menu li.new a { background-position: 0 -0px; }
 ol.context-menu li.edit a { background-position: 0 -18px; }

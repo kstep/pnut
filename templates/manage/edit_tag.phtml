@@ -25,5 +25,32 @@ include("header.phtml");
 </ol>
 </form>
 
+<div id="articles">
+
+<h2>Статьи с этим тегом</h2>
+
+	<table class="item-list" summary="Статьи с тегом &laquo;<?=$this->tag->name?>&raquo;">
+		<thead>
+		<tr><th>Заголовок</th><th>Название</th><th>Создана / изменена</th><th>Опубликована / архивирована</th><th>&nbsp;</th></tr>
+		</thead>
+		<tbody>
+    <? foreach ($this->tag->getArticles() as $item): ?>
+		<tr id="a<?=$item->getId()?>" class="<?=$item->type?> <?=implode(" ", $item->flags)?>"><td class="title"><a href="<?=$this->pathTo("Admin_Article", "edit", array( 'id' => $item->getId() ))?>"><?=$item->title?></a></td><td class="name"><?=$item->name?></td><td><?=date("d.m.Y H:i", $item->created)?><br /><?=date("d.m.Y H:i", $item->modified)?></td><td><?=date("d.m.Y H:i", $item->published)?><br /><?=date("d.m.Y H:i", $item->archived)?></td><td class="controls"><a class="remove article" title="Удалить статью" href="<?=$this->pathTo("Admin_Article", "remove", array( 'id' => $item->getId() ))?>">&nbsp;</a><a class="remove tag" title="Убрать тег из статьи" href="#">&nbsp;</a></td></tr>
+    <? endforeach ?>
+		</tbody>
+    </table>
+
+	<ol id="articles-menu" class="context-menu">
+		<li class="copy buffer"><a title="Переименовать статью без перезагузки страницы" href="#rename">Переименовать</a></li>
+		<li class="remove tag"><a title="Убрать тег из статьи" href="#untag">Убрать тег</a></li>
+		<li class="remove article separator"><a title="Удалить статьи" href="#remove">Удалить</a></li>
+	</ol>
+
+	<? include("inc_rename_form.phtml") ?>
+
+	<?=$this->script("manage/list_articles")?>
+
+</div>
+
 <?//=$this->tinymce()?>
 <? include("footer.phtml") ?>
